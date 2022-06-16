@@ -219,11 +219,11 @@ class energy3 extends eqLogic {
       $version = jeedom::versionAlias($_version);
       $replace['#version#'] = $_version;
       foreach ($this->getCmd('info') as $cmd) {
+        $replace['#' . str_replace('::', '-', $cmd->getLogicalId()) . '-valueDate#'] = '';
+        $replace['#' . str_replace('::', '-', $cmd->getLogicalId()) . '-collectDate#'] = '';
         if (in_array($cmd->getLogicalId(), array('elec::production::instant', 'gaz::consumption::instant', 'water::consumption::instant', 'elec::net::power', 'elec::import::instant', 'elec::export::instant', 'elec::production::consumption::instant'))) {
           $replace['#' . str_replace('::', '-', $cmd->getLogicalId()) . '-id#'] = $cmd->getLogicalId();
           $replace['#' . str_replace('::', '-', $cmd->getLogicalId()) . '-state#'] = '';
-          $replace['#' . str_replace('::', '-', $cmd->getLogicalId()) . '-valueDate#'] = '';
-          $replace['#' . str_replace('::', '-', $cmd->getLogicalId()) . '-collectDate#'] = '';
           $replace['#' . str_replace('::', '-', $cmd->getLogicalId()) . '-unite#'] = '';
           continue;
         }

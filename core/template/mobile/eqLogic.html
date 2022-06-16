@@ -1,4 +1,4 @@
-<div class="eqLogic eqLogic-widget allowResize allowReorderCmd #custom_layout# #eqLogic_class# #class#" data-eqType="#eqType#" data-eqLogic_id="#id#" data-eqLogic_uid="#uid#" data-version="#version#" data-translate-category="#translate_category#" data-category="#category#" data-tags="#tags#" style="width: 100%;height: 230px;#style#">
+<div class="eqLogic eqLogic-widget allowResize allowReorderCmd #custom_layout# #eqLogic_class# #class#" data-eqType="#eqType#" data-eqLogic_id="#id#" data-eqLogic_uid="#uid#" data-version="#version#" data-translate-category="#translate_category#" data-category="#category#" data-tags="#tags#" style="width: 100%;height: 300px;#style#">
   <center class="widget-name">
     <span class="warning" title="#alert_name#">
       <i class='#alert_icon#'></i>
@@ -7,8 +7,18 @@
   </center>
   <div style="padding: 5px;">
 	<div id="eqLogic-energy3-#id#"></div>
+    <div class="cmd cmd-widget history elec-autoconsumption cursor pull-left" data-cmd_id="#elec-autoconsumption-id#" data-type="info" data-subtype="numeric" data-template="tile" data-eqLogic_id="#id#">
+        <div class="cmdName #hide_name#">Auto-consommation</div>
+        <center><span class="state"></span><span class="unit"></span></center>
+    </div>
+    <div class="cmd cmd-widget history elec-selfsufficiency cursor pull-right" data-cmd_id="#elec-selfsufficiency-id#" data-type="info" data-subtype="numeric" data-template="tile" data-eqLogic_id="#id#">
+        <div class="cmdName #hide_name#">Auto-suffisance</div>
+        <center><span class="state"></span><span class="unit"></span></center>
+    </div>
   </div>
   <script>
+   Highcharts.AST.allowedAttributes.push('data-cmd_id');
+   Highcharts.AST.allowedAttributes.push('data-type');
    Highcharts.chart('eqLogic-energy3-#id#', {
     chart: {
         spacingTop: 0,
@@ -16,6 +26,8 @@
         spacingBottom: 0,
         spacingLeft: 0,
         plotBorderWidth: 0,
+        height: 200,
+        width: 430,
         margin: [0,0,0,0],
         backgroundColor: 'white',
         events: {
@@ -23,7 +35,7 @@
                 var ren = this.renderer
                 var rightArrow = ['M', 0, 0, 'L', 100, 0, 'L', 95, 5, 'M', 100, 0, 'L', 95, -5]
                 var leftArrow = ['M', 100, 0, 'L', 0, 0, 'L', 5, 5, 'M', 0, 0, 'L', 5, -5]
-                ren.label('<i class="fas fa-bolt"></i> <i class="fas fa-arrow-right"></i> <span class="elec-import">XXXXXXXXXX</span><br/><i class="fas fa-bolt"></i> <i class="fas fa-arrow-left"></i> <span class="elec-export">XXXXXXXXXX</span>', 0, 0,'rect',null,null,true)
+                ren.label('<i class="fas fa-bolt"></i> <i class="fas fa-arrow-left"></i> <span class="elec-export cmd history cursor" data-type=info data-cmd_id="#elec-export-id#">XXXXXXXXXX</span><br/><i class="fas fa-bolt"></i> <i class="fas fa-arrow-right"></i> <span class="elec-import cmd history cursor" data-type="info" data-cmd_id="#elec-import-id#">XXXXXXXXXX</span>', 0, 0,'rect',null,null,true)
                     .attr({
                         fill: '#b56926',
                         padding: 5,
@@ -41,12 +53,12 @@
                     })
                     .translate(112, 13)
                     .add();
-                ren.label('<span class="elec-export-instant">XXXXXXXXXXXX</span>', 140, 12)
+                ren.label('<span class="elec-export-instant cmd history cursor" data-type="info" data-cmd_id="#elec-export-instant-id#">XXXXXXXXXXXX</span>', 130, 12)
                     .css({
                         color: 'var(--txt-color)'
                     })
                     .add();
-                ren.label('<i class="fas fa-sun"></i> <span class="elec-production">XXXXXXXXXXXX</span>', 196, 0,'rect',null,null,true)
+                ren.label('<i class="fas fa-sun"></i> <span class="elec-production cmd history cursor" data-type="info" data-cmd_id="#elec-production-id#">XXXXXXXXXXXX</span>', 196, 0,'rect',null,null,true)
                     .attr({
                         r: 5,
                         width: 100,
@@ -63,12 +75,12 @@
                         stroke: '#7ea823'
                     })
                     .add();
-                ren.label('<span class="elec-production-consumption-instant">XXXXXXXXXXXX</span>', 255, 43)
+                ren.label('<span class="elec-production-consumption-instant cmd history cursor" data-type="info" data-cmd_id="#elec-production-consumption-instant-id#">XXXXXXXXXXXX</span>', 255, 43)
                     .css({
                         color: 'var(--txt-color)'
                     })
                     .add();
-                ren.label('<i class="fas fa-home"></i> <span class="elec-consumption">XXXXXXXXXXXX</span>', 196, 88,'rect',null,null,true)
+                ren.label('<i class="fas fa-home"></i> <span class="elec-consumption cmd history cursor" data-type="info" data-cmd_id="#elec-consumption-id#">XXXXXXXXXXXX</span>', 196, 88,'rect',null,null,true)
                     .attr({
                         r: 5,
                         width: 100,
@@ -94,12 +106,12 @@
                         stroke: '#b56926',
                     })
                     .add();
-                ren.label('<span class="elec-import-instant">XXXXXXXXXXXX</span>', 140, 41)
+                ren.label('<span class="elec-import-instant cmd history cursor" data-type="info" data-cmd_id="#elec-import-instant-id#">XXXXXXXXXXXX</span>', 140, 41)
                     .css({
                         color: 'var(--txt-color)'
                     })
                     .add();
-                ren.label('<i class="fas fa-burn"></i> <span class="gaz-consumption">XXXXXXXXXXXX</span>', 0, 88,'rect',null,null,true)
+                ren.label('<i class="fas fa-burn"></i> <span class="gaz-consumption cmd history cursor" data-type="info" data-cmd_id="#gaz-consumption-id#">XXXXXXXXXXXX</span>', 0, 88,'rect',null,null,true)
                     .attr({
                         fill: '#910000',
                         padding: 5,
@@ -115,14 +127,14 @@
                         'stroke-width': 2,
                         stroke: '#910000',
                     })
-                    .translate(95, 102)
+                    .translate(95, 99)
                     .add();
-                ren.label('<span class="gaz-consumption-instant">XXXXXXXXXXXX</span>', 140, 78)
+                ren.label('<span class="gaz-consumption-instant cmd history cursor" data-type="info" data-cmd_id="#gaz-consumption-instant-id#">XXXXXXXXXXXX</span>', 140, 75)
                     .css({
                         color: 'var(--txt-color)'
                     })
                     .add();
-                ren.label('<i class="fas fa-tint"></i> <span class="water-consumption">XXXXXXXXXXX</span>', 190, 168,'rect',null,null,true)
+                ren.label('<i class="fas fa-tint"></i> <span class="water-consumption cmd history cursor" data-type="info" data-cmd_id="#water-consumption-id#">XXXXXXXXXXX</span>', 190, 168,'rect',null,null,true)
                     .attr({
                         fill: '#2f7ed8',
                         padding: 5,
@@ -140,7 +152,7 @@
                         stroke: '#2f7ed8'
                     })
                     .add();
-                ren.label('<span class="water-consumption-instant">XXXXXXXXXXXX</span>', 255, 130)
+                ren.label('<span class="water-consumption-instant cmd history cursor" data-type="info" data-cmd_id="#water-consumption-instant-id#">XXXXXXXXXXXX</span>', 255, 130)
                     .css({
                         color: 'var(--txt-color)'
                     })
@@ -199,6 +211,16 @@ jeedom.cmd.update['#water-consumption-instant-id#'] = function(_options) {
     $('.eqLogic[data-eqLogic_id=#id#] .water-consumption-instant').empty().append(_options.display_value +' '+_options.unit)
 }
 
+jeedom.cmd.update['#elec-autoconsumption-id#'] = function(_options) {
+    $('.eqLogic[data-eqLogic_id=#id#] .elec-autoconsumption .state').empty().append(_options.display_value)
+    $('.eqLogic[data-eqLogic_id=#id#] .elec-autoconsumption .unit').empty().append(_options.unit)
+}
+
+jeedom.cmd.update['#elec-selfsufficiency-id#'] = function(_options) {
+    $('.eqLogic[data-eqLogic_id=#id#] .elec-selfsufficiency .state').empty().append(_options.display_value)
+    $('.eqLogic[data-eqLogic_id=#id#] .elec-selfsufficiency .unit').empty().append(_options.unit)
+}
+
 jeedom.cmd.update['#elec-import-instant-id#']({display_value: '#elec-import-instant-state#', valueDate: '#elec-import-instant-valueDate#', collectDate: '#elec-import-instant-collectDate#',unit:'#elec-import-instant-unite#'})
 jeedom.cmd.update['#elec-export-instant-id#']({display_value: '#elec-export-instant-state#', valueDate: '#elec-export-instant-valueDate#', collectDate: '#elec-export-instant-collectDate#',unit:'#elec-export-instant-unite#'})
 jeedom.cmd.update['#elec-import-id#']({display_value: '#elec-import-state#', valueDate: '#elec-import-valueDate#', collectDate: '#elec-import-collectDate#',unit:'#elec-import-unite#'})    
@@ -210,5 +232,7 @@ jeedom.cmd.update['#gaz-consumption-id#']({display_value: '#gaz-consumption-stat
 jeedom.cmd.update['#gaz-consumption-instant-id#']({display_value: '#gaz-consumption-instant-state#', valueDate: '#gaz-consumption-instant-valueDate#', collectDate: '#gaz-consumption-instant-collectDate#',unit:'#gaz-consumption-instant-unite#'})
 jeedom.cmd.update['#water-consumption-id#']({display_value: '#water-consumption-state#', valueDate: '#water-consumption-valueDate#', collectDate: '#water-consumption-collectDate#',unit:'#water-consumption-unite#'})
 jeedom.cmd.update['#water-consumption-instant-id#']({display_value: '#water-consumption-instant-state#', valueDate: '#water-consumption-instant-valueDate#', collectDate: '#water-consumption-instant-collectDate#',unit:'#water-consumption-instant-unite#'})
+jeedom.cmd.update['#elec-autoconsumption-id#']({display_value: '#elec-autoconsumption-state#', valueDate: '#elec-autoconsumption-valueDate#', collectDate: '#elec-autoconsumption-collectDate#',unit:'#elec-autoconsumption-unite#'})
+jeedom.cmd.update['#elec-selfsufficiency-id#']({display_value: '#elec-selfsufficiency-state#', valueDate: '#elec-selfsufficiency-valueDate#', collectDate: '#elec-selfsufficiency-collectDate#',unit:'#elec-selfsufficiency-unite#'})
   </script>
 </div>

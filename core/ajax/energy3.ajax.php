@@ -16,24 +16,33 @@
  */
 
 try {
-    require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
-    include_file('core', 'authentification', 'php');
+  require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
+  include_file('core', 'authentification', 'php');
 
-    if (!isConnect('admin')) {
-        throw new Exception(__('401 - Accès non autorisé', __FILE__));
+  if (!isConnect('admin')) {
+    throw new Exception(__('401 - Accès non autorisé', __FILE__));
+  }
+
+  ajax::init();
+
+  if (init('action') == 'getPanel') {
+    $period = init('period');
+    if (trim($period) == '') {
+      $period = config::byKey('savePeriod', 'energy3');
     }
+    $energy3s = eqLogic::byType('energy3');
+    if (init('eqLogic_id') == '') {
+      $energy3 = $energy3s[0];
+    } else {
+      $energy3 = energy3::byId(init('eqLogic_id'));
+    }
+    ajax::success($energy3->generatePanel('mobile', $period));
+  }
 
-  /* Fonction permettant l'envoi de l'entête 'Content-Type: application/json'
-    En V3 : indiquer l'argument 'true' pour contrôler le token d'accès Jeedom
-    En V4 : autoriser l'exécution d'une méthode 'action' en GET en indiquant le(s) nom(s) de(s) action(s) dans un tableau en argument
-  */
-    ajax::init();
 
 
-
-    throw new Exception(__('Aucune méthode correspondante à', __FILE__) . ' : ' . init('action'));
-    /*     * *********Catch exeption*************** */
-}
-catch (Exception $e) {
-    ajax::error(displayException($e), $e->getCode());
+  throw new Exception(__('Aucune méthode correspondante à', __FILE__) . ' : ' . init('action'));
+  /*     * *********Catch exeption*************** */
+} catch (Exception $e) {
+  ajax::error(displayException($e), $e->getCode());
 }

@@ -21,6 +21,50 @@ require_once __DIR__  . '/../../../../core/php/core.inc.php';
 class energy3 extends eqLogic {
   /*     * *************************Attributs****************************** */
 
+
+  public static $_period = array(
+    'D' => array(
+      'name' => 'J',
+      'start' => 'midnight',
+      'end' => 'tomorrow midnight -1 second',
+    ),
+    'D-1' => array(
+      'name' => 'J-1',
+      'start' => '-1 day midnight +1 second',
+      'end' => 'today midnight -1 second',
+    ),
+    'W' => array(
+      'name' => 'S',
+      'start' => 'monday this week midnight',
+      'end' => 'sunday 23:59:59',
+    ),
+    'W-1' => array(
+      'name' => 'S-1',
+      'start' => 'monday this week midnight -7 days',
+      'end' => 'last sunday 23:59:59',
+    ),
+    'M' => array(
+      'name' => 'M',
+      'start' => 'first day of this month midnight',
+      'end' => 'last day of this month 23:59:59',
+    ),
+    'M-1' => array(
+      'name' => 'M-1',
+      'start' => 'first day of previous month midnight',
+      'end' => 'last day of previous month 23:59:59',
+    ),
+    'Y' => array(
+      'name' => 'A',
+      'start' => 'first day of january this year midnight',
+      'end' => 'last day of december this year 23:59:59',
+    ),
+    'Y-1' => array(
+      'name' => 'A-1',
+      'start' => 'first day of january last year midnight',
+      'end' => 'last day of december last year 23:59:59',
+    ),
+  );
+
   private static $_listen_cmd = array('elec::import', 'elec::consumption', 'elec::production::instant', 'elec::production', 'elec::export', 'gaz::consumption::instant', 'gaz::consumption', 'water::consumption::instant', 'water::consumption', 'elec::net::power');
 
   /*     * ***********************Methode static*************************** */
@@ -145,25 +189,102 @@ class energy3 extends eqLogic {
     $this->calculPerformance();
   }
 
-  public function generatePanel($_version = 'dashboard', $_period = 'd') {
-    $cmds = array();
-    foreach (self::$_listen_cmd as $key) {
-      $cmds[$key] = $this->getCmd(null, $key);
+  public function generatePanel($_version = 'dashboard', $_period = 'D') {
+    $return = array('widget' => '');
+    if ($_period == '') {
+      $_period = 'D';
     }
-    $return = array();
-    $return['table'] = '<table class="table table-bordered table-condensed">';
-    $return['table'] .= '<thead>';
-    $return['table'] .= '<tr><th></th><th>Actuel</th><th>Consommation</th><th>Coût</th></tr>';
-    $return['table'] .= '</thead>';
-    $return['table'] .= '<tbody>';
-    $return['table'] .= '<tr><td>Electricité</td><td>' . $cmds['consumption::instant']->execCmd() . 'W</td>' . $cmds['consumption::byday']->execCmd() . 'kWh<td></td><td>' . $cmds['consumption::cost']->execCmd() . '€</td></tr>';
-    $return['table'] .= '<tr><td>Production</td><td>' . $cmds['production::instant']->execCmd() . 'W</td>' . $cmds['production::byday']->execCmd() . 'kWh<td></td><td></td></tr>';
-    $return['table'] .= '<tr><td>Gaz</td><td>' . $cmds['gaz::instant']->execCmd() . 'L</td><td>' . $cmds['gaz::byday']->execCmd() . 'L</td><td>' . $cmds['gaz::cost']->execCmd() . '€</td></tr>';
-    $return['table'] .= '<tr><td>Eau</td><td>' . $cmds['water::instant']->execCmd() . 'L</td><td>' . $cmds['water::byday']->execCmd() . 'L</td><td>' . $cmds['water::cost']->execCmd() . '€</td></tr>';
-    $return['table'] .= '</tbody>';
-    $return['table'] .= '</table>';
-
+    $starttime = date('Y-m-d H:i:s', strtotime(self::$_period[$_period]['start']));
+    $endtime = date('Y-m-d H:i:s', strtotime(self::$_period[$_period]['end']));
+    config::save('savePeriod', $_period, 'energy2');
+    $return['html'] = '<center>';
+    foreach (self::$_period as $key => $value) {
+      if ($_period == $key) {
+        $return['html'] .= '<a class="btn btn-success ui-btn-raised ui-btn-inline bt_changePeriod" data-period="' . $key . '">' . $value['name'] . '</a> ';
+      } else {
+        $return['html'] .= '<a class="btn btn-default ui-btn ui-mini ui-btn-inline bt_changePeriod" data-period="' . $key . '">' . $value['name'] . '</a> ';
+      }
+    }
+    $return['html'] .= '</center>';
+    if ($_version == 'dashboard') {
+      $return['html'] .= '<div class="row">';
+      $return['html'] .= '<div class="col-lg-5 col-sm-6 col-xs-6 div_eqLogicEnergy3">';
+    }
+    if ($_period == 'D') {
+      $return['html'] .= $this->toHtml($_version);
+    } else {
+      $replace = $this->preToHtml($_version);
+      $version = jeedom::versionAlias($_version);
+      $replace['#version#'] = $_version;
+      foreach ($this->getCmd('info') as $cmd) {
+        if (in_array($cmd->getLogicalId(), array('elec::production::instant', 'gaz::consumption::instant', 'water::consumption::instant', 'elec::net::power', 'elec::import::instant', 'elec::export::instant', 'elec::production::consumption::instant'))) {
+          $replace['#' . str_replace('::', '-', $cmd->getLogicalId()) . '-id#'] = $cmd->getLogicalId();
+          $replace['#' . str_replace('::', '-', $cmd->getLogicalId()) . '-state#'] = '';
+          $replace['#' . str_replace('::', '-', $cmd->getLogicalId()) . '-valueDate#'] = '';
+          $replace['#' . str_replace('::', '-', $cmd->getLogicalId()) . '-collectDate#'] = '';
+          $replace['#' . str_replace('::', '-', $cmd->getLogicalId()) . '-unite#'] = '';
+          continue;
+        }
+        $replace['#' . str_replace('::', '-', $cmd->getLogicalId()) . '-id#'] = $cmd->getLogicalId();
+        if (in_array($cmd->getLogicalId(), array('elec::autoconsumption', 'elec::selfsufficiency'))) {
+          $replace['#' . str_replace('::', '-', $cmd->getLogicalId()) . '-state#'] = $this->getValueForPeriod($cmd->getId(), 'AVG', $starttime, $endtime);
+        } else {
+          $replace['#' . str_replace('::', '-', $cmd->getLogicalId()) . '-state#'] = $this->getValueForPeriod($cmd->getId(), 'SUM', $starttime, $endtime);
+        }
+        if ($replace['#' . str_replace('::', '-', $cmd->getLogicalId()) . '-state#'] == '') {
+          $replace['#' . str_replace('::', '-', $cmd->getLogicalId()) . '-state#'] = 0;
+        }
+        $valueInfo = cmd::autoValueArray($replace['#' . str_replace('::', '-', $cmd->getLogicalId()) . '-state#'], 2, $cmd->getUnite());
+        $replace['#' . str_replace('::', '-', $cmd->getLogicalId()) . '-state#'] = $valueInfo[0];
+        $replace['#' . str_replace('::', '-', $cmd->getLogicalId()) . '-unite#'] = $valueInfo[1];
+      }
+      $replace['#refresh_id#'] = '';
+      $return['html'] .= $this->postToHtml($_version, template_replace($replace, getTemplate('core', $version, 'eqLogic', __CLASS__)));
+    }
+    if ($_version == 'dashboard') {
+      $return['html'] .= '</div>';
+      $return['html'] .= '<div class="col-lg-7 col-sm-6 col-xs-6">';
+      $return['html'] .= '</div>';
+      $return['html'] .= '</div>';
+    }
     return $return;
+  }
+
+  public function getValueForPeriod($_cmd_id, $_type, $_startTime, $_endTime) {
+    $values = array(
+      'cmd_id' => $_cmd_id,
+      'startTime' => $_startTime,
+      'endTime' => $_endTime,
+    );
+    $sql = 'SELECT ' . $_type . '(CAST(value AS DECIMAL(12,2))) as result
+		FROM (
+			SELECT *
+			FROM history
+			WHERE cmd_id=:cmd_id
+      AND `datetime` IN (
+        SELECT MAX(`datetime`)
+        FROM history
+        WHERE cmd_id=:cmd_id
+			    AND `datetime`>=:startTime
+			    AND `datetime`<=:endTime
+        GROUP BY date(`datetime`)
+      )
+			GROUP BY date(`datetime`)
+			UNION ALL
+			SELECT *
+			FROM historyArch
+			WHERE cmd_id=:cmd_id
+			AND `datetime` IN (
+        SELECT MAX(`datetime`)
+        FROM historyArch
+        WHERE cmd_id=:cmd_id
+			    AND `datetime`>=:startTime
+			    AND `datetime`<=:endTime
+        GROUP BY date(`datetime`)
+      )
+		) as dt';
+    $result = DB::Prepare($sql, $values, DB::FETCH_TYPE_ROW);
+    return $result['result'];
   }
 
 

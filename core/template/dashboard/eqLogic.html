@@ -246,7 +246,7 @@ jeedom.cmd.update['#water-consumption-id#']({display_value: '#water-consumption-
 jeedom.cmd.update['#water-consumption-instant-id#']({display_value: '#water-consumption-instant-state#', valueDate: '#water-consumption-instant-valueDate#', collectDate: '#water-consumption-instant-collectDate#',unit:'#water-consumption-instant-unite#'})
 jeedom.cmd.update['#elec-autoconsumption-id#']({display_value: '#elec-autoconsumption-state#', valueDate: '#elec-autoconsumption-valueDate#', collectDate: '#elec-autoconsumption-collectDate#',unit:'#elec-autoconsumption-unite#'})
 jeedom.cmd.update['#elec-selfsufficiency-id#']({display_value: '#elec-selfsufficiency-state#', valueDate: '#elec-selfsufficiency-valueDate#', collectDate: '#elec-selfsufficiency-collectDate#',unit:'#elec-selfsufficiency-unite#'})
- 
+
 if ('#refresh_id#' != '') {
     $('.eqLogic[data-eqLogic_uid=#uid#] .refresh').on('click', function () {
         jeedom.cmd.execute({id: '#refresh_id#'})

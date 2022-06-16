@@ -2,8 +2,6 @@
 if (!isConnect()) {
 	throw new Exception('{{401 - Accès non autorisé}}');
 }
-
-
 $energy3s = eqLogic::byType('energy3');
 if (init('eqLogic_id') == '') {
 	$energy3 = $energy3s[0];
@@ -42,14 +40,9 @@ $graphData['day'] = array('start' => date('Y-m-d', strtotime('now -1 day')), 'en
 		echo '<div class="col-lg-12">';
 	}
 	$panel = $energy3->generatePanel('dashboard', init('period', config::byKey('savePeriod', 'energy3')));
-	echo $panel['table'];
+	echo $panel['html'];
 	?>
-	<figure class="highcharts-figure">
-		<div id="container"></div>
-	</figure>
 </div>
 
 </div>
-<?php //sendVarToJs('data', $panel['data']); 
-?>
 <?php include_file('desktop', 'panel', 'js', 'energy3'); ?>

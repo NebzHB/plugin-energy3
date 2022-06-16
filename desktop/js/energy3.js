@@ -25,6 +25,17 @@ $(".eqLogic").off('click','.listCmdInfo').on('click','.listCmdInfo', function ()
   });
 });
 
+$(".eqLogic").off('click','.listCmdAction').on('click','.listCmdAction', function () {
+  var el = $(this).closest('.form-group').find('.eqLogicAttr');
+  jeedom.cmd.getSelectModal({cmd: {type: 'action',subType : 'other'}}, function (result) {
+    if (el.attr('data-concat') == 1) {
+      el.atCaret('insert', result.human);
+    } else {
+      el.value(result.human);
+    }
+  });
+});
+
 /* Permet la réorganisation des commandes dans l'équipement */
 $("#table_cmd").sortable({
   axis: "y",
@@ -53,9 +64,6 @@ function addCmdToTable(_cmd) {
   tr += '<span class="input-group-btn"><a class="cmdAction btn btn-sm btn-default" data-l1key="chooseIcon" title="{{Choisir une icône}}"><i class="fas fa-icons"></i></a></span>'
   tr += '<span class="cmdAttr input-group-addon roundedRight" data-l1key="display" data-l2key="icon" style="font-size:19px;padding:0 5px 0 0!important;"></span>'
   tr += '</div>'
-  tr += '<select class="cmdAttr form-control input-sm" data-l1key="value" style="display:none;margin-top:5px;" title="{{Commande info liée}}">'
-  tr += '<option value="">{{Aucune}}</option>'
-  tr += '</select>'
   tr += '</td>'
   tr += '<td>'
   tr += '<span class="type" type="' + init(_cmd.type) + '">' + jeedom.cmd.availableType() + '</span>'

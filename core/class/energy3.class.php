@@ -103,16 +103,16 @@ class energy3 extends eqLogic {
       $cmd = $this->getCmd(null, $key);
       if (!is_object($cmd)) {
         $cmd = new energy3Cmd();
-        $cmd->setIsVisible($cmds[$key]['isVisible']);
-        $cmd->setUnite($cmds[$key]['unite']);
-        $cmd->setName($cmds[$key]['name']);
-        $cmd->setIsHistorized($cmds[$key]['isHistorized']);
+        $cmd->setIsVisible($cmd_info['isVisible']);
+        $cmd->setUnite($cmd_info['unite']);
+        $cmd->setName($cmd_info['name']);
+        $cmd->setIsHistorized($cmd_info['isHistorized']);
         $cmd->setConfiguration('historizeRound', 2);
       }
       $cmd->setLogicalId($key);
       $cmd->setEqLogic_id($this->getId());
-      $cmd->setType($cmds[$key]['type']);
-      $cmd->setSubType($cmds[$key]['subtype']);
+      $cmd->setType($cmd_info['type']);
+      $cmd->setSubType($cmd_info['subtype']);
       $cmd->save();
     }
     $events = array();
@@ -122,11 +122,9 @@ class energy3 extends eqLogic {
         foreach ($matches[1] as $cmd_id) {
           $events[] = $cmd_id;
         }
-        if (isset($cmds[$key])) {
-          $cmd = $this->getCmd(null, $key);
-          if (is_object($cmd)) {
-            $cmd->event(jeedom::evaluateExpression($this->getConfiguration($key)));
-          }
+        $cmd = $this->getCmd(null, $key);
+        if (is_object($cmd)) {
+          $cmd->event(jeedom::evaluateExpression($this->getConfiguration($key)));
         }
       }
     }
@@ -184,6 +182,16 @@ class energy3Cmd extends cmd {
 
   // Exécution d'une commande
   public function execute($_options = array()) {
+    $eqLogic = $this->getEqLogic();
+    if ($this->getLogicalId() == 'refresh') {
+      preg_match_all("/#([0-9]*)#/", $eqLogic->getConfiguration('refresh'), $matches);
+      foreach ($matches[1] as $cmd_id) {
+        $cmd = cmd::byId($cmd_id);
+        if (is_object($cmd)) {
+          $cmd->execCmd();
+        }
+      }
+    }
   }
 
   /*     * **********************Getteur Setteur*************************** */

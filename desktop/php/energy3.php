@@ -126,7 +126,7 @@ $eqLogics = eqLogic::byType($plugin->getId());
 								</div>
 							</div>
 							<legend>{{Electricité}}</legend>
-                            <div class="form-group">
+							<div class="form-group">
 								<label class="col-sm-4 control-label">{{Importé du réseaux par jour}}</label>
 								<div class="col-sm-6">
 									<div class="input-group">
@@ -248,6 +248,17 @@ $eqLogics = eqLogic::byType($plugin->getId());
 								<label class="col-sm-4 control-label">{{Description}}</label>
 								<div class="col-sm-6">
 									<textarea class="form-control eqLogicAttr autogrow" data-l1key="comment"></textarea>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-4 control-label">{{Commande de mise à jour des informations}}</label>
+								<div class="col-sm-6">
+									<div class="input-group">
+										<input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="refresh" data-concat="1">
+										<span class="input-group-btn">
+											<a class="btn btn-default listCmdAction roundedRight"><i class="fas fa-list-alt"></i></a>
+										</span>
+									</div>
 								</div>
 							</div>
 						</div>

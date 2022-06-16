@@ -118,5 +118,13 @@
         "isVisible": 1,
         "isHistorized": 1,
         "unite" : "L"
+    },
+    "refresh" : {
+        "name": "Rafraichir",
+        "type": "action",
+        "subtype": "other",
+        "isVisible": 1,
+        "isHistorized": 0,
+        "unite" : ""
     }
 }

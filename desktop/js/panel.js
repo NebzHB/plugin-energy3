@@ -13,6 +13,9 @@
 * You should have received a copy of the GNU General Public License
 * along with Jeedom. If not, see <http://www.gnu.org/licenses/>.
 */
+setTimeout(() => {
+  jeedomUtils.setBackgroundImage(jeedomBackgroundImg);
+}, 500);
 
 positionEqLogic();
 
@@ -44,4 +47,4 @@ $('.bt_changePeriod').on('click',function(){
     jeedom.history.chart = [];
     var url = baseURL+'?'+newAdditionalURL+temp+'period='+$(this).attr('data-period')
     loadPage(url.replace('#', ''));
-  });
+});

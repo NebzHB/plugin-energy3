@@ -1,0 +1,122 @@
+{
+    "elec::import::instant" : {
+        "name": "Electricité importée instanée",
+        "type": "info",
+        "subtype": "numeric",
+        "isVisible": 1,
+        "isHistorized": 1,
+        "unite" : "W"
+     },
+     "elec::consumption::instant" : {
+        "name": "Electricité consommation instanée",
+        "type": "info",
+        "subtype": "numeric",
+        "isVisible": 1,
+        "isHistorized": 1,
+        "unite" : "W"
+     },
+    "elec::consumption" : {
+        "name": "Electricité consommation",
+        "type": "info",
+        "subtype": "numeric",
+        "isVisible": 1,
+        "isHistorized": 1,
+        "unite" : "kWh"
+     },
+     "elec::production::consumption::instant" : {
+        "name": "Electricité consommation de la production instanée",
+        "type": "info",
+        "subtype": "numeric",
+        "isVisible": 1,
+        "isHistorized": 1,
+        "unite" : "W"
+     },
+    "elec::production::instant" : {
+        "name": "Electricité production puissance",
+        "type": "info",
+        "subtype": "numeric",
+        "isVisible": 1,
+        "isHistorized": 1,
+        "unite" : "W"
+    },
+    "elec::production" : {
+        "name": "Electricité production",
+        "type": "info",
+        "subtype": "numeric",
+        "isVisible": 1,
+        "isHistorized": 1,
+        "unite" : "kWh"
+    },
+    "elec::export::instant" : {
+        "name": "Electricité exportée puissance",
+        "type": "info",
+        "subtype": "numeric",
+        "isVisible": 1,
+        "isHistorized": 1,
+        "unite" : "W"
+    },
+    "elec::export" : {
+        "name": "Electricité exportée",
+        "type": "info",
+        "subtype": "numeric",
+        "isVisible": 1,
+        "isHistorized": 1,
+        "unite" : "kWh"
+    },
+    "elec::import":{
+        "name": "Electricité importée",
+        "type": "info",
+        "subtype": "numeric",
+        "isVisible": 1,
+        "isHistorized": 1,
+        "unite" : "kWh"
+    },
+    "elec::autoconsumption":{
+        "name": "Electricité auto consommation",
+        "type": "info",
+        "subtype": "numeric",
+        "isVisible": 1,
+        "isHistorized": 1,
+        "unite" : "%"
+    },
+    "elec::selfsufficiency":{
+        "name": "Electricité auto suffisance",
+        "type": "info",
+        "subtype": "numeric",
+        "isVisible": 1,
+        "isHistorized": 1,
+        "unite" : "%"
+    },
+    "gaz::consumption::instant" : {
+        "name": "Gaz consommation instantané",
+        "type": "info",
+        "subtype": "numeric",
+        "isVisible": 1,
+        "isHistorized": 1,
+        "unite" : "L"
+    },
+    "gaz::consumption" : {
+        "name": "Gaz consommation consommation",
+        "type": "info",
+        "subtype": "numeric",
+        "isVisible": 1,
+        "isHistorized": 1,
+        "unite" : "L"
+    },
+    "water::consumption::instant" : {
+        "name": "Eau consommation instantané",
+        "type": "info",
+        "subtype": "numeric",
+        "isVisible": 1,
+        "isHistorized": 1,
+        "unite" : "L"
+    },
+    "water::consumption" : {
+        "name": "Eau consommation",
+        "type": "info",
+        "subtype": "numeric",
+        "isVisible": 1,
+        "isHistorized": 1,
+        "unite" : "L"
+    }
+}

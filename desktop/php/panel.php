@@ -12,7 +12,7 @@ if (!is_object($energy3)) {
 	$energy3 = $energy3s[0];
 }
 $graphdata = array();
-sendVarToJs('jeedomBackgroundImg', 'plugins/energy3/core/img/panel.jpg');
+sendVarToJs('jeedomUtils.backgroundIMG', 'plugins/energy3/core/img/panel.jpg');
 $graphData['day'] = array('start' => date('Y-m-d', strtotime('now -1 day')), 'end' => date('Y-m-d', strtotime('now')));
 ?>
 <div class="row row-overflow" id="div_energy3">

@@ -196,7 +196,7 @@ class energy3 extends eqLogic {
     }
     $starttime = date('Y-m-d H:i:s', strtotime(self::$_period[$_period]['start']));
     $endtime = date('Y-m-d H:i:s', strtotime(self::$_period[$_period]['end']));
-    config::save('savePeriod', $_period, 'energy2');
+    config::save('savePeriod', $_period, 'energy3');
     $return['html'] = '<center>';
     foreach (self::$_period as $key => $value) {
       if ($_period == $key) {
@@ -209,6 +209,8 @@ class energy3 extends eqLogic {
     if ($_version == 'dashboard') {
       $return['html'] .= '<div class="row">';
       $return['html'] .= '<div class="col-lg-5 col-sm-6 col-xs-6 div_eqLogicEnergy3">';
+    } else {
+      $return['html'] .= '<div class="objectHtml">';
     }
     if ($_period == 'D') {
       $return['html'] .= $this->toHtml($_version);
@@ -245,6 +247,8 @@ class energy3 extends eqLogic {
       $return['html'] .= '</div>';
       $return['html'] .= '<div class="col-lg-7 col-sm-6 col-xs-6">';
       $return['html'] .= '</div>';
+      $return['html'] .= '</div>';
+    } else {
       $return['html'] .= '</div>';
     }
     return $return;

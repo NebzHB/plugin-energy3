@@ -61,7 +61,9 @@ function initEnergy3Panel(_eqLogic_id) {
             }
             $('#div_displayEquipementEnergy3').empty();
             $('#div_displayEquipementEnergy3').append(data.result.html).trigger('create');
-        
+            deviceInfo = getDeviceType()
+            jeedomUtils.setTileSize('.eqLogic, .scenario')
+            $('.objectHtml').packery({gutter :0})
             $('.bt_changePeriod').off('click').on('click',function(){
                 displayEnergy3(_eqLogic_id,$(this).attr('data-period'))
             });

@@ -45,3 +45,89 @@ $('.bt_changePeriod').on('click',function(){
     var url = baseURL+'?'+newAdditionalURL+temp+'period='+$(this).attr('data-period')
     loadPage(url.replace('#', ''));
 });
+
+var graphOption = {
+  showNavigator : false,
+  showLegend : true,
+  showScrollbar : true,
+  showTimeSelector : true,
+  disablePlotBand : true,
+  option : {displayAlert:false}
+}
+
+function initGraph(){
+  graphOption.el = 'div_energy3GraphElecAuto';
+  graphOption.dateStart = energy3data.datetime.start;
+  graphOption.dateEnd = energy3data.datetime.end;
+  
+  graphOption.option.graphScale = 0;
+  graphOption.cmd_id = energy3data.cmd['elec::selfsufficiency'].id;
+  jeedom.history.drawChart(JSON.parse(JSON.stringify(graphOption)));
+  graphOption.cmd_id = energy3data.cmd['elec::autoconsumption'].id;
+  jeedom.history.drawChart(JSON.parse(JSON.stringify(graphOption)));
+ 
+
+  if(energy3data.datetime.period == 'D' || energy3data.datetime.period == 'D-1' ){
+    graphOption.el = 'div_energy3GraphConsumptionProduction';
+    graphOption.cmd_id = energy3data.cmd['elec::consumption::instant'].id;
+    graphOption.option = {displayAlert:false,graphColor:'#b56926',invertData : true}
+    jeedom.history.drawChart(JSON.parse(JSON.stringify(graphOption)));
+    
+    graphOption.cmd_id = energy3data.cmd['elec::production::instant'].id;
+    graphOption.option = {displayAlert:false,graphColor:'#7ea823'}
+    jeedom.history.drawChart(JSON.parse(JSON.stringify(graphOption)));
+
+    //graphOption.el = 'div_energy3GraphImportExport';
+    graphOption.cmd_id = energy3data.cmd['elec::import::instant'].id;
+    graphOption.option = {displayAlert:false,graphColor:'#99A3A4',invertData : true}
+    jeedom.history.drawChart(JSON.parse(JSON.stringify(graphOption)));
+
+    graphOption.cmd_id = energy3data.cmd['elec::export::instant'].id;
+    graphOption.option = {displayAlert:false,graphColor:'#99A3A4'}
+    jeedom.history.drawChart(JSON.parse(JSON.stringify(graphOption)));
+
+
+    graphOption.el = 'div_energy3GraphGas';
+    graphOption.cmd_id = energy3data.cmd['gaz::consumption::instant'].id;
+    graphOption.option = {displayAlert:false,graphColor:'#910000'}
+    jeedom.history.drawChart(JSON.parse(JSON.stringify(graphOption)));
+
+    graphOption.el = 'div_energy3GraphWater';
+    graphOption.cmd_id = energy3data.cmd['water::consumption::instant'].id;
+    graphOption.option = {graphColor:'#2f7ed8'}
+    jeedom.history.drawChart(JSON.parse(JSON.stringify(graphOption)));
+  }else{
+    graphOption.el = 'div_energy3GraphConsumptionProduction';
+    graphOption.cmd_id = energy3data.cmd['elec::consumption'].id;
+    graphOption.option = {displayAlert:false,graphColor:'#b56926',invertData : true}
+    jeedom.history.drawChart(JSON.parse(JSON.stringify(graphOption)));
+
+    graphOption.cmd_id = energy3data.cmd['elec::production'].id;
+    graphOption.option = {displayAlert:false,graphColor:'#7ea823'}
+    jeedom.history.drawChart(JSON.parse(JSON.stringify(graphOption)));
+
+    //graphOption.el = 'div_energy3GraphImportExport';
+    graphOption.cmd_id = energy3data.cmd['elec::import'].id;
+    graphOption.option = {displayAlert:false,graphColor:'#99A3A4',invertData : true}
+    jeedom.history.drawChart(JSON.parse(JSON.stringify(graphOption)));
+
+    graphOption.cmd_id = energy3data.cmd['elec::export'].id;
+    graphOption.option = {displayAlert:false,graphColor:'#99A3A4'}
+    jeedom.history.drawChart(JSON.parse(JSON.stringify(graphOption)));
+
+
+    graphOption.el = 'div_energy3GraphGas';
+    graphOption.cmd_id = energy3data.cmd['gaz::consumption'].id;
+    graphOption.option = {displayAlert:false,graphColor:'#910000'}
+    jeedom.history.drawChart(JSON.parse(JSON.stringify(graphOption)));
+
+    graphOption.el = 'div_energy3GraphWater';
+    graphOption.cmd_id = energy3data.cmd['water::consumption'].id;
+    graphOption.option = {displayAlert:false,graphColor:'#2f7ed8'}
+    jeedom.history.drawChart(JSON.parse(JSON.stringify(graphOption)));
+  }
+
+}
+
+
+initGraph();

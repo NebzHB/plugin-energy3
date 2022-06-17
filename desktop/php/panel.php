@@ -41,6 +41,7 @@ $graphData['day'] = array('start' => date('Y-m-d', strtotime('now -1 day')), 'en
 	}
 	$panel = $energy3->generatePanel('dashboard', init('period', config::byKey('savePeriod', 'energy3')));
 	echo $panel['html'];
+	sendVarToJs('energy3data', $panel['data']);
 	?>
 </div>
 

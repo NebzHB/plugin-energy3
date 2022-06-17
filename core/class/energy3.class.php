@@ -114,8 +114,20 @@ class energy3 extends eqLogic {
     $production = $this->getCmd('info', 'elec::production')->execCmd();
     $export = $this->getCmd('info', 'elec::export')->execCmd();
     $consumption = $this->getCmd('info', 'elec::consumption')->execCmd();
-    $this->checkAndUpdateCmd('elec::autoconsumption', round((($production - $export) / $production) * 100, 1));
-    $this->checkAndUpdateCmd('elec::selfsufficiency', round((($production - $export) / $consumption) * 100, 1));
+    $autoconsumption = round((($production - $export) / $production) * 100, 1);
+    if ($autoconsumption < 0) {
+      $autoconsumption = 0;
+    } elseif ($autoconsumption > 100) {
+      $autoconsumption = 100;
+    }
+    $this->checkAndUpdateCmd('elec::autoconsumption', $autoconsumption);
+    $selfsufficiency = round((($production - $export) / $consumption) * 100, 1);
+    if ($selfsufficiency < 0) {
+      $selfsufficiency = 0;
+    } elseif ($selfsufficiency > 100) {
+      $selfsufficiency = 100;
+    }
+    $this->checkAndUpdateCmd('elec::selfsufficiency', $selfsufficiency);
   }
 
 
@@ -190,12 +202,26 @@ class energy3 extends eqLogic {
   }
 
   public function generatePanel($_version = 'dashboard', $_period = 'D') {
-    $return = array('widget' => '');
+    $starttime = date('Y-m-d H:i:s', strtotime(self::$_period[$_period]['start']));
+    $endtime = date('Y-m-d H:i:s', strtotime(self::$_period[$_period]['end']));
+    $return = array(
+      'widget' => '',
+      'data' => array(
+        'cmd' => array(),
+        'datetime' => array(
+          'start' =>  $starttime,
+          'end' => $endtime,
+          'period' => $_period
+        )
+      )
+    );
     if ($_period == '') {
       $_period = 'D';
     }
-    $starttime = date('Y-m-d H:i:s', strtotime(self::$_period[$_period]['start']));
-    $endtime = date('Y-m-d H:i:s', strtotime(self::$_period[$_period]['end']));
+    foreach ($this->getCmd('info') as $cmd) {
+      $return['data']['cmd'][$cmd->getLogicalId()] = array('id' => $cmd->getId());
+    }
+
     config::save('savePeriod', $_period, 'energy3');
     $return['html'] = '<center>';
     foreach (self::$_period as $key => $value) {
@@ -246,10 +272,34 @@ class energy3 extends eqLogic {
     if ($_version == 'dashboard') {
       $return['html'] .= '</div>';
       $return['html'] .= '<div class="col-lg-7 col-sm-6 col-xs-6">';
+      $return['html'] .= '<legend>Performance production électrique</legend>';
+      $return['html'] .= '<div id="div_energy3GraphElecAuto"></div>';
+      $return['html'] .= '</div>';
+      $return['html'] .= '<div class="col-lg-12">';
+      $return['html'] .= '<legend>Consommation/Production</legend>';
+      $return['html'] .= '<div id="div_energy3GraphConsumptionProduction"></div>';
+      $return['html'] .= '</div>';
+      $return['html'] .= '<div class="col-lg-6 col-sm-6 col-xs-6">';
+      $return['html'] .= '<legend>Gaz</legend>';
+      $return['html'] .= '<div id="div_energy3GraphGas"></div>';
+      $return['html'] .= '</div>';
+      $return['html'] .= '<div class="col-lg-6 col-sm-6 col-xs-6">';
+      $return['html'] .= '<legend>Eau</legend>';
+      $return['html'] .= '<div id="div_energy3GraphWater"></div>';
       $return['html'] .= '</div>';
       $return['html'] .= '</div>';
     } else {
       $return['html'] .= '</div>';
+      $return['html'] .= '<legend>Performance production électrique</legend>';
+      $return['html'] .= '<div id="div_energy3GraphElecAuto"></div>';
+      $return['html'] .= '<legend>Consommation/Production</legend>';
+      $return['html'] .= '<div id="div_energy3GraphConsumptionProduction"></div>';
+      $return['html'] .= '<legend>Import/export</legend>';
+      $return['html'] .= '<div id="div_energy3GraphImportExport"></div>';
+      $return['html'] .= '<legend>Gaz</legend>';
+      $return['html'] .= '<div id="div_energy3GraphGas"></div>';
+      $return['html'] .= '<legend>Eau</legend>';
+      $return['html'] .= '<div id="div_energy3GraphWater"></div>';
     }
     return $return;
   }

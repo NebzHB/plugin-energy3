@@ -294,8 +294,6 @@ class energy3 extends eqLogic {
       $return['html'] .= '<div id="div_energy3GraphElecAuto"></div>';
       $return['html'] .= '<legend>Consommation/Production</legend>';
       $return['html'] .= '<div id="div_energy3GraphConsumptionProduction"></div>';
-      $return['html'] .= '<legend>Import/export</legend>';
-      $return['html'] .= '<div id="div_energy3GraphImportExport"></div>';
       $return['html'] .= '<legend>Gaz</legend>';
       $return['html'] .= '<div id="div_energy3GraphGas"></div>';
       $return['html'] .= '<legend>Eau</legend>';

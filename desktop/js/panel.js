@@ -77,7 +77,6 @@ function initGraph(){
     graphOption.option = {displayAlert:false,graphColor:'#7ea823'}
     jeedom.history.drawChart(JSON.parse(JSON.stringify(graphOption)));
 
-    //graphOption.el = 'div_energy3GraphImportExport';
     graphOption.cmd_id = energy3data.cmd['elec::import::instant'].id;
     graphOption.option = {displayAlert:false,graphColor:'#99A3A4',invertData : true}
     jeedom.history.drawChart(JSON.parse(JSON.stringify(graphOption)));
@@ -106,7 +105,6 @@ function initGraph(){
     graphOption.option = {displayAlert:false,graphColor:'#7ea823'}
     jeedom.history.drawChart(JSON.parse(JSON.stringify(graphOption)));
 
-    //graphOption.el = 'div_energy3GraphImportExport';
     graphOption.cmd_id = energy3data.cmd['elec::import'].id;
     graphOption.option = {displayAlert:false,graphColor:'#99A3A4',invertData : true}
     jeedom.history.drawChart(JSON.parse(JSON.stringify(graphOption)));
@@ -126,7 +124,6 @@ function initGraph(){
     graphOption.option = {displayAlert:false,graphColor:'#2f7ed8'}
     jeedom.history.drawChart(JSON.parse(JSON.stringify(graphOption)));
   }
-
 }
 
 

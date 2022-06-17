@@ -86,6 +86,7 @@ var graphOption = {
 }
 
 function initGraph(){
+  jeedom.history.chart = [];
   graphOption.el = 'div_energy3GraphElecAuto';
   graphOption.dateStart = energy3data.datetime.start;
   graphOption.dateEnd = energy3data.datetime.end;

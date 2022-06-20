@@ -261,6 +261,32 @@ $eqLogics = eqLogic::byType($plugin->getId());
 									</div>
 								</div>
 							</div>
+							<legend><i class="fas fa-info"></i> {{Estimation production solaire}}</legend>
+							<div class="form-group">
+								<label class="col-sm-4 control-label">{{Localisation}}</label>
+								<div class="col-sm-4">
+									<input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="solar::forecast::lat" placeholder="Latitude">
+								</div>
+								<div class="col-sm-4">
+									<input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="solar::forecast::lon" placeholder="Longitude">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-4 control-label">{{Orientation (-90=est, 0=sud, 90=ouest, 180=nord)}}</label>
+								<div class="col-sm-2">
+									<input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="solar::forecast::orientation">
+								</div>
+								<label class="col-sm-2 control-label">{{Inclinaison}}</label>
+								<div class="col-sm-2">
+									<input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="solar::forecast::inclination">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-4 control-label">{{Puissance en KWc}}</label>
+								<div class="col-sm-2">
+									<input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="solar::forecast::power">
+								</div>
+							</div>
 						</div>
 					</fieldset>
 				</form>

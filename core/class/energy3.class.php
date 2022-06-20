@@ -90,8 +90,60 @@ class energy3 extends eqLogic {
     $eqLogic->calculPerformance();
   }
 
+  public function cronHourly() {
+    foreach (eqLogic::byType('energy3', true) as $eqLogic) {
+      $eqLogic->calculSolarPrevision();
+    }
+  }
+
 
   /*     * *********************Méthodes d'instance************************* */
+  public function calculSolarPrevision() {
+    if ($this->getConfiguration('solar::forecast::lat') == '') {
+      return;
+    }
+    if ($this->getConfiguration('solar::forecast::lon') == '') {
+      return;
+    }
+    if ($this->getConfiguration('solar::forecast::orientation') == '') {
+      return;
+    }
+    if ($this->getConfiguration('solar::forecast::inclination') == '') {
+      return;
+    }
+    if ($this->getConfiguration('solar::forecast::power') == '') {
+      return;
+    }
+    $url = 'https://api.forecast.solar/estimate/' . $this->getConfiguration('solar::forecast::lat') . '/' . $this->getConfiguration('solar::forecast::lon') . '/' . $this->getConfiguration('solar::forecast::inclination') . '/' . $this->getConfiguration('solar::forecast::orientation') . '/' . $this->getConfiguration('solar::forecast::power');
+    $request_http = new com_http($url);
+    $result = json_decode(trim($request_http->exec(20)), true);
+    if (!isset($result['message'])) {
+      return;
+    }
+    if ($result['message']['code'] != 0) {
+      throw new Exception(__('Erreur lors de la récuperation des prévision solaire : ', __FILE__) . $result['message']['text']);
+    }
+    if (isset($result['result']['watt_hours_day'][date('Y-m-d')])) {
+      $this->checkAndUpdateCmd('solar::forecast::today', $result['result']['watt_hours_day'][date('Y-m-d')]);
+    }
+    if (isset($result['result']['watt_hours_day'][date('Y-m-d', strtotime('now +1 day'))])) {
+      $this->checkAndUpdateCmd('solar::forecast::tomorrow', $result['result']['watt_hours_day'][date('Y-m-d', strtotime('now +1 day'))]);
+    }
+    if (isset($result['result']['watts'][date('Y-m-d H:00:00')])) {
+      $this->checkAndUpdateCmd('solar::forecast::now::power', $result['result']['watts'][date('Y-m-d H:00:00')]);
+    }
+    if (isset($result['result']['watts'][date('Y-m-d H:00:00', strtotime('now +1 hour'))])) {
+      $this->checkAndUpdateCmd('solar::forecast::nexthour::power', $result['result']['watts'][date('Y-m-d H:00:00', strtotime('now +1 hour'))]);
+    }
+    foreach ($result['result']['watts'] as $datetime => $value) {
+      if (strtotime($datetime) < strtotime('now')) {
+        continue;
+      }
+      $this->checkAndUpdateCmd('solar::forecast::now::power', $value, $datetime);
+    }
+  }
+
+
   public function calculImportExport() {
     $net_power = jeedom::evaluateExpression($this->getConfiguration('elec::net::power'));
     $elec_production = jeedom::evaluateExpression($this->getConfiguration('elec::production::instant'));
@@ -153,6 +205,15 @@ class energy3 extends eqLogic {
     return $this->postToHtml($_version, template_replace($replace, getTemplate('core', $version, 'eqLogic', __CLASS__)));
   }
 
+  public function preSave() {
+    if ($this->getConfiguration('solar::forecast::lat') == '') {
+      $this->setConfiguration('solar::forecast::lat', config::byKey('info::latitude'));
+    }
+    if ($this->getConfiguration('solar::forecast::lon') == '') {
+      $this->setConfiguration('solar::forecast::lon', config::byKey('info::longitude'));
+    }
+  }
+
   public function postSave() {
     $cmds = json_decode(file_get_contents(__DIR__ . '/../config/cmd.json'), true);
     foreach ($cmds as $key => $cmd_info) {
@@ -199,6 +260,7 @@ class energy3 extends eqLogic {
     $listener->save();
     $this->calculImportExport();
     $this->calculPerformance();
+    $this->calculSolarPrevision();
   }
 
   public function generatePanel($_version = 'dashboard', $_period = 'D') {

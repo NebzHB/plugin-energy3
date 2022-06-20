@@ -126,5 +126,37 @@
         "isVisible": 1,
         "isHistorized": 0,
         "unite" : ""
+    },
+    "solar::forecast::today" : {
+        "name": "Production solaire estimée",
+        "type": "info",
+        "subtype": "numeric",
+        "isVisible": 1,
+        "isHistorized": 1,
+        "unite" : "Wh"
+    },
+    "solar::forecast::tomorrow" : {
+        "name": "Production solaire estimée demain",
+        "type": "info",
+        "subtype": "numeric",
+        "isVisible": 1,
+        "isHistorized": 1,
+        "unite" : "Wh"
+    },
+    "solar::forecast::now::power" : {
+        "name": "Puissance solaire estimée maintenant",
+        "type": "info",
+        "subtype": "numeric",
+        "isVisible": 1,
+        "isHistorized": 1,
+        "unite" : "Wh"
+    },
+    "solar::forecast::nexthour::power" : {
+        "name": "Puissance solaire estimée heure suivante",
+        "type": "info",
+        "subtype": "numeric",
+        "isVisible": 1,
+        "isHistorized": 1,
+        "unite" : "Wh"
     }
 }

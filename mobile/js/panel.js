@@ -84,6 +84,7 @@ var graphOption = {
   showTimeSelector : true,
   disablePlotBand : true,
   pointWidth : 10,
+  allowFuture : true,
   option : {displayAlert:false}
 }
 

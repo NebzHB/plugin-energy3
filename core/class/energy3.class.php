@@ -337,9 +337,13 @@ class energy3 extends eqLogic {
       $return['html'] .= '<legend>Performance production électrique</legend>';
       $return['html'] .= '<div id="div_energy3GraphElecAuto"></div>';
       $return['html'] .= '</div>';
-      $return['html'] .= '<div class="col-lg-12">';
+      $return['html'] .= '<div class="col-lg-6">';
       $return['html'] .= '<legend>Consommation/Production</legend>';
       $return['html'] .= '<div id="div_energy3GraphConsumptionProduction"></div>';
+      $return['html'] .= '</div>';
+      $return['html'] .= '<div class="col-lg-6">';
+      $return['html'] .= '<legend>Prévision</legend>';
+      $return['html'] .= '<div id="div_energy3GraphForecast"></div>';
       $return['html'] .= '</div>';
       $return['html'] .= '<div class="col-lg-6 col-sm-6 col-xs-6">';
       $return['html'] .= '<legend>Gaz</legend>';
@@ -356,6 +360,8 @@ class energy3 extends eqLogic {
       $return['html'] .= '<div id="div_energy3GraphElecAuto"></div>';
       $return['html'] .= '<legend>Consommation/Production</legend>';
       $return['html'] .= '<div id="div_energy3GraphConsumptionProduction"></div>';
+      $return['html'] .= '<legend>Prévision</legend>';
+      $return['html'] .= '<div id="div_energy3GraphForecast"></div>';
       $return['html'] .= '<legend>Gaz</legend>';
       $return['html'] .= '<div id="div_energy3GraphGas"></div>';
       $return['html'] .= '<legend>Eau</legend>';

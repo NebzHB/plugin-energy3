@@ -119,6 +119,15 @@ function initGraph(){
     graphOption.option = {displayAlert:false,graphColor:'#99A3A4',name : 'Export',graphType : 'column',groupingType : 'max::hour',graphStack: true,invertData : true}
     jeedom.history.drawChart(JSON.parse(JSON.stringify(graphOption)));
 
+    graphOption.el = 'div_energy3GraphForecast';
+    graphOption.cmd_id = energy3data.cmd['elec::production::instant'].id;
+    graphOption.option = {displayAlert:false,graphColor:'#7ea823',name : 'Production',graphType : 'column',groupingType : 'max::hour',graphStack: true}
+    jeedom.history.drawChart(JSON.parse(JSON.stringify(graphOption)));
+
+    graphOption.cmd_id = energy3data.cmd['solar::forecast::now::power'].id;
+    graphOption.option = {displayAlert:false,graphColor:'#FFFFFF',name : 'Prévision',graphType : 'line',groupingType : 'max::hour'}
+    jeedom.history.drawChart(JSON.parse(JSON.stringify(graphOption)));
+
     graphOption.el = 'div_energy3GraphGas';
     graphOption.cmd_id = energy3data.cmd['gaz::consumption::instant'].id;
     graphOption.option = {displayAlert:false,graphColor:'#910000',name : 'Consommation',graphType : 'column',groupingType : 'max::hour'}

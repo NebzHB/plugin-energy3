@@ -341,14 +341,21 @@ class energy3 extends eqLogic {
       $return['html'] .= '<legend>Performance production électrique</legend>';
       $return['html'] .= '<div class="chartContainer" id="div_energy3GraphElecAuto" style="height:230px;"></div>';
       $return['html'] .= '</div>';
-      $return['html'] .= '<div class="col-lg-6">';
-      $return['html'] .= '<legend>Consommation/Production</legend>';
-      $return['html'] .= '<div class="chartContainer" id="div_energy3GraphConsumptionProduction"></div>';
-      $return['html'] .= '</div>';
-      $return['html'] .= '<div class="col-lg-6">';
-      $return['html'] .= '<legend>Prévision</legend>';
-      $return['html'] .= '<div class="chartContainer" id="div_energy3GraphForecast"></div>';
-      $return['html'] .= '</div>';
+      if ($_period == 'D') {
+        $return['html'] .= '<div class="col-lg-6">';
+        $return['html'] .= '<legend>Consommation/Production</legend>';
+        $return['html'] .= '<div class="chartContainer" id="div_energy3GraphConsumptionProduction"></div>';
+        $return['html'] .= '</div>';
+        $return['html'] .= '<div class="col-lg-6">';
+        $return['html'] .= '<legend>Prévision</legend>';
+        $return['html'] .= '<div class="chartContainer" id="div_energy3GraphForecast"></div>';
+        $return['html'] .= '</div>';
+      } else {
+        $return['html'] .= '<div class="col-lg-12">';
+        $return['html'] .= '<legend>Consommation/Production</legend>';
+        $return['html'] .= '<div class="chartContainer" id="div_energy3GraphConsumptionProduction"></div>';
+        $return['html'] .= '</div>';
+      }
       $return['html'] .= '<div class="col-lg-6 col-sm-6 col-xs-6">';
       $return['html'] .= '<legend>Gaz</legend>';
       $return['html'] .= '<div class="chartContainer" id="div_energy3GraphGas"></div>';
@@ -364,8 +371,10 @@ class energy3 extends eqLogic {
       $return['html'] .= '<div class="chartContainer" id="div_energy3GraphElecAuto"></div>';
       $return['html'] .= '<legend>Consommation/Production</legend>';
       $return['html'] .= '<div class="chartContainer" id="div_energy3GraphConsumptionProduction"></div>';
-      $return['html'] .= '<legend>Prévision</legend>';
-      $return['html'] .= '<div class="chartContainer" id="div_energy3GraphForecast"></div>';
+      if ($_period == 'D') {
+        $return['html'] .= '<legend>Prévision</legend>';
+        $return['html'] .= '<div class="chartContainer" id="div_energy3GraphForecast"></div>';
+      }
       $return['html'] .= '<legend>Gaz</legend>';
       $return['html'] .= '<div class="chartContainer" id="div_energy3GraphGas"></div>';
       $return['html'] .= '<legend>Eau</legend>';

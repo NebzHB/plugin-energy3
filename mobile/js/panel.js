@@ -124,7 +124,19 @@ function initGraph(){
     }
     jeedom.history.drawChart(options);
 
+    graphOption.el = 'div_energy3GraphGas';
+    graphOption.cmd_id = energy3data.cmd['gaz::consumption::instant'].id;
+    graphOption.option = {displayAlert:false,graphColor:'#910000',name : 'Consommation',graphType : 'column',groupingType : 'max::hour'}
+    jeedom.history.drawChart(JSON.parse(JSON.stringify(graphOption)));
+
+    graphOption.el = 'div_energy3GraphWater';
+    graphOption.cmd_id = energy3data.cmd['water::consumption::instant'].id;
+    graphOption.option = {graphColor:'#2f7ed8',name : 'Consommation',groupingType : 'max::hour'}
+    jeedom.history.drawChart(JSON.parse(JSON.stringify(graphOption)));
+
     if(energy3data.datetime.period == 'D'){
+      graphOption.dateEnd = energy3data.datetime.end_1;
+      graphOption.pointWidth = 5;
       graphOption.el = 'div_energy3GraphForecast';
       graphOption.cmd_id = energy3data.cmd['solar::forecast::now::power'].id;
       graphOption.option = {displayAlert:false,graphColor:'#FFFFFF',name : 'Prévision',graphType : 'line',groupingType : 'max::hour'}
@@ -138,16 +150,6 @@ function initGraph(){
       };
       jeedom.history.drawChart(options);
     }
-
-    graphOption.el = 'div_energy3GraphGas';
-    graphOption.cmd_id = energy3data.cmd['gaz::consumption::instant'].id;
-    graphOption.option = {displayAlert:false,graphColor:'#910000',name : 'Consommation',graphType : 'column',groupingType : 'max::hour'}
-    jeedom.history.drawChart(JSON.parse(JSON.stringify(graphOption)));
-
-    graphOption.el = 'div_energy3GraphWater';
-    graphOption.cmd_id = energy3data.cmd['water::consumption::instant'].id;
-    graphOption.option = {graphColor:'#2f7ed8',name : 'Consommation',groupingType : 'max::hour'}
-    jeedom.history.drawChart(JSON.parse(JSON.stringify(graphOption)));
   }else{
     graphOption.el = 'div_energy3GraphConsumptionProduction';
     graphOption.cmd_id = energy3data.cmd['elec::consumption'].id;

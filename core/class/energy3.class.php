@@ -155,9 +155,9 @@ class energy3 extends eqLogic {
       $this->checkAndUpdateCmd('elec::export::instant', -$net_power);
     }
     if ($elec_production > 0) {
-      if ($net_power > 0) {
+      if($net_power > 0){
         $this->checkAndUpdateCmd('elec::production::consumption::instant', $elec_production);
-      } else {
+      }else{
         $this->checkAndUpdateCmd('elec::production::consumption::instant', $elec_production + $net_power);
       }
     } else {
@@ -277,7 +277,7 @@ class energy3 extends eqLogic {
         'datetime' => array(
           'start' =>  $starttime,
           'end' => $endtime,
-          'end_1' => date('Y-m-d H:i:s', strtotime(self::$_period[$_period]['end'] . ' + 1 day')),
+          'end_1' => date('Y-m-d H:i:s', strtotime(self::$_period[$_period]['end'].' + 1 day')),
           'period' => $_period
         )
       )

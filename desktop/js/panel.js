@@ -58,17 +58,11 @@ var graphOption = {
 }
 
 function initGraph(){
-  graphOption.el = 'div_energy3GraphElecAuto';
+  
   graphOption.dateStart = energy3data.datetime.start;
   graphOption.dateEnd = energy3data.datetime.end;
-  
   graphOption.option.graphScale = 0;
-  graphOption.cmd_id = energy3data.cmd['elec::selfsufficiency'].id;
-  graphOption.option = {displayAlert:false,name : 'Auto-suffisance',graphType : 'column',groupingType : 'avg::day'}
-  jeedom.history.drawChart(JSON.parse(JSON.stringify(graphOption)));
-  graphOption.cmd_id = energy3data.cmd['elec::autoconsumption'].id;
-  graphOption.option = {displayAlert:false,name : 'Auto-consommation',graphType : 'column',groupingType : 'avg::day'}
-  jeedom.history.drawChart(JSON.parse(JSON.stringify(graphOption)));
+  
  
 
   if(energy3data.datetime.period == 'D' || energy3data.datetime.period == 'D-1' ){
@@ -103,23 +97,29 @@ function initGraph(){
     graphOption.option = {graphColor:'#2f7ed8',name : 'Consommation',groupingType : 'avg::hour'}
     jeedom.history.drawChart(JSON.parse(JSON.stringify(graphOption)));
 
-    if(energy3data.datetime.period == 'D' || energy3data.datetime.period == 'D-1'){
-      graphOption.dateEnd = energy3data.datetime.end_1;
-      graphOption.pointWidth = 10;
-      graphOption.el = 'div_energy3GraphForecast';
-      graphOption.cmd_id = energy3data.cmd['solar::forecast::now::power'].id;
-      graphOption.option = {displayAlert:false,graphColor:'#FFFFFF',name : 'Prévision',graphType : 'line',groupingType : 'avg::hour'}
+    graphOption.dateEnd = energy3data.datetime.end_1;
+    graphOption.pointWidth = 10;
+    graphOption.el = 'div_energy3GraphForecast';
+    graphOption.cmd_id = energy3data.cmd['solar::forecast::now::power'].id;
+    graphOption.option = {displayAlert:false,graphColor:'#FFFFFF',name : 'Prévision',graphType : 'line',groupingType : 'avg::hour'}
 
-      var options = JSON.parse(JSON.stringify(graphOption));
-      options.success = function(){
-        graphOption.el = 'div_energy3GraphForecast';
-        graphOption.cmd_id = energy3data.cmd['elec::production::instant'].id;
-        graphOption.option = {displayAlert:false,graphColor:'#7ea823',name : 'Production',graphType : 'column',groupingType : 'avg::hour',graphStack: true}
-        jeedom.history.drawChart(JSON.parse(JSON.stringify(graphOption)));
-      };
-      jeedom.history.drawChart(options);
-    }
+    var options = JSON.parse(JSON.stringify(graphOption));
+    options.success = function(){
+      graphOption.el = 'div_energy3GraphForecast';
+      graphOption.cmd_id = energy3data.cmd['elec::production::instant'].id;
+      graphOption.option = {displayAlert:false,graphColor:'#7ea823',name : 'Production',graphType : 'column',groupingType : 'avg::hour',graphStack: true}
+      jeedom.history.drawChart(JSON.parse(JSON.stringify(graphOption)));
+    };
+    jeedom.history.drawChart(options);
   }else{
+    graphOption.el = 'div_energy3GraphElecAuto';
+    graphOption.cmd_id = energy3data.cmd['elec::selfsufficiency'].id;
+    graphOption.option = {displayAlert:false,name : 'Auto-suffisance',graphType : 'column',groupingType : 'avg::day'}
+    jeedom.history.drawChart(JSON.parse(JSON.stringify(graphOption)));
+    graphOption.cmd_id = energy3data.cmd['elec::autoconsumption'].id;
+    graphOption.option = {displayAlert:false,name : 'Auto-consommation',graphType : 'column',groupingType : 'avg::day'}
+    jeedom.history.drawChart(JSON.parse(JSON.stringify(graphOption)));
+    
     graphOption.el = 'div_energy3GraphConsumptionProduction';
     graphOption.cmd_id = energy3data.cmd['elec::consumption'].id;
     graphOption.option = {displayAlert:false,graphColor:'#b56926',name : 'Consommation',graphType : 'column',graphStack: true,invertData : true,}

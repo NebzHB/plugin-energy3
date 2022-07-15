@@ -88,13 +88,13 @@ function initGraph(){
     jeedom.history.drawChart(options);
 
     graphOption.el = 'div_energy3GraphGas';
-    graphOption.cmd_id = energy3data.cmd['gaz::consumption::instant'].id;
-    graphOption.option = {displayAlert:false,graphColor:'#910000',name : 'Consommation',graphType : 'column',groupingType : 'avg::hour'}
+    graphOption.cmd_id = energy3data.cmd['gaz::consumption'].id;
+    graphOption.option = {displayAlert:false,graphColor:'#910000',name : 'Consommation',graphType : 'column',derive : 1}
     jeedom.history.drawChart(JSON.parse(JSON.stringify(graphOption)));
 
     graphOption.el = 'div_energy3GraphWater';
-    graphOption.cmd_id = energy3data.cmd['water::consumption::instant'].id;
-    graphOption.option = {graphColor:'#2f7ed8',name : 'Consommation',groupingType : 'avg::hour'}
+    graphOption.cmd_id = energy3data.cmd['water::consumption'].id;
+    graphOption.option = {displayAlert:false,graphColor:'#2f7ed8',name : 'Consommation',graphType : 'column',derive : 1}
     jeedom.history.drawChart(JSON.parse(JSON.stringify(graphOption)));
 
     graphOption.dateEnd = energy3data.datetime.end_1;
@@ -142,12 +142,12 @@ function initGraph(){
 
     graphOption.el = 'div_energy3GraphGas';
     graphOption.cmd_id = energy3data.cmd['gaz::consumption'].id;
-    graphOption.option = {displayAlert:false,graphColor:'#910000',name : 'Consommation',graphType : 'column'}
+    graphOption.option = {displayAlert:false,graphColor:'#910000',name : 'Consommation',graphType : 'column',groupingType : 'max::day'}
     jeedom.history.drawChart(JSON.parse(JSON.stringify(graphOption)));
 
     graphOption.el = 'div_energy3GraphWater';
     graphOption.cmd_id = energy3data.cmd['water::consumption'].id;
-    graphOption.option = {displayAlert:false,graphColor:'#2f7ed8',name : 'Consommation',graphType : 'column'}
+    graphOption.option = {displayAlert:false,graphColor:'#2f7ed8',name : 'Consommation',graphType : 'column',groupingType : 'max::day'}
     jeedom.history.drawChart(JSON.parse(JSON.stringify(graphOption)));
   }
 }

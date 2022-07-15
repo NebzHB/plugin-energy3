@@ -129,9 +129,6 @@ class energy3 extends eqLogic {
     if (isset($result['result']['watt_hours_day'][date('Y-m-d', strtotime('now +1 day'))])) {
       $this->checkAndUpdateCmd('solar::forecast::tomorrow', $result['result']['watt_hours_day'][date('Y-m-d', strtotime('now +1 day'))]);
     }
-    if (isset($result['result']['watts'][date('Y-m-d H:00:00')])) {
-      $this->checkAndUpdateCmd('solar::forecast::now::power', $result['result']['watts'][date('Y-m-d H:00:00')]);
-    }
     if (isset($result['result']['watts'][date('Y-m-d H:00:00', strtotime('now +1 hour'))])) {
       $this->checkAndUpdateCmd('solar::forecast::nexthour::power', $result['result']['watts'][date('Y-m-d H:00:00', strtotime('now +1 hour'))]);
     }
@@ -140,6 +137,9 @@ class energy3 extends eqLogic {
         continue;
       }
       $this->checkAndUpdateCmd('solar::forecast::now::power', $value, $datetime);
+    }
+    if (isset($result['result']['watts'][date('Y-m-d H:00:00')])) {
+      $this->checkAndUpdateCmd('solar::forecast::now::power', $result['result']['watts'][date('Y-m-d H:00:00')]);
     }
   }
 

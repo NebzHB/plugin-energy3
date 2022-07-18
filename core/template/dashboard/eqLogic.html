@@ -123,53 +123,57 @@
                         color: 'var(--txt-color)'
                     })
                     .add();
-                ren.label('<i class="fas fa-burn"></i> <span class="gaz-consumption cmd history cursor" data-cmd_id="#gaz-consumption-id#">XXXXXXXXXXXX</span>', 0, 88,'rect',null,null,true)
-                    .attr({
-                        fill: '#910000',
-                        padding: 5,
-                        r: 5
-                    })
-                    .css({
-                        color: 'white',
-                    })
-                    .add()
-                    .shadow(true);
-                ren.path(rightArrow)
-                    .attr({
-                        'stroke-width': 2,
-                        stroke: '#910000',
-                    })
-                    .translate(95, 102)
-                    .add();
-                ren.label('<span class="gaz-consumption-instant cmd history cursor" data-cmd_id="#gaz-consumption-instant-id#">XXXXXXXXXXXX</span>', 140, 78)
-                    .css({
-                        color: 'var(--txt-color)'
-                    })
-                    .add();
-                ren.label('<i class="fas fa-tint"></i> <span class="water-consumption cmd history cursor" data-cmd_id="#water-consumption-id#">XXXXXXXXXXX</span>', 365, 88,'rect',null,null,true)
-                    .attr({
-                        fill: '#2f7ed8',
-                        padding: 5,
-                        r: 5
-                    })
-                    .css({
-                        color: 'white',
-                        width: '100px'
-                    })
-                    .add()
-                    .shadow(true);
-                ren.path(leftArrow)
-                    .attr({
-                        'stroke-width': 2,
-                        stroke: '#2f7ed8'
-                    })
-                    .translate(302, 102)
-                    .add();
-                ren.label('<span class="water-consumption-instant cmd history cursor" data-cmd_id="#water-consumption-instant-id#">XXXXXXXXXXXX</span>', 330, 78)
-                    .css({
-                        color: 'var(--txt-color)'
-                    })
-                    .add();
+                if('#gaz-consumption-id#' != ''){
+                    ren.label('<i class="fas fa-burn"></i> <span class="gaz-consumption cmd history cursor" data-cmd_id="#gaz-consumption-id#">XXXXXXXXXXXX</span>', 0, 88,'rect',null,null,true)
+                        .attr({
+                            fill: '#910000',
+                            padding: 5,
+                            r: 5
+                        })
+                        .css({
+                            color: 'white',
+                        })
+                        .add()
+                        .shadow(true);
+                    ren.path(rightArrow)
+                        .attr({
+                            'stroke-width': 2,
+                            stroke: '#910000',
+                        })
+                        .translate(95, 102)
+                        .add();
+                    ren.label('<span class="gaz-consumption-instant cmd history cursor" data-cmd_id="#gaz-consumption-instant-id#">XXXXXXXXXXXX</span>', 140, 78)
+                        .css({
+                            color: 'var(--txt-color)'
+                        })
+                        .add();
+                }
+                if('#water-consumption-id#' != ''){
+                    ren.label('<i class="fas fa-tint"></i> <span class="water-consumption cmd history cursor" data-cmd_id="#water-consumption-id#">XXXXXXXXXXX</span>', 365, 88,'rect',null,null,true)
+                        .attr({
+                            fill: '#2f7ed8',
+                            padding: 5,
+                            r: 5
+                        })
+                        .css({
+                            color: 'white',
+                            width: '100px'
+                        })
+                        .add()
+                        .shadow(true);
+                    ren.path(leftArrow)
+                        .attr({
+                            'stroke-width': 2,
+                            stroke: '#2f7ed8'
+                        })
+                        .translate(302, 102)
+                        .add();
+                    ren.label('<span class="water-consumption-instant cmd history cursor" data-cmd_id="#water-consumption-instant-id#">XXXXXXXXXXXX</span>', 330, 78)
+                        .css({
+                            color: 'var(--txt-color)'
+                        })
+                        .add();
+                }
             }
         }
     },
@@ -228,31 +232,36 @@ jeedom.cmd.update['#elec-import-instant-id#'] = function(_options) {
     }
 }
 
-jeedom.cmd.update['#gaz-consumption-id#'] = function(_options) {
-    $('.eqLogic[data-eqLogic_id=#id#] .gaz-consumption').empty().append(_options.display_value +' '+_options.unit)
-    if(_options.collectDate.length != 0){
-        $('.eqLogic[data-eqLogic_id=#id#] .gaz-consumption').attr('title','Date de valeur : '+_options.valueDate+'<br/>Date de collecte : '+_options.collectDate)
+if('#gaz-consumption-id#' != ''){
+    jeedom.cmd.update['#gaz-consumption-id#'] = function(_options) {
+        $('.eqLogic[data-eqLogic_id=#id#] .gaz-consumption').empty().append(_options.display_value +' '+_options.unit)
+        if(_options.collectDate.length != 0){
+            $('.eqLogic[data-eqLogic_id=#id#] .gaz-consumption').attr('title','Date de valeur : '+_options.valueDate+'<br/>Date de collecte : '+_options.collectDate)
+        }
     }
 }
-
-jeedom.cmd.update['#gaz-consumption-instant-id#'] = function(_options) {
-    $('.eqLogic[data-eqLogic_id=#id#] .gaz-consumption-instant').empty().append(_options.display_value +' '+_options.unit)
-    if(_options.collectDate.length != 0){
-        $('.eqLogic[data-eqLogic_id=#id#] .gaz-consumption-instant').attr('title','Date de valeur : '+_options.valueDate+'<br/>Date de collecte : '+_options.collectDate)
+if('#gaz-consumption-instant-id#' != ''){
+    jeedom.cmd.update['#gaz-consumption-instant-id#'] = function(_options) {
+        $('.eqLogic[data-eqLogic_id=#id#] .gaz-consumption-instant').empty().append(_options.display_value +' '+_options.unit)
+        if(_options.collectDate.length != 0){
+            $('.eqLogic[data-eqLogic_id=#id#] .gaz-consumption-instant').attr('title','Date de valeur : '+_options.valueDate+'<br/>Date de collecte : '+_options.collectDate)
+        }
     }
 }
-
-jeedom.cmd.update['#water-consumption-id#'] = function(_options) {
-    $('.eqLogic[data-eqLogic_id=#id#] .water-consumption').empty().append(_options.display_value +' '+_options.unit)
-    if(_options.collectDate.length != 0){
-        $('.eqLogic[data-eqLogic_id=#id#] .water-consumption').attr('title','Date de valeur : '+_options.valueDate+'<br/>Date de collecte : '+_options.collectDate)
+if('#water-consumption-id#' != ''){
+    jeedom.cmd.update['#water-consumption-id#'] = function(_options) {
+        $('.eqLogic[data-eqLogic_id=#id#] .water-consumption').empty().append(_options.display_value +' '+_options.unit)
+        if(_options.collectDate.length != 0){
+            $('.eqLogic[data-eqLogic_id=#id#] .water-consumption').attr('title','Date de valeur : '+_options.valueDate+'<br/>Date de collecte : '+_options.collectDate)
+        }
     }
 }
-
-jeedom.cmd.update['#water-consumption-instant-id#'] = function(_options) {
-    $('.eqLogic[data-eqLogic_id=#id#] .water-consumption-instant').empty().append(_options.display_value +' '+_options.unit)
-    if(_options.collectDate.length != 0){
-        $('.eqLogic[data-eqLogic_id=#id#] .water-consumption-instant').attr('title','Date de valeur : '+_options.valueDate+'<br/>Date de collecte : '+_options.collectDate)
+if('#water-consumption-instant-id#' != ''){
+    jeedom.cmd.update['#water-consumption-instant-id#'] = function(_options) {
+        $('.eqLogic[data-eqLogic_id=#id#] .water-consumption-instant').empty().append(_options.display_value +' '+_options.unit)
+        if(_options.collectDate.length != 0){
+            $('.eqLogic[data-eqLogic_id=#id#] .water-consumption-instant').attr('title','Date de valeur : '+_options.valueDate+'<br/>Date de collecte : '+_options.collectDate)
+        }
     }
 }
 
@@ -279,12 +288,25 @@ jeedom.cmd.update['#elec-export-id#']({display_value: '#elec-export-state#', val
 jeedom.cmd.update['#elec-production-id#']({display_value: '#elec-production-state#', valueDate: '#elec-production-valueDate#', collectDate: '#elec-production-collectDate#',unit:'#elec-production-unite#'})
 jeedom.cmd.update['#elec-production-consumption-instant-id#']({display_value: '#elec-production-consumption-instant-state#', valueDate: '#elec-production-consumption-instant-valueDate#', collectDate: '#elec-production-consumption-instant-collectDate#',unit:'#elec-production-consumption-instant-unite#'})
 jeedom.cmd.update['#elec-consumption-id#']({display_value: '#elec-consumption-state#', valueDate: '#elec-consumption-valueDate#', collectDate: '#elec-consumption-collectDate#',unit:'#elec-consumption-unite#'})
-jeedom.cmd.update['#gaz-consumption-id#']({display_value: '#gaz-consumption-state#', valueDate: '#gaz-consumption-valueDate#', collectDate: '#gaz-consumption-collectDate#',unit:'#gaz-consumption-unite#'})
-jeedom.cmd.update['#gaz-consumption-instant-id#']({display_value: '#gaz-consumption-instant-state#', valueDate: '#gaz-consumption-instant-valueDate#', collectDate: '#gaz-consumption-instant-collectDate#',unit:'#gaz-consumption-instant-unite#'})
-jeedom.cmd.update['#water-consumption-id#']({display_value: '#water-consumption-state#', valueDate: '#water-consumption-valueDate#', collectDate: '#water-consumption-collectDate#',unit:'#water-consumption-unite#'})
-jeedom.cmd.update['#water-consumption-instant-id#']({display_value: '#water-consumption-instant-state#', valueDate: '#water-consumption-instant-valueDate#', collectDate: '#water-consumption-instant-collectDate#',unit:'#water-consumption-instant-unite#'})
 jeedom.cmd.update['#elec-autoconsumption-id#']({display_value: '#elec-autoconsumption-state#', valueDate: '#elec-autoconsumption-valueDate#', collectDate: '#elec-autoconsumption-collectDate#',unit:'#elec-autoconsumption-unite#'})
 jeedom.cmd.update['#elec-selfsufficiency-id#']({display_value: '#elec-selfsufficiency-state#', valueDate: '#elec-selfsufficiency-valueDate#', collectDate: '#elec-selfsufficiency-collectDate#',unit:'#elec-selfsufficiency-unite#'})
+
+if('#gaz-consumption-id#' != ''){
+    jeedom.cmd.update['#gaz-consumption-id#']({display_value: '#gaz-consumption-state#', valueDate: '#gaz-consumption-valueDate#', collectDate: '#gaz-consumption-collectDate#',unit:'#gaz-consumption-unite#'})
+}
+if('#gaz-consumption-instant-id#' != ''){
+    jeedom.cmd.update['#gaz-consumption-instant-id#']({display_value: '#gaz-consumption-instant-state#', valueDate: '#gaz-consumption-instant-valueDate#', collectDate: '#gaz-consumption-instant-collectDate#',unit:'#gaz-consumption-instant-unite#'})
+}else{
+    $('.eqLogic[data-eqLogic_id=#id#] .gaz-consumption-instant').remove();
+}
+if('#water-consumption-id#' != ''){
+    jeedom.cmd.update['#water-consumption-id#']({display_value: '#water-consumption-state#', valueDate: '#water-consumption-valueDate#', collectDate: '#water-consumption-collectDate#',unit:'#water-consumption-unite#'})
+}
+if('#water-consumption-instant-id#' != ''){
+    jeedom.cmd.update['#water-consumption-instant-id#']({display_value: '#water-consumption-instant-state#', valueDate: '#water-consumption-instant-valueDate#', collectDate: '#water-consumption-instant-collectDate#',unit:'#water-consumption-instant-unite#'})
+}else{
+    $('.eqLogic[data-eqLogic_id=#id#] .water-consumption-instant').remove();
+}
 
 if ('#refresh_id#' != '') {
     $('.eqLogic[data-eqLogic_uid=#uid#] .refresh').on('click', function () {

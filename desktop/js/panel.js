@@ -63,8 +63,6 @@ function initGraph(){
   graphOption.dateEnd = energy3data.datetime.end;
   graphOption.option.graphScale = 0;
   
- 
-
   if(energy3data.datetime.period == 'D' || energy3data.datetime.period == 'D-1' ){
     graphOption.el = 'div_energy3GraphConsumptionProduction';
     graphOption.cmd_id = energy3data.cmd['elec::consumption::instant'].id;
@@ -87,15 +85,23 @@ function initGraph(){
     }
     jeedom.history.drawChart(options);
 
-    graphOption.el = 'div_energy3GraphGas';
-    graphOption.cmd_id = energy3data.cmd['gaz::consumption'].id;
-    graphOption.option = {displayAlert:false,graphColor:'#910000',name : 'Consommation',graphType : 'column',derive : 1}
-    jeedom.history.drawChart(JSON.parse(JSON.stringify(graphOption)));
-
-    graphOption.el = 'div_energy3GraphWater';
-    graphOption.cmd_id = energy3data.cmd['water::consumption'].id;
-    graphOption.option = {displayAlert:false,graphColor:'#2f7ed8',name : 'Consommation',graphType : 'column',derive : 1}
-    jeedom.history.drawChart(JSON.parse(JSON.stringify(graphOption)));
+    if(energy3data.cmd['gaz::consumption']){
+      graphOption.el = 'div_energy3GraphGas';
+      graphOption.cmd_id = energy3data.cmd['gaz::consumption'].id;
+      graphOption.option = {displayAlert:false,graphColor:'#910000',name : 'Consommation',graphType : 'column',derive : 1}
+      jeedom.history.drawChart(JSON.parse(JSON.stringify(graphOption)));
+    }else{
+      $('#div_energy3GraphGas').parent().remove();
+    }
+    
+    if(energy3data.cmd['water::consumption']){
+      graphOption.el = 'div_energy3GraphWater';
+      graphOption.cmd_id = energy3data.cmd['water::consumption'].id;
+      graphOption.option = {displayAlert:false,graphColor:'#2f7ed8',name : 'Consommation',graphType : 'column',derive : 1}
+      jeedom.history.drawChart(JSON.parse(JSON.stringify(graphOption)));
+    }else{
+      $('#div_energy3GraphWater').parent().remove();
+    }
 
     graphOption.dateEnd = energy3data.datetime.end_1;
     graphOption.pointWidth = 10;
@@ -140,15 +146,23 @@ function initGraph(){
     }
     jeedom.history.drawChart(options);
 
-    graphOption.el = 'div_energy3GraphGas';
-    graphOption.cmd_id = energy3data.cmd['gaz::consumption'].id;
-    graphOption.option = {displayAlert:false,graphColor:'#910000',name : 'Consommation',graphType : 'column',groupingType : 'max::day'}
-    jeedom.history.drawChart(JSON.parse(JSON.stringify(graphOption)));
+    if(energy3data.cmd['gaz::consumption']){
+      graphOption.el = 'div_energy3GraphGas';
+      graphOption.cmd_id = energy3data.cmd['gaz::consumption'].id;
+      graphOption.option = {displayAlert:false,graphColor:'#910000',name : 'Consommation',graphType : 'column',groupingType : 'max::day'}
+      jeedom.history.drawChart(JSON.parse(JSON.stringify(graphOption)));
+    }else{
+      $('#div_energy3GraphWater').parent().remove();
+    }
 
-    graphOption.el = 'div_energy3GraphWater';
-    graphOption.cmd_id = energy3data.cmd['water::consumption'].id;
-    graphOption.option = {displayAlert:false,graphColor:'#2f7ed8',name : 'Consommation',graphType : 'column',groupingType : 'max::day'}
-    jeedom.history.drawChart(JSON.parse(JSON.stringify(graphOption)));
+    if(energy3data.cmd['water::consumption']){
+      graphOption.el = 'div_energy3GraphWater';
+      graphOption.cmd_id = energy3data.cmd['water::consumption'].id;
+      graphOption.option = {displayAlert:false,graphColor:'#2f7ed8',name : 'Consommation',graphType : 'column',groupingType : 'max::day'}
+      jeedom.history.drawChart(JSON.parse(JSON.stringify(graphOption)));
+    }else{
+      $('#div_energy3GraphWater').parent().remove();
+    }
   }
 }
 

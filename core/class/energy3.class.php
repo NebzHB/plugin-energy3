@@ -194,6 +194,9 @@ class energy3 extends eqLogic {
     }
     $version = jeedom::versionAlias($_version);
     $replace['#version#'] = $_version;
+    foreach (self::$_listen_cmd as $key) {
+      $replace['#' . str_replace('::', '-', $key) . '-id#'] = '';
+    }
     foreach ($this->getCmd('info') as $cmd) {
       $replace['#' . str_replace('::', '-', $cmd->getLogicalId()) . '-id#'] = $cmd->getId();
       $replace['#' . str_replace('::', '-', $cmd->getLogicalId()) . '-state#'] = $cmd->execCmd();
@@ -221,6 +224,13 @@ class energy3 extends eqLogic {
   public function postSave() {
     $cmds = json_decode(file_get_contents(__DIR__ . '/../config/cmd.json'), true);
     foreach ($cmds as $key => $cmd_info) {
+      if (in_array($key, array('gaz::consumption::instant', 'gaz::consumption', 'water::consumption::instant', 'water::consumption')) && $this->getConfiguration($key) == '') {
+        $cmd = $this->getCmd(null, $key);
+        if (is_object($cmd)) {
+          $cmd->remove();
+        }
+        continue;
+      }
       $cmd = $this->getCmd(null, $key);
       if (!is_object($cmd)) {
         $cmd = new energy3Cmd();
@@ -262,6 +272,7 @@ class energy3 extends eqLogic {
       $listener->addEvent($cmd_id);
     }
     $listener->save();
+
     $this->calculImportExport();
     $this->calculPerformance();
     $this->calculSolarPrevision();
@@ -314,6 +325,9 @@ class energy3 extends eqLogic {
       $replace = $this->preToHtml($_version);
       $version = jeedom::versionAlias($_version);
       $replace['#version#'] = $_version;
+      foreach (self::$_listen_cmd as $key) {
+        $replace['#' . str_replace('::', '-', $key) . '-id#'] = '';
+      }
       foreach ($this->getCmd('info') as $cmd) {
         $replace['#' . str_replace('::', '-', $cmd->getLogicalId()) . '-valueDate#'] = '';
         $replace['#' . str_replace('::', '-', $cmd->getLogicalId()) . '-collectDate#'] = '';

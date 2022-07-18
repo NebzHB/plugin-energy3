@@ -88,7 +88,7 @@ function initGraph(){
     if(energy3data.cmd['gaz::consumption::instant']){
       graphOption.el = 'div_energy3GraphGas';
       graphOption.cmd_id = energy3data.cmd['gaz::consumption::instant'].id;
-      graphOption.option = {displayAlert:false,graphColor:'#910000',name : 'Consommation',graphType : 'column'}
+      graphOption.option = {displayAlert:false,graphColor:'#910000',name : 'Consommation',graphType : 'line'}
       jeedom.history.drawChart(JSON.parse(JSON.stringify(graphOption)));
     }else{
       $('#div_energy3GraphGas').parent().remove();
@@ -97,7 +97,7 @@ function initGraph(){
     if(energy3data.cmd['water::consumption::instant']){
       graphOption.el = 'div_energy3GraphWater';
       graphOption.cmd_id = energy3data.cmd['water::consumption::instant'].id;
-      graphOption.option = {displayAlert:false,graphColor:'#2f7ed8',name : 'Consommation',graphType : 'column'}
+      graphOption.option = {displayAlert:false,graphColor:'#2f7ed8',name : 'Consommation',graphType : 'line'}
       jeedom.history.drawChart(JSON.parse(JSON.stringify(graphOption)));
     }else{
       $('#div_energy3GraphWater').parent().remove();

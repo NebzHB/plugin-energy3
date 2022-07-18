@@ -101,7 +101,7 @@
         "subtype": "numeric",
         "isVisible": 1,
         "isHistorized": 1,
-        "unite" : "L"
+        "unite" : "m3"
     },
     "water::consumption::instant" : {
         "name": "Eau consommation instantané",
@@ -117,7 +117,7 @@
         "subtype": "numeric",
         "isVisible": 1,
         "isHistorized": 1,
-        "unite" : "L"
+        "unite" : "m3"
     },
     "refresh" : {
         "name": "Rafraichir",

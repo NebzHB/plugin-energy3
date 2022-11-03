@@ -88,6 +88,7 @@ function initGraph(){
     if(energy3data.cmd['gaz::consumption::instant']){
       graphOption.el = 'div_energy3GraphGas';
       graphOption.cmd_id = energy3data.cmd['gaz::consumption::instant'].id;
+      graphOption.pointWidth = 10;
       graphOption.option = {displayAlert:false,graphColor:'#910000',name : 'Consommation',graphType : 'column'}
       jeedom.history.drawChart(JSON.parse(JSON.stringify(graphOption)));
     }else{
@@ -97,6 +98,7 @@ function initGraph(){
     if(energy3data.cmd['water::consumption::instant']){
       graphOption.el = 'div_energy3GraphWater';
       graphOption.cmd_id = energy3data.cmd['water::consumption::instant'].id;
+      graphOption.pointWidth = 10;
       graphOption.option = {displayAlert:false,graphColor:'#2f7ed8',name : 'Consommation',graphType : 'column'}
       jeedom.history.drawChart(JSON.parse(JSON.stringify(graphOption)));
     }else{
@@ -128,7 +130,7 @@ function initGraph(){
     
     graphOption.el = 'div_energy3GraphConsumptionProduction';
     graphOption.cmd_id = energy3data.cmd['elec::consumption'].id;
-    graphOption.option = {displayAlert:false,graphColor:'#b56926',name : 'Consommation',graphType : 'column',graphStack: true,invertData : true,}
+    graphOption.option = {displayAlert:false,graphColor:'#b56926',name : 'Consommation',graphType : 'column',graphStack: true,invertData : true}
     var options = JSON.parse(JSON.stringify(graphOption));
     options.success = function(){
       graphOption.el = 'div_energy3GraphConsumptionProduction';

@@ -219,6 +219,7 @@ class energy3 extends eqLogic {
     if ($this->getConfiguration('solar::forecast::lon') == '') {
       $this->setConfiguration('solar::forecast::lon', config::byKey('info::longitude'));
     }
+    $this->setConfiguration('panelLink', 'panel');
   }
 
   public function postSave() {

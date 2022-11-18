@@ -6,6 +6,9 @@
         <span class="cmd refresh pull-right cursor" data-cmd_id="#refresh_id#">
             <i class="fas fa-sync"></i>
         </span>
+        <span class="panelLink pull-right cursor">
+          <a href="#panelLink#"><i class="fas fa-external-link-alt"></i></a>
+        </span>
         <span class="reportModeVisible">#name_display# <span class="object_name">#object_name#</span></span>
         <a href="#eqLink#" class="reportModeHidden">#name_display# <span class="object_name">#object_name#</span></a>
       </center>
@@ -240,6 +243,10 @@ jeedom.cmd.update['#water-consumption-instant-id#']({display_value: '#water-cons
 jeedom.cmd.update['#elec-autoconsumption-id#']({display_value: '#elec-autoconsumption-state#', valueDate: '#elec-autoconsumption-valueDate#', collectDate: '#elec-autoconsumption-collectDate#',unit:'#elec-autoconsumption-unite#'})
 jeedom.cmd.update['#elec-selfsufficiency-id#']({display_value: '#elec-selfsufficiency-state#', valueDate: '#elec-selfsufficiency-valueDate#', collectDate: '#elec-selfsufficiency-collectDate#',unit:'#elec-selfsufficiency-unite#'})
 
+    
+if ('#panelLink#' == '') {
+	$('.eqLogic[data-eqLogic_uid=#uid#] .panelLink').remove()
+}    
 if ('#refresh_id#' != '') {
     $('.eqLogic[data-eqLogic_uid=#uid#] .refresh').on('click', function () {
         jeedom.cmd.execute({id: '#refresh_id#'})

@@ -2,8 +2,12 @@
     <span class="cmd refresh pull-right cursor" data-cmd_id="#refresh_id#">
         <i class="fas fa-sync"></i>
       </span>
+      
       <center>
         <span class="widget-name">
+          <span class="panelLink pull-left cursor">
+            <a class="link" href="#panelLink#"><i class="fas fa-external-link-alt"></i></a>
+          </span>
           <span class="warning" title="#alert_name#">
             <i class='#alert_icon#'></i>
           </span>
@@ -240,6 +244,15 @@ jeedom.cmd.update['#water-consumption-instant-id#']({display_value: '#water-cons
 jeedom.cmd.update['#elec-autoconsumption-id#']({display_value: '#elec-autoconsumption-state#', valueDate: '#elec-autoconsumption-valueDate#', collectDate: '#elec-autoconsumption-collectDate#',unit:'#elec-autoconsumption-unite#'})
 jeedom.cmd.update['#elec-selfsufficiency-id#']({display_value: '#elec-selfsufficiency-state#', valueDate: '#elec-selfsufficiency-valueDate#', collectDate: '#elec-selfsufficiency-collectDate#',unit:'#elec-selfsufficiency-unite#'})
 
+if ('#panelLink#' == '') {
+	$('.eqLogic[data-eqLogic_uid=#uid#] .panelLink').remove()
+}else{
+  let href = $('.eqLogic[data-eqLogic_uid=#uid#] .panelLink a').attr('href');
+  $('.eqLogic[data-eqLogic_uid=#uid#] .panelLink a').attr('data-page',getUrlVars('p',href));
+  $('.eqLogic[data-eqLogic_uid=#uid#] .panelLink a').attr('data-plugin',getUrlVars('m',href));
+  $('.eqLogic[data-eqLogic_uid=#uid#] .panelLink a').attr('data-title','panel');
+  $('.eqLogic[data-eqLogic_uid=#uid#] .panelLink a').attr('href',null)
+}
 if ('#refresh_id#' != '') {
     $('.eqLogic[data-eqLogic_uid=#uid#] .refresh').on('click', function () {
         jeedom.cmd.execute({id: '#refresh_id#'})

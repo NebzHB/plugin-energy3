@@ -31,7 +31,7 @@ function initEnergy3Panel(_eqLogic_id) {
           li += '<li></span><a href="#" class="link" data-page="panel" data-plugin="Energy3" data-title="'  + eqLogics[i].name + '" data-option="' + eqLogics[i].id + '">' + eqLogics[i].name + '</a></li>';
         }
         li += '</ul>';
-        panel(li);
+        jeedomUtils.loadPanel(li);
       }
     });
   
@@ -42,7 +42,7 @@ function initEnergy3Panel(_eqLogic_id) {
   
   
 function displayEnergy3(_eqLogic_id,_period) {
-  setBackgroundImage('plugins/energy3/core/img/panel.jpg');
+  jeedomUtils.setBackgroundImage('plugins/energy3/core/img/panel.jpg');
   $.showLoading();
   $.ajax({
     type: 'POST',

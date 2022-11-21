@@ -14,13 +14,10 @@
 * along with Jeedom. If not, see <http://www.gnu.org/licenses/>.
 */
 
-positionEqLogic();
+jeedomUtils.positionEqLogic();
 
 $('.div_eqLogicEnergy3').each(function(){
-  var container = $(this).packery({
-    itemSelector: ".eqLogic-widget",
-    gutter : 0,
-  });
+  var container = $(this).packery({isLayoutInstant: true});
 });
 $('.div_eqLogicEnergy3 .eqLogic-widget').trigger('resize');
 

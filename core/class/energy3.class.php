@@ -313,7 +313,7 @@ class energy3 extends eqLogic {
     $return['html'] .= '</center>';
     if ($_version == 'dashboard') {
       $return['html'] .= '<div class="row">';
-      $return['html'] .= '<div class="col-lg-5 col-sm-6 col-xs-6">';
+      $return['html'] .= '<div class="col-lg-3 col-sm-4 col-xs-6">';
       $return['html'] .= '<legend>Etat</legend>';
       $return['html'] .= '<div class="div_eqLogicEnergy3">';
     } else {
@@ -358,12 +358,12 @@ class energy3 extends eqLogic {
       $return['html'] .= '</div>';
       $return['html'] .= '</div>';
       if ($_period == 'D' || $_period == 'D-1') {
-        $return['html'] .= '<div class="col-lg-7 col-sm-6 col-xs-6">';
+        $return['html'] .= '<div class="col-lg-9 col-sm-8 col-xs-6">';
         $return['html'] .= '<legend>Prévision</legend>';
         $return['html'] .= '<div class="chartContainer" id="div_energy3GraphForecast" style="height:300px;"></div>';
         $return['html'] .= '</div>';
       } else {
-        $return['html'] .= '<div class="col-lg-7 col-sm-6 col-xs-6">';
+        $return['html'] .= '<div class="col-lg-9 col-sm-8 col-xs-6">';
         $return['html'] .= '<legend>Performance production électrique</legend>';
         $return['html'] .= '<div class="chartContainer" id="div_energy3GraphElecAuto" style="height:300px;"></div>';
         $return['html'] .= '</div>';

@@ -88,6 +88,10 @@ function initGraph(){
       graphOption.pointWidth = 1;
       graphOption.option = {displayAlert:false,graphColor:'#910000',name : 'Consommation',graphType : 'column'}
       jeedom.history.drawChart(JSON.parse(JSON.stringify(graphOption)));
+
+      graphOption.cmd_id = energy3data.cmd['temperature::ext'].id;
+      graphOption.option = {displayAlert:false,graphColor:'#558B2F',name : 'Température Ext',graphType : 'line',graphScale:1}
+      jeedom.history.drawChart(JSON.parse(JSON.stringify(graphOption)));
     }else{
       $('#div_energy3GraphGas').parent().remove();
     }
@@ -149,6 +153,10 @@ function initGraph(){
       graphOption.el = 'div_energy3GraphGas';
       graphOption.cmd_id = energy3data.cmd['gaz::consumption'].id;
       graphOption.option = {displayAlert:false,graphColor:'#910000',name : 'Consommation',graphType : 'column',groupingType : 'high::day'}
+      jeedom.history.drawChart(JSON.parse(JSON.stringify(graphOption)));
+
+      graphOption.cmd_id = energy3data.cmd['temperature::ext'].id;
+      graphOption.option = {displayAlert:false,graphColor:'#558B2F',name : 'Température Ext',graphType : 'line', groupingType : 'average::day',graphScale:1}
       jeedom.history.drawChart(JSON.parse(JSON.stringify(graphOption)));
     }else{
       $('#div_energy3GraphWater').parent().remove();

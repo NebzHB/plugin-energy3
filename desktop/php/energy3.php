@@ -287,6 +287,18 @@ $eqLogics = eqLogic::byType($plugin->getId());
 									<input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="solar::forecast::power">
 								</div>
 							</div>
+							<legend><i class="fas fa-info"></i> {{Divers}}</legend>
+							<div class="form-group">
+								<label class="col-sm-4 control-label">{{Température extérieure}}</label>
+								<div class="col-sm-6">
+									<div class="input-group">
+										<input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="temperature::ext">
+										<span class="input-group-btn">
+											<a class="btn btn-default listCmdInfo roundedRight"><i class="fas fa-list-alt"></i></a>
+										</span>
+									</div>
+								</div>
+							</div>
 						</div>
 					</fieldset>
 				</form>

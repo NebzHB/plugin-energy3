@@ -301,6 +301,8 @@ class energy3 extends eqLogic {
       $return['data']['cmd'][$cmd->getLogicalId()] = array('id' => $cmd->getId());
     }
 
+    $return['data']['cmd']['temperature::ext'] = array('id' => str_replace('#', '', $this->getConfiguration('temperature::ext')));
+
     config::save('savePeriod', $_period, 'energy3');
     $return['html'] = '<center>';
     foreach (self::$_period as $key => $value) {

@@ -131,20 +131,20 @@ function initGraph(){
     
     graphOption.el = 'div_energy3GraphConsumptionProduction';
     graphOption.cmd_id = energy3data.cmd['elec::consumption'].id;
-    graphOption.option = {displayAlert:false,graphColor:'#b56926',name : 'Consommation',graphType : 'column',graphStack: true,invertData : true,groupingType : 'none'}
+    graphOption.option = {displayAlert:false,graphColor:'#b56926',name : 'Consommation',graphType : 'column',graphStack: true,invertData : true,groupingType : 'high::day'}
     var options = JSON.parse(JSON.stringify(graphOption));
     options.success = function(){
       graphOption.el = 'div_energy3GraphConsumptionProduction';
       graphOption.cmd_id = energy3data.cmd['elec::production'].id;
-      graphOption.option = {displayAlert:false,graphColor:'#7ea823',name : 'Production',graphType : 'column',graphStack: true,groupingType : 'none'}
+      graphOption.option = {displayAlert:false,graphColor:'#7ea823',name : 'Production',graphType : 'column',graphStack: true,groupingType : 'high::day'}
       jeedom.history.drawChart(JSON.parse(JSON.stringify(graphOption)));
 
       graphOption.cmd_id = energy3data.cmd['elec::import'].id;
-      graphOption.option = {displayAlert:false,graphColor:'#283747',name : 'Import',graphType : 'column',graphStack: true,groupingType : 'none'}
+      graphOption.option = {displayAlert:false,graphColor:'#283747',name : 'Import',graphType : 'column',graphStack: true,groupingType : 'high::day'}
       jeedom.history.drawChart(JSON.parse(JSON.stringify(graphOption)));
 
       graphOption.cmd_id = energy3data.cmd['elec::export'].id;
-      graphOption.option = {displayAlert:false,graphColor:'#616A6B',name : 'Export',graphType : 'column',graphStack: true,invertData : true,groupingType : 'none'}
+      graphOption.option = {displayAlert:false,graphColor:'#616A6B',name : 'Export',graphType : 'column',graphStack: true,invertData : true,groupingType : 'high::day'}
       jeedom.history.drawChart(JSON.parse(JSON.stringify(graphOption)));
     }
     jeedom.history.drawChart(options);

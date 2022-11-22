@@ -106,7 +106,7 @@ function initGraph(){
     graphOption.pointWidth = 10;
     graphOption.el = 'div_energy3GraphForecast';
     graphOption.cmd_id = energy3data.cmd['solar::forecast::now::power'].id;
-    graphOption.option = {displayAlert:false,graphColor:'#FFFFFF',name : 'Prévision',graphType : 'line',groupingType : 'avg::hour'}
+    graphOption.option = {displayAlert:false,graphColor:'#FBC02D',name : 'Prévision',graphType : 'line',groupingType : 'avg::hour',allowFuture:1}
 
     var options = JSON.parse(JSON.stringify(graphOption));
     options.success = function(){

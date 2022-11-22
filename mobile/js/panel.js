@@ -42,7 +42,7 @@ function initEnergy3Panel(_eqLogic_id) {
   
   
 function displayEnergy3(_eqLogic_id,_period) {
-  jeedomUtils.setBackgroundImage('plugins/energy3/core/img/panel.jpg');
+  //jeedomUtils.setBackgroundImage('plugins/energy3/core/img/panel.jpg');
   $.showLoading();
   $.ajax({
     type: 'POST',
@@ -140,7 +140,7 @@ function initGraph(){
     graphOption.pointWidth = 5;
     graphOption.el = 'div_energy3GraphForecast';
     graphOption.cmd_id = energy3data.cmd['solar::forecast::now::power'].id;
-    graphOption.option = {displayAlert:false,graphColor:'#FFFFFF',name : 'Prévision',graphType : 'line',groupingType : 'avg::hour'}
+    graphOption.option = {displayAlert:false,graphColor:'#FBC02D',name : 'Prévision',graphType : 'line',groupingType : 'avg::hour',allowFuture : 1}
 
     var options = JSON.parse(JSON.stringify(graphOption));
     options.success = function(){

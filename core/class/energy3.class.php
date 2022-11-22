@@ -327,7 +327,7 @@ class energy3 extends eqLogic {
       $return['html'] .= '<legend>Etat</legend>';
       $return['html'] .= '<div class="div_eqLogicEnergy3">';
     } else {
-      $return['html'] .= '<legend style="color:rgb(90,90,90) !important">Etat</legend>';
+      $return['html'] .= '<legend>Etat</legend>';
       $return['html'] .= '<div class="objectHtml">';
     }
     if ($_period == 'D') {
@@ -394,17 +394,17 @@ class energy3 extends eqLogic {
     } else {
       $return['html'] .= '</div>';
       if ($_period == 'D') {
-        $return['html'] .= '<legend style="color:rgb(90,90,90) !important">Prévision</legend>';
+        $return['html'] .= '<legend>Prévision</legend>';
         $return['html'] .= '<div class="chartContainer" id="div_energy3GraphForecast"></div>';
       } else {
-        $return['html'] .= '<legend style="color:rgb(90,90,90) !important">Performance production électrique</legend>';
+        $return['html'] .= '<legend>Performance production électrique</legend>';
         $return['html'] .= '<div class="chartContainer" id="div_energy3GraphElecAuto"></div>';
       }
-      $return['html'] .= '<legend style="color:rgb(90,90,90) !important">Consommation/Production</legend>';
+      $return['html'] .= '<legend>Consommation/Production</legend>';
       $return['html'] .= '<div class="chartContainer" id="div_energy3GraphConsumptionProduction"></div>';
-      $return['html'] .= '<legend style="color:rgb(90,90,90) !important">Gaz</legend>';
+      $return['html'] .= '<legend>Gaz</legend>';
       $return['html'] .= '<div class="chartContainer" id="div_energy3GraphGas"></div>';
-      $return['html'] .= '<legend style="color:rgb(90,90,90) !important">Eau</legend>';
+      $return['html'] .= '<legend>Eau</legend>';
       $return['html'] .= '<div class="chartContainer" id="div_energy3GraphWater"></div>';
     }
     return $return;

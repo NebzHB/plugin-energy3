@@ -42,7 +42,7 @@ function initEnergy3Panel(_eqLogic_id) {
   
   
 function displayEnergy3(_eqLogic_id,_period) {
-  //jeedomUtils.setBackgroundImage('plugins/energy3/core/img/panel.jpg');
+  jeedomUtils.setBackgroundImage('plugins/energy3/core/img/panel.jpg');
   $.showLoading();
   $.ajax({
     type: 'POST',

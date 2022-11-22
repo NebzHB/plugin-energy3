@@ -97,21 +97,21 @@ function initGraph(){
   if(energy3data.datetime.period == 'D' || energy3data.datetime.period == 'D-1' ){
     graphOption.el = 'div_energy3GraphConsumptionProduction';
     graphOption.cmd_id = energy3data.cmd['elec::consumption::instant'].id;
-    graphOption.option = {displayAlert:false,graphColor:'#b56926',name : 'Consommation',graphType : 'column',groupingType : 'avg::hour',graphStack : true,invertData : true}
+    graphOption.option = {displayAlert:false,graphColor:'#b56926',name : 'Consommation',graphType : 'column',groupingType : 'average::hour',graphStack : true,invertData : true}
 
     var options = JSON.parse(JSON.stringify(graphOption));
     options.success = function(){
       graphOption.el = 'div_energy3GraphConsumptionProduction';
       graphOption.cmd_id = energy3data.cmd['elec::production::instant'].id;
-      graphOption.option = {displayAlert:false,graphColor:'#7ea823',name : 'Production',graphType : 'column',groupingType : 'avg::hour',graphStack: true}
+      graphOption.option = {displayAlert:false,graphColor:'#7ea823',name : 'Production',graphType : 'column',groupingType : 'average::hour',graphStack: true}
       jeedom.history.drawChart(JSON.parse(JSON.stringify(graphOption)));
   
       graphOption.cmd_id = energy3data.cmd['elec::import::instant'].id;
-      graphOption.option = {displayAlert:false,graphColor:'#283747',name : 'Import',graphType : 'column',groupingType : 'avg::hour',graphStack: true}
+      graphOption.option = {displayAlert:false,graphColor:'#283747',name : 'Import',graphType : 'column',groupingType : 'average::hour',graphStack: true}
       jeedom.history.drawChart(JSON.parse(JSON.stringify(graphOption)));
   
       graphOption.cmd_id = energy3data.cmd['elec::export::instant'].id;
-      graphOption.option = {displayAlert:false,graphColor:'#616A6B',name : 'Export',graphType : 'column',groupingType : 'avg::hour',graphStack: true,invertData : true}
+      graphOption.option = {displayAlert:false,graphColor:'#616A6B',name : 'Export',graphType : 'column',groupingType : 'average::hour',graphStack: true,invertData : true}
       jeedom.history.drawChart(JSON.parse(JSON.stringify(graphOption)));
     }
     jeedom.history.drawChart(options);
@@ -140,23 +140,23 @@ function initGraph(){
     graphOption.pointWidth = 5;
     graphOption.el = 'div_energy3GraphForecast';
     graphOption.cmd_id = energy3data.cmd['solar::forecast::now::power'].id;
-    graphOption.option = {displayAlert:false,graphColor:'#FBC02D',name : 'Prévision',graphType : 'line',groupingType : 'avg::hour',allowFuture : 1}
+    graphOption.option = {displayAlert:false,graphColor:'#FBC02D',name : 'Prévision',graphType : 'line',groupingType : 'average::hour',allowFuture : 1}
 
     var options = JSON.parse(JSON.stringify(graphOption));
     options.success = function(){
       graphOption.el = 'div_energy3GraphForecast';
       graphOption.cmd_id = energy3data.cmd['elec::production::instant'].id;
-      graphOption.option = {displayAlert:false,graphColor:'#7ea823',name : 'Production',graphType : 'column',groupingType : 'avg::hour',graphStack: true}
+      graphOption.option = {displayAlert:false,graphColor:'#7ea823',name : 'Production',graphType : 'column',groupingType : 'average::hour',graphStack: true}
       jeedom.history.drawChart(JSON.parse(JSON.stringify(graphOption)));
     };
     jeedom.history.drawChart(options);
   }else{
     graphOption.el = 'div_energy3GraphElecAuto';
     graphOption.cmd_id = energy3data.cmd['elec::selfsufficiency'].id;
-    graphOption.option = {displayAlert:false,name : 'Auto-suffisance',graphType : 'column',groupingType : 'avg::day'}
+    graphOption.option = {displayAlert:false,name : 'Auto-suffisance',graphType : 'column',groupingType : 'average::day'}
     jeedom.history.drawChart(JSON.parse(JSON.stringify(graphOption)));
     graphOption.cmd_id = energy3data.cmd['elec::autoconsumption'].id;
-    graphOption.option = {displayAlert:false,name : 'Auto-consommation',graphType : 'column',groupingType : 'avg::day'}
+    graphOption.option = {displayAlert:false,name : 'Auto-consommation',graphType : 'column',groupingType : 'average::day'}
     jeedom.history.drawChart(JSON.parse(JSON.stringify(graphOption)));
     
     graphOption.el = 'div_energy3GraphConsumptionProduction';
@@ -182,7 +182,7 @@ function initGraph(){
     if(energy3data.cmd['gaz::consumption']){
       graphOption.el = 'div_energy3GraphGas';
       graphOption.cmd_id = energy3data.cmd['gaz::consumption'].id;
-      graphOption.option = {displayAlert:false,graphColor:'#910000',name : 'Consommation',graphType : 'column',groupingType : 'max::day'}
+      graphOption.option = {displayAlert:false,graphColor:'#910000',name : 'Consommation',graphType : 'column',groupingType : 'high::day'}
       jeedom.history.drawChart(JSON.parse(JSON.stringify(graphOption)));
     }else{
       $('#div_energy3GraphWater').parent().remove();
@@ -191,7 +191,7 @@ function initGraph(){
     if(energy3data.cmd['water::consumption']){
       graphOption.el = 'div_energy3GraphWater';
       graphOption.cmd_id = energy3data.cmd['water::consumption'].id;
-      graphOption.option = {displayAlert:false,graphColor:'#2f7ed8',name : 'Consommation',graphType : 'column',groupingType : 'max::day'}
+      graphOption.option = {displayAlert:false,graphColor:'#2f7ed8',name : 'Consommation',graphType : 'column',groupingType : 'high::day'}
       jeedom.history.drawChart(JSON.parse(JSON.stringify(graphOption)));
     }else{
       $('#div_energy3GraphWater').parent().remove();

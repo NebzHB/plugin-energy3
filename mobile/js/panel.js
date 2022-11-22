@@ -124,7 +124,7 @@ function initGraph(){
       jeedom.history.drawChart(JSON.parse(JSON.stringify(graphOption)));
 
       graphOption.cmd_id = energy3data.cmd['temperature::ext'].id;
-      graphOption.option = {displayAlert:false,graphColor:'#558B2F',name : 'Température Ext',graphType : 'line',graphScale:1groupingType : 'none'}
+      graphOption.option = {displayAlert:false,graphColor:'#558B2F',name : 'Température Ext',graphType : 'line',graphScale:1,groupingType : 'none'}
       jeedom.history.drawChart(JSON.parse(JSON.stringify(graphOption)));
     }else{
       $('#div_energy3GraphGas').parent().remove();

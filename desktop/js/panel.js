@@ -40,7 +40,7 @@ $('.bt_changePeriod').on('click',function(){
     }
     jeedom.history.chart = [];
     var url = baseURL+'?'+newAdditionalURL+temp+'period='+$(this).attr('data-period')
-    loadPage(url.replace('#', ''));
+    jeedomUtils.loadPage(url.replace('#', ''));
 });
 
 var graphOption = {

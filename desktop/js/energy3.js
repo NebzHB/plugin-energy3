@@ -15,7 +15,10 @@
 */
 
 $(".eqLogic").off('click','.listCmdInfo').on('click','.listCmdInfo', function () {
-  var el = $(this).closest('.form-group').find('.eqLogicAttr');
+  let el = $(this).closest('.form-group').find('.eqLogicAttr');
+  if(el.length == 0){
+    el = $(this).closest('.consumer').find('.consumerAttr[data-l1key=cmd]');
+  }
   jeedom.cmd.getSelectModal({cmd: {type: 'info'}}, function (result) {
     if (el.attr('data-concat') == 1) {
       el.atCaret('insert', result.human);
@@ -26,7 +29,7 @@ $(".eqLogic").off('click','.listCmdInfo').on('click','.listCmdInfo', function ()
 });
 
 $(".eqLogic").off('click','.listCmdAction').on('click','.listCmdAction', function () {
-  var el = $(this).closest('.form-group').find('.eqLogicAttr');
+  let el = $(this).closest('.form-group').find('.eqLogicAttr');
   jeedom.cmd.getSelectModal({cmd: {type: 'action',subType : 'other'}}, function (result) {
     if (el.attr('data-concat') == 1) {
       el.atCaret('insert', result.human);
@@ -100,4 +103,57 @@ function addCmdToTable(_cmd) {
       jeedom.cmd.changeType(tr, init(_cmd.subType))
     }
   })
+}
+
+$("#div_elecConsumers").off('click','.bt_removeConsumer').on('click','.bt_removeConsumer',  function () {
+  $(this).closest('.consumer').remove();
+});
+
+function printEqLogic(_eqLogic) {
+  actionOptions = []
+  $('#div_elecConsumers').empty();
+  if (isset(_eqLogic.configuration)) {
+    if (isset(_eqLogic.configuration.elecConsumers)) {
+      for (var i in _eqLogic.configuration.elecConsumers) {
+        addElecConsumer(_eqLogic.configuration.elecConsumers[i]);
+      }
+    }
+  }
+}
+
+function saveEqLogic(_eqLogic) {
+  if (!isset(_eqLogic.configuration)) {
+    _eqLogic.configuration = {};
+  }
+  _eqLogic.configuration.elecConsumers = $('#div_elecConsumers .consumer').getValues('.consumerAttr');
+  return _eqLogic;
+}
+
+
+$('#bt_addElecConsumer').off('click').on('click', function () {
+  addElecConsumer({});
+});
+
+function addElecConsumer(_consumer) {
+  if (!isset(_consumer)) {
+    _consumer = {};
+  }
+  let div = '<div class="consumer">';
+  div += '<div class="form-group">';
+  div += '<label class="col-sm-1 control-label">{{Commande}}</label>';
+  div += '<div class="col-sm-3">';
+  div += '<div class="input-group">';
+  div += '<span class="input-group-btn">';
+  div += '<a class="btn btn-default bt_removeConsumer btn-sm roundedLeft"><i class="fa fa-minus-circle"></i></a>';
+  div += '</span>';
+  div += '<input class="consumerAttr form-control input-sm" data-l1key="cmd" />';
+  div += '<span class="input-group-btn">';
+  div += '<a class="btn btn-sm listCmdInfo btn-success roundedRight"><i class="fa fa-list-alt"></i></a>';
+  div += '</span>';
+  div += '</div>';
+  div += '</div>';
+  div += '</div>';
+  div += '</div>';
+  $('#div_elecConsumers').append(div);
+  $('#div_elecConsumers').find('.consumer').last().setValues(_consumer, '.consumerAttr');
 }

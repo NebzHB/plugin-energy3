@@ -277,6 +277,14 @@ class energy3 extends eqLogic {
     $this->calculImportExport();
     $this->calculPerformance();
     $this->calculSolarPrevision();
+
+    foreach ($this->getConfiguration('elecConsumers') as $elecConsumer) {
+      $consumer = cmd::byId(str_replace('#', '', $elecConsumer['cmd']));
+      if (is_object($consumer)) {
+        $consumer->setIsHistorized(1);
+        $consumer->save();
+      }
+    }
   }
 
   public function generatePanel($_version = 'dashboard', $_period = 'D') {
@@ -302,6 +310,17 @@ class energy3 extends eqLogic {
     }
 
     $return['data']['cmd']['temperature::ext'] = array('id' => str_replace('#', '', $this->getConfiguration('temperature::ext')));
+    foreach ($this->getConfiguration('elecConsumers') as $elecConsumer) {
+      $consumer = cmd::byId(str_replace('#', '', $elecConsumer['cmd']));
+      if (is_object($consumer)) {
+        $stats = $consumer->getStatistique($starttime, $endtime);
+        $return['data']['cmd']['consumer::elec'][] = array(
+          'id' => $consumer->getId(),
+          'name' => $consumer->getEqLogic()->getName(),
+          'value' => $stats['max'] - $stats['min']
+        );
+      }
+    }
 
     config::save('savePeriod', $_period, 'energy3');
     $return['html'] = '<center>';

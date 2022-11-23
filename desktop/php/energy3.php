@@ -73,6 +73,7 @@ $eqLogics = eqLogic::byType($plugin->getId());
 		<ul class="nav nav-tabs" role="tablist">
 			<li role="presentation"><a href="#" class="eqLogicAction" aria-controls="home" role="tab" data-toggle="tab" data-action="returnToThumbnailDisplay"><i class="fas fa-arrow-circle-left"></i></a></li>
 			<li role="presentation" class="active"><a href="#eqlogictab" aria-controls="home" role="tab" data-toggle="tab"><i class="fas fa-tachometer-alt"></i> {{Equipement}}</a></li>
+			<li role="presentation"><a href="#detailstab" aria-controls="home" role="tab" data-toggle="tab"><i class="fas fa-info-circle"></i> {{Détails}}</a></li>
 			<li role="presentation"><a href="#commandtab" aria-controls="home" role="tab" data-toggle="tab"><i class="fas fa-list"></i> {{Commandes}}</a></li>
 		</ul>
 		<div class="tab-content">
@@ -303,6 +304,15 @@ $eqLogics = eqLogic::byType($plugin->getId());
 					</fieldset>
 				</form>
 			</div><!-- /.tabpanel #eqlogictab-->
+
+			<div role="tabpanel" class="tab-pane" id="detailstab">
+				<legend>{{Consommateur électricité}} <a class="btn btn-success btn-sm pull-right" id="bt_addElecConsumer">{{Ajouter}}</a></legend>
+				<form class="form-horizontal">
+					<fieldset>
+						<div id="div_elecConsumers"></div>
+					</fieldset>
+				</form>
+			</div>
 
 			<!-- Onglet des commandes de l'équipement -->
 			<div role="tabpanel" class="tab-pane" id="commandtab">

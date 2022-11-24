@@ -341,6 +341,7 @@ class energy3 extends eqLogic {
     }
     if ($_period == 'D') {
       $return['html'] .= $this->toHtml($_version);
+      $elec_consumption = $this->getCmd('info', 'elec::consumption')->execCmd() / 1000;
     } else {
       $replace = $this->preToHtml($_version);
       $version = jeedom::versionAlias($_version);
@@ -372,6 +373,7 @@ class energy3 extends eqLogic {
       }
       $replace['#refresh_id#'] = '';
       $return['html'] .= $this->postToHtml($_version, template_replace($replace, getTemplate('core', $version, 'eqLogic', __CLASS__)));
+      $elec_consumption = $replace['#elec-consumption-state#'];
     }
     if ($_version == 'dashboard') {
       $return['html'] .= '</div>';
@@ -422,29 +424,39 @@ class energy3 extends eqLogic {
       $return['html'] .= '<div id="div_energy3ElecConsumers"></div>';
     }
 
-    $elec_consumption = $this->getCmd('info', 'elec::consumption')->execCmd();
-
     $array_elec_consumers = array();
     foreach ($this->getConfiguration('elecConsumers') as $elecConsumer) {
       $consumer = cmd::byId(str_replace('#', '', $elecConsumer['cmd']));
       if (is_object($consumer)) {
-        $stats = $consumer->getStatistique($starttime, $endtime);
+        if ($consumer->getUnite() == 'W' || $consumer->getUnite() == 'kW') {
+          $consumption = ($consumer->getTemporalAvg($starttime, $endtime)) * ((strtotime($endtime) - strtotime($starttime)) / (60 * 60));
+          if ($consumer->getUnite() == 'W') {
+            $consumption = $consumption / 1000;
+          }
+        } else {
+          $stats = $consumer->getStatistique($starttime, $endtime);
+          $consumption = $stats['max'] - $stats['min'];
+          if ($consumer->getUnite() == 'Wh') {
+            $consumption = $consumption / 1000;
+          }
+        }
+        $consumption = round($consumption, 2);
         $info = array(
           'id' => $consumer->getId(),
-          'name' => $consumer->getEqLogic()->getName(),
-          'value' => $stats['max'] - $stats['min'],
-          'unit' => $consumer->getUnite()
+          'value' => $consumption,
+          'unit' => 'kWh'
         );
-        if ($info['value'] == 0) {
+        $info['name'] = (!isset($elecConsumer['name']) || $elecConsumer['name'] == '') ? $consumer->getEqLogic()->getName() : $elecConsumer['name'];
+        if ($consumption == 0) {
           $info['pourcent'] = 0;
         } else {
-          $info['pourcent'] = round(($elec_consumption / $info['value']) * 100);
-        }
-        if ($info['pourcent'] > 100) {
-          $info['pourcent'] = 100;
-        }
-        if ($info['pourcent'] < 0) {
-          $info['pourcent'] = 0;
+          $info['pourcent'] = round(($consumption / $elec_consumption) * 100);
+          if ($info['pourcent'] > 100) {
+            $info['pourcent'] = 100;
+          }
+          if ($info['pourcent'] < 0) {
+            $info['pourcent'] = 0;
+          }
         }
         $array_elec_consumers[] = $info;
       }

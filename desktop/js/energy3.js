@@ -152,6 +152,10 @@ function addElecConsumer(_consumer) {
   div += '</span>';
   div += '</div>';
   div += '</div>';
+  div += '<label class="col-sm-1 control-label">{{Nom}}</label>';
+  div += '<div class="col-sm-3">';
+  div += '<input class="consumerAttr form-control input-sm" data-l1key="name" />';
+  div += '</div>';
   div += '</div>';
   div += '</div>';
   $('#div_elecConsumers').append(div);

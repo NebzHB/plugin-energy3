@@ -435,7 +435,17 @@ class energy3 extends eqLogic {
           'value' => $stats['max'] - $stats['min'],
           'unit' => $consumer->getUnite()
         );
-        $info['pourcent'] = round(($info['value'] / $elec_consumption) * 100);
+        if ($info['value'] == 0) {
+          $info['pourcent'] = 0;
+        } else {
+          $info['pourcent'] = round(($elec_consumption / $info['value']) * 100);
+        }
+        if ($info['pourcent'] > 100) {
+          $info['pourcent'] = 100;
+        }
+        if ($info['pourcent'] < 0) {
+          $info['pourcent'] = 0;
+        }
         $array_elec_consumers[] = $info;
       }
     }

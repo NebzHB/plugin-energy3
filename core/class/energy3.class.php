@@ -310,17 +310,7 @@ class energy3 extends eqLogic {
     }
 
     $return['data']['cmd']['temperature::ext'] = array('id' => str_replace('#', '', $this->getConfiguration('temperature::ext')));
-    foreach ($this->getConfiguration('elecConsumers') as $elecConsumer) {
-      $consumer = cmd::byId(str_replace('#', '', $elecConsumer['cmd']));
-      if (is_object($consumer)) {
-        $stats = $consumer->getStatistique($starttime, $endtime);
-        $return['data']['cmd']['consumer::elec'][] = array(
-          'id' => $consumer->getId(),
-          'name' => $consumer->getEqLogic()->getName(),
-          'value' => $stats['max'] - $stats['min']
-        );
-      }
-    }
+
 
     config::save('savePeriod', $_period, 'energy3');
     $return['html'] = '<center>';
@@ -410,6 +400,9 @@ class energy3 extends eqLogic {
       $return['html'] .= '<div class="chartContainer" id="div_energy3GraphWater"></div>';
       $return['html'] .= '</div>';
       $return['html'] .= '</div>';
+      $return['html'] .= '<legend>Détails Electricité</legend>';
+      $return['html'] .= '<div id="div_energy3ElecConsumers"></div>';
+      $return['html'] .= '</div>';
     } else {
       $return['html'] .= '</div>';
       if ($_period == 'D') {
@@ -425,7 +418,35 @@ class energy3 extends eqLogic {
       $return['html'] .= '<div class="chartContainer" id="div_energy3GraphGas"></div>';
       $return['html'] .= '<legend>Eau</legend>';
       $return['html'] .= '<div class="chartContainer" id="div_energy3GraphWater"></div>';
+      $return['html'] .= '<legend>Détails Electricité</legend>';
+      $return['html'] .= '<div id="div_energy3ElecConsumers"></div>';
     }
+
+    $elec_consumption = $this->getCmd('info', 'elec::consumption')->execCmd();
+
+    $array_elec_consumers = array();
+    foreach ($this->getConfiguration('elecConsumers') as $elecConsumer) {
+      $consumer = cmd::byId(str_replace('#', '', $elecConsumer['cmd']));
+      if (is_object($consumer)) {
+        $stats = $consumer->getStatistique($starttime, $endtime);
+        $info = array(
+          'id' => $consumer->getId(),
+          'name' => $consumer->getEqLogic()->getName(),
+          'value' => $stats['max'] - $stats['min'],
+          'unit' => $consumer->getUnite()
+        );
+        $info['pourcent'] = round(($info['value'] / $elec_consumption) * 100);
+        $array_elec_consumers[] = $info;
+      }
+    }
+    usort($array_elec_consumers, create_function('$a, $b', '
+        if ($a["value"] == $b["value"]){
+            return 0;
+        }
+        return ($a["value"] >  $b["value"]) ? -1 : 1;
+    '));
+
+    $return['data']['cmd']['consumer::elec'] = $array_elec_consumers;
     return $return;
   }
 

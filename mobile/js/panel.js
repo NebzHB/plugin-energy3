@@ -205,4 +205,25 @@ function initGraph(){
       $('#div_energy3GraphWater').parent().remove();
     }
   }
+
+  let html = '<table class="table">'
+  html += '<tbody>'
+  for(var i in energy3data.cmd['consumer::elec']){
+    let consumer = energy3data.cmd['consumer::elec'][i];
+    html += '<tr>'
+    html += '<td style="width:150px;">'
+    html += consumer.name
+    html += '</td>'
+    html += '<td style="width:100px;">'
+    html += consumer.value+' '+consumer.unit; 
+    html += '</td>'
+    html += '<td>'
+    html += consumer.pourcent+'%'
+    html += '<div class="hgauge-value" style="width:'+consumer.pourcent+'%"></div>'
+    html += '</td>'
+    html += '</tr>'
+  }
+  html += '</tbody>'
+  html += '</table>'
+  $('#div_energy3ElecConsumers').empty().append(html);
 }

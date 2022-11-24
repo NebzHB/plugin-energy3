@@ -97,22 +97,37 @@ function initGraph(){
   if(energy3data.datetime.period == 'D' || energy3data.datetime.period == 'D-1' ){
     graphOption.el = 'div_energy3GraphConsumptionProduction';
     graphOption.cmd_id = energy3data.cmd['elec::consumption::instant'].id;
-    graphOption.option = {displayAlert:false,graphColor:'#b56926',name : 'Consommation',graphType : 'column',groupingType : 'average::hour',graphStack : true,invertData : true}
+    graphOption.option = {displayAlert:false,graphColor:'#b56926',name : 'Consommation',graphType : 'column',groupingType : 'average::hour',graphStack : true,invertData : true,unite : 'kWh'}
 
     var options = JSON.parse(JSON.stringify(graphOption));
+    options.calcul = function(x){
+      return x/1000;
+    }
     options.success = function(){
       graphOption.el = 'div_energy3GraphConsumptionProduction';
       graphOption.cmd_id = energy3data.cmd['elec::production::instant'].id;
-      graphOption.option = {displayAlert:false,graphColor:'#7ea823',name : 'Production',graphType : 'column',groupingType : 'average::hour',graphStack: true}
-      jeedom.history.drawChart(JSON.parse(JSON.stringify(graphOption)));
-  
+      graphOption.option = {displayAlert:false,graphColor:'#7ea823',name : 'Production',graphType : 'column',groupingType : 'average::hour',graphStack: true,unite : 'kWh'}
+      options = JSON.parse(JSON.stringify(graphOption));
+      options.calcul = function(x){
+        return x/1000;
+      }
+      jeedom.history.drawChart(options);
+
       graphOption.cmd_id = energy3data.cmd['elec::import::instant'].id;
-      graphOption.option = {displayAlert:false,graphColor:'#283747',name : 'Import',graphType : 'column',groupingType : 'average::hour',graphStack: true}
-      jeedom.history.drawChart(JSON.parse(JSON.stringify(graphOption)));
+      graphOption.option = {displayAlert:false,graphColor:'#283747',name : 'Import',graphType : 'column',groupingType : 'average::hour',graphStack: true,unite : 'kWh'}
+      options = JSON.parse(JSON.stringify(graphOption));
+      options.calcul = function(x){
+        return x/1000;
+      }
+      jeedom.history.drawChart(options);
   
       graphOption.cmd_id = energy3data.cmd['elec::export::instant'].id;
-      graphOption.option = {displayAlert:false,graphColor:'#616A6B',name : 'Export',graphType : 'column',groupingType : 'average::hour',graphStack: true,invertData : true}
-      jeedom.history.drawChart(JSON.parse(JSON.stringify(graphOption)));
+      graphOption.option = {displayAlert:false,graphColor:'#616A6B',name : 'Export',graphType : 'column',groupingType : 'average::hour',graphStack: true,invertData : true,unite : 'kWh'}
+      options = JSON.parse(JSON.stringify(graphOption));
+      options.calcul = function(x){
+        return x/1000;
+      }
+      jeedom.history.drawChart(options);
     }
     jeedom.history.drawChart(options);
 
@@ -144,14 +159,21 @@ function initGraph(){
     graphOption.pointWidth = 5;
     graphOption.el = 'div_energy3GraphForecast';
     graphOption.cmd_id = energy3data.cmd['solar::forecast::now::power'].id;
-    graphOption.option = {displayAlert:false,graphColor:'#FBC02D',name : 'Prévision',graphType : 'line',groupingType : 'average::hour',allowFuture : 1}
+    graphOption.option = {displayAlert:false,graphColor:'#FBC02D',name : 'Prévision',graphType : 'line',groupingType : 'average::hour',allowFuture : 1,unite : 'kWh'}
 
     var options = JSON.parse(JSON.stringify(graphOption));
+    options.calcul = function(x){
+      return x/1000;
+    }
     options.success = function(){
       graphOption.el = 'div_energy3GraphForecast';
       graphOption.cmd_id = energy3data.cmd['elec::production::instant'].id;
-      graphOption.option = {displayAlert:false,graphColor:'#7ea823',name : 'Production',graphType : 'column',groupingType : 'average::hour',graphStack: true}
-      jeedom.history.drawChart(JSON.parse(JSON.stringify(graphOption)));
+      graphOption.option = {displayAlert:false,graphColor:'#7ea823',name : 'Production',graphType : 'column',groupingType : 'average::hour',graphStack: true,unite : 'kWh'}
+      options = JSON.parse(JSON.stringify(graphOption));
+      options.calcul = function(x){
+        return x/1000;
+      }
+      jeedom.history.drawChart(options);
     };
     jeedom.history.drawChart(options);
   }else{
@@ -165,21 +187,36 @@ function initGraph(){
     
     graphOption.el = 'div_energy3GraphConsumptionProduction';
     graphOption.cmd_id = energy3data.cmd['elec::consumption'].id;
-    graphOption.option = {displayAlert:false,graphColor:'#b56926',name : 'Consommation',graphType : 'column',graphStack: true,invertData : true,groupingType : 'high::day'}
+    graphOption.option = {displayAlert:false,graphColor:'#b56926',name : 'Consommation',graphType : 'column',graphStack: true,invertData : true,groupingType : 'high::day',unite : 'kWh'}
     var options = JSON.parse(JSON.stringify(graphOption));
+    options.calcul = function(x){
+      return x/1000;
+    }
     options.success = function(){
       graphOption.el = 'div_energy3GraphConsumptionProduction';
       graphOption.cmd_id = energy3data.cmd['elec::production'].id;
-      graphOption.option = {displayAlert:false,graphColor:'#7ea823',name : 'Production',graphType : 'column',graphStack: true,groupingType : 'high::day'}
-      jeedom.history.drawChart(JSON.parse(JSON.stringify(graphOption)));
+      graphOption.option = {displayAlert:false,graphColor:'#7ea823',name : 'Production',graphType : 'column',graphStack: true,groupingType : 'high::day',unite : 'kWh'}
+      options = JSON.parse(JSON.stringify(graphOption));
+      options.calcul = function(x){
+        return x/1000;
+      }
+      jeedom.history.drawChart(options);
 
       graphOption.cmd_id = energy3data.cmd['elec::import'].id;
-      graphOption.option = {displayAlert:false,graphColor:'#283747',name : 'Import',graphType : 'column',graphStack: true,groupingType : 'high::day'}
-      jeedom.history.drawChart(JSON.parse(JSON.stringify(graphOption)));
+      graphOption.option = {displayAlert:false,graphColor:'#283747',name : 'Import',graphType : 'column',graphStack: true,groupingType : 'high::day',unite : 'kWh'}
+      options = JSON.parse(JSON.stringify(graphOption));
+      options.calcul = function(x){
+        return x/1000;
+      }
+      jeedom.history.drawChart(options);
 
       graphOption.cmd_id = energy3data.cmd['elec::export'].id;
-      graphOption.option = {displayAlert:false,graphColor:'#616A6B',name : 'Export',graphType : 'column',graphStack: true,invertData : true,groupingType : 'high::day'}
-      jeedom.history.drawChart(JSON.parse(JSON.stringify(graphOption)));
+      graphOption.option = {displayAlert:false,graphColor:'#616A6B',name : 'Export',graphType : 'column',graphStack: true,invertData : true,groupingType : 'high::day',unite : 'kWh'}
+      options = JSON.parse(JSON.stringify(graphOption));
+      options.calcul = function(x){
+        return x/1000;
+      }
+      jeedom.history.drawChart(options);
     }
     jeedom.history.drawChart(options);
 

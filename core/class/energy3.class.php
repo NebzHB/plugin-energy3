@@ -408,7 +408,7 @@ class energy3 extends eqLogic {
       $return['html'] .= '</div>';
     } else {
       $return['html'] .= '</div>';
-      if ($_period == 'D') {
+      if ($_period == 'D'  || $_period == 'D-1') {
         $return['html'] .= '<legend>Prévision</legend>';
         $return['html'] .= '<div class="chartContainer" id="div_energy3GraphForecast"></div>';
       } else {

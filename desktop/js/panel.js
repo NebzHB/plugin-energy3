@@ -215,10 +215,10 @@ function initGraph(){
   for(var i in energy3data.cmd['consumer::elec']){
     let consumer = energy3data.cmd['consumer::elec'][i];
     html += '<tr>'
-    html += '<td style="width:200px;">'
+    html += '<td style="width:100px;">'
     html += consumer.name
     html += '</td>'
-    html += '<td style="width:150px;">'
+    html += '<td style="width:100px;">'
     html += consumer.value+' '+consumer.unit; 
     html += '</td>'
     html += '<td>'

@@ -422,7 +422,7 @@ class energy3 extends eqLogic {
       $return['html'] .= '<legend>Eau</legend>';
       $return['html'] .= '<div class="chartContainer" id="div_energy3GraphWater"></div>';
       $return['html'] .= '<legend>Détails Electricité</legend>';
-      $return['html'] .= '<div id="div_energy3ElecConsumers"></div>';
+      $return['html'] .= '<div id="div_energy3ElecConsumers" style="background-color: rgba(var(--eq-bg-color), var(--opacity)) !important"></div>';
     }
 
     $array_elec_consumers = array();

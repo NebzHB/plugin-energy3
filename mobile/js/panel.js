@@ -243,7 +243,7 @@ function initGraph(){
     }
   }
 
-  let html = '<table data-role="table" id="movie-table" data-mode="reflow" class="ui-responsive">'
+  let html = '<table data-role="table" id="movie-table" data-mode="reflow" class="ui-responsive" style="width:100% !important;">'
   html += '<tbody>'
   for(var i in energy3data.cmd['consumer::elec']){
     let consumer = energy3data.cmd['consumer::elec'][i];
@@ -256,7 +256,7 @@ function initGraph(){
     html += '</td>'
     html += '<td>'
     html += consumer.pourcent+'%'
-    html += '<div class="hgauge-value" style="width:'+consumer.pourcent+'%;left: auto !important;"></div>'
+    html += '<div class="hgauge-value" style="width:'+consumer.pourcent+'%;left: auto !important;position:static !important;"></div>'
     html += '</td>'
     html += '</tr>'
   }

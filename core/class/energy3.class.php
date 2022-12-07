@@ -361,15 +361,23 @@ class energy3 extends eqLogic {
         $replace['#' . str_replace('::', '-', $key) . '-id#'] = '';
       }
       foreach ($this->getCmd('info') as $cmd) {
+        $replace['#' . str_replace('::', '-', $cmd->getLogicalId()) . '-id#'] = $cmd->getLogicalId();
+        if (in_array($cmd->getLogicalId(), self::$_listen_cmd) && $this->getConfiguration($cmd->getLogicalId()) == '') {
+          $replace['#' . str_replace('::', '-', $cmd->getLogicalId()) . '-state#'] = '';
+          $replace['#' . str_replace('::', '-', $cmd->getLogicalId()) . '-state#'] = '';
+          $replace['#' . str_replace('::', '-', $cmd->getLogicalId()) . '-valueDate#'] = '';
+          $replace['#' . str_replace('::', '-', $cmd->getLogicalId()) . '-collectDate#'] = '';
+          $replace['#' . str_replace('::', '-', $cmd->getLogicalId()) . '-unite#'] = '';
+          continue;
+        }
         $replace['#' . str_replace('::', '-', $cmd->getLogicalId()) . '-valueDate#'] = '';
         $replace['#' . str_replace('::', '-', $cmd->getLogicalId()) . '-collectDate#'] = '';
         if (in_array($cmd->getLogicalId(), array('elec::production::instant', 'gaz::consumption::instant', 'water::consumption::instant', 'elec::net::power', 'elec::import::instant', 'elec::export::instant', 'elec::production::consumption::instant'))) {
-          $replace['#' . str_replace('::', '-', $cmd->getLogicalId()) . '-id#'] = $cmd->getLogicalId();
           $replace['#' . str_replace('::', '-', $cmd->getLogicalId()) . '-state#'] = '';
           $replace['#' . str_replace('::', '-', $cmd->getLogicalId()) . '-unite#'] = '';
           continue;
         }
-        $replace['#' . str_replace('::', '-', $cmd->getLogicalId()) . '-id#'] = $cmd->getLogicalId();
+
         if (in_array($cmd->getLogicalId(), array('elec::autoconsumption', 'elec::selfsufficiency'))) {
           $replace['#' . str_replace('::', '-', $cmd->getLogicalId()) . '-state#'] = $this->getValueForPeriod($cmd->getId(), 'AVG', $starttime, $endtime);
         } else {

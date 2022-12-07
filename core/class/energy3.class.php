@@ -193,12 +193,23 @@ class energy3 extends eqLogic {
       return $replace;
     }
     $version = jeedom::versionAlias($_version);
+    if ($this->getConfiguration('refresh') == '') {
+      $replace['#refresh_id#'] = '';
+    }
     $replace['#version#'] = $_version;
     foreach (self::$_listen_cmd as $key) {
       $replace['#' . str_replace('::', '-', $key) . '-id#'] = '';
     }
     foreach ($this->getCmd('info') as $cmd) {
       $replace['#' . str_replace('::', '-', $cmd->getLogicalId()) . '-id#'] = $cmd->getId();
+      if (in_array($cmd->getLogicalId(), self::$_listen_cmd) && $this->getConfiguration($cmd->getLogicalId()) == '') {
+        $replace['#' . str_replace('::', '-', $cmd->getLogicalId()) . '-state#'] = '';
+        $replace['#' . str_replace('::', '-', $cmd->getLogicalId()) . '-state#'] = '';
+        $replace['#' . str_replace('::', '-', $cmd->getLogicalId()) . '-valueDate#'] = '';
+        $replace['#' . str_replace('::', '-', $cmd->getLogicalId()) . '-collectDate#'] = '';
+        $replace['#' . str_replace('::', '-', $cmd->getLogicalId()) . '-unite#'] = '';
+        continue;
+      }
       $replace['#' . str_replace('::', '-', $cmd->getLogicalId()) . '-state#'] = $cmd->execCmd();
       if ($replace['#' . str_replace('::', '-', $cmd->getLogicalId()) . '-state#'] == '') {
         $replace['#' . str_replace('::', '-', $cmd->getLogicalId()) . '-state#'] = 0;

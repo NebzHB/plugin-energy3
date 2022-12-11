@@ -461,7 +461,7 @@ class energy3 extends eqLogic {
         } else {
           if ($elecConsumer['consumptionByDay'] == 0) {
             $stats = $consumer->getStatistique($starttime, $endtime);
-            $consumption += $stats['max'] - $stats['min'];
+            $consumption = $stats['max'] - $stats['min'];
           } else {
             $begin = strtotime($starttime);
             $end  = strtotime($endtime);

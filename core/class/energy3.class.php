@@ -460,7 +460,17 @@ class energy3 extends eqLogic {
           }
         } else {
           $stats = $consumer->getStatistique($starttime, $endtime);
-          $consumption = $stats['max'] - $stats['min'];
+          if ($stats['min'] > 0) {
+            $prevtats = $consumer->getStatistique(date('Y-m-d H:i:s', strtotime($starttime) - 24 * 60 * 60), date('Y-m-d H:i:s', strtotime($endtime) - 24 * 60 * 60));
+            if ($prevtats['max'] > $stats['min']) {
+              $stats['min'] = 0;
+            }
+          }
+          if ($elecConsumer['consumptionByDay'] == 1) {
+            $consumption = $stats['max'];
+          } else {
+            $consumption = $stats['max'] - $stats['min'];
+          }
           if ($consumer->getUnite() == 'Wh') {
             $consumption = $consumption / 1000;
           }

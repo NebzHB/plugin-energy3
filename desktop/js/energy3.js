@@ -156,8 +156,8 @@ function addElecConsumer(_consumer) {
   div += '<div class="col-sm-3">';
   div += '<input class="consumerAttr form-control input-sm" data-l1key="name" />';
   div += '</div>';
-  div += '<label class="col-sm-1 control-label">{{Consommation par jour}}</label>';
-  div += '<div class="col-sm-3">';
+  div += '<label class="col-sm-2 control-label">{{Consommation par jour (si Wh ou kWh)}}</label>';
+  div += '<div class="col-sm-1">';
   div += '<input type="checkbox" class="consumerAttr" data-l1key="consumptionByDay" />';
   div += '</div>';
   div += '</div>';

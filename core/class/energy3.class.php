@@ -459,20 +459,21 @@ class energy3 extends eqLogic {
             $consumption = $consumption / 1000;
           }
         } else {
-          $stats = $consumer->getStatistique($starttime, $endtime);
-          if ($stats['min'] > 0) {
-            $prevtats = $consumer->getStatistique(date('Y-m-d H:i:s', strtotime($starttime) - 24 * 60 * 60), date('Y-m-d H:i:s', strtotime($endtime) - 24 * 60 * 60));
-            if ($prevtats['max'] > $stats['min']) {
-              $stats['min'] = 0;
-            }
-          }
-          if ($elecConsumer['consumptionByDay'] == 1) {
-            $consumption = $stats['max'];
+          if ($elecConsumer['consumptionByDay'] == 0) {
+            $stats = $consumer->getStatistique($starttime, $endtime);
+            $consumption += $stats['max'] - $stats['min'];
           } else {
-            $consumption = $stats['max'] - $stats['min'];
-          }
-          if ($consumer->getUnite() == 'Wh') {
-            $consumption = $consumption / 1000;
+            $begin = strtotime($starttime);
+            $end  = strtotime($endtime);
+            $consumption = 0;
+            while ($begin < $end) {
+              $stats = $consumer->getStatistique(date('Y-m-d H:i:s', $begin), date('Y-m-d H:i:s', $begin + ((24 * 60 * 60) - 1)));
+              $consumption += $stats['max'];
+              $begin += (24 * 60 * 60);
+            }
+            if ($consumer->getUnite() == 'Wh') {
+              $consumption = $consumption / 1000;
+            }
           }
         }
         $consumption = round($consumption, 2);

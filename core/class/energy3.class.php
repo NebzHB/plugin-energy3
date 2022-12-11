@@ -306,7 +306,7 @@ class energy3 extends eqLogic {
       'data' => array(
         'cmd' => array(),
         'datetime' => array(
-          'start' =>  $starttime,
+          'start' => date('Y-m-d H:i:s', strtotime(self::$_period[$_period]['start']) + 1),
           'end' => $endtime,
           'end_1' => date('Y-m-d H:i:s', strtotime(self::$_period[$_period]['end'] . ' + 1 day')),
           'period' => $_period

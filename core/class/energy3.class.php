@@ -454,7 +454,12 @@ class energy3 extends eqLogic {
       $consumer = cmd::byId(str_replace('#', '', $elecConsumer['cmd']));
       if (is_object($consumer)) {
         if ($consumer->getUnite() == 'W' || $consumer->getUnite() == 'kW') {
-          $consumption = ($consumer->getTemporalAvg($starttime, $endtime)) * ((strtotime($endtime) - strtotime($starttime)) / (60 * 60));
+          if (strtotime($endtime) > strtotime('now')) {
+            $duration  = (strtotime('now') - strtotime($starttime)) / (60 * 60);
+          } else {
+            $duration  = (strtotime($endtime) - strtotime($starttime)) / (60 * 60);
+          }
+          $consumption = ($consumer->getTemporalAvg($starttime, $endtime)) * $duration;
           if ($consumer->getUnite() == 'W') {
             $consumption = $consumption / 1000;
           }

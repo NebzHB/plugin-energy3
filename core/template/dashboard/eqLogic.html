@@ -187,63 +187,63 @@
 
 
 jeedom.cmd.update['#elec-import-id#'] = function(_options) {
-    $('.eqLogic[data-eqLogic_id=#id#] .elec-import').empty().append(_options.display_value +' '+_options.unit)
+    document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-import').innerHTML = _options.display_value +' '+_options.unit
 }
 
 jeedom.cmd.update['#elec-export-id#'] = function(_options) {
     if(_options.display_value === ''){
-        $('.eqLogic[data-eqLogic_id=#id#] .elec-export').parent().remove();
-        $('.eqLogic[data-eqLogic_id=#id#] .elec-selfsufficiency').remove();
-        $('.eqLogic[data-eqLogic_id=#id#] .elec-autoconsumption').remove();
-        $('.eqLogic[data-eqLogic_id=#id#]').height('250px');
+        document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-export').parentNode.remove();
+        document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-selfsufficiency').remove();
+        document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-autoconsumption').remove();
+        document.querySelector('.eqLogic[data-eqLogic_id="#id#"]').height('250px');
     }
-    $('.eqLogic[data-eqLogic_id=#id#] .elec-export').empty().append(_options.display_value +' '+_options.unit)
+    document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-export').innerHTML =_options.display_value +' '+_options.unit
 }
 
 jeedom.cmd.update['#elec-export-instant-id#'] = function(_options) {
-    $('.eqLogic[data-eqLogic_id=#id#] .elec-export-instant').empty().append(_options.display_value +' '+_options.unit)
+    document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-export-instant').innerHTML =_options.display_value +' '+_options.unit
 }
 
 jeedom.cmd.update['#elec-production-id#'] = function(_options) {
-    $('.eqLogic[data-eqLogic_id=#id#] .elec-production').empty().append(_options.display_value +' '+_options.unit)
+    document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-production').innerHTML =_options.display_value +' '+_options.unit
 }
 
 jeedom.cmd.update['#elec-production-consumption-instant-id#'] = function(_options) {
-    $('.eqLogic[data-eqLogic_id=#id#] .elec-production-consumption-instant').empty().append(_options.display_value +' '+_options.unit)
+    document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-production-consumption-instant').innerHTML =_options.display_value +' '+_options.unit
 }
 
 jeedom.cmd.update['#elec-consumption-id#'] = function(_options) {
-    $('.eqLogic[data-eqLogic_id=#id#] .elec-consumption').empty().append(_options.display_value +' '+_options.unit)
+    document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-consumption').innerHTML =_options.display_value +' '+_options.unit
 }
 
 jeedom.cmd.update['#elec-import-instant-id#'] = function(_options) {
-    $('.eqLogic[data-eqLogic_id=#id#] .elec-import-instant').empty().append(_options.display_value +' '+_options.unit)
+    document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-import-instant').innerHTML = _options.display_value +' '+_options.unit
 }
 
 jeedom.cmd.update['#gaz-consumption-id#'] = function(_options) {
-    $('.eqLogic[data-eqLogic_id=#id#] .gaz-consumption').empty().append(_options.display_value +' '+_options.unit)
+    document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .gaz-consumption').innerHTML =_options.display_value +' '+_options.unit
 }
 
 jeedom.cmd.update['#gaz-consumption-instant-id#'] = function(_options) {
-    $('.eqLogic[data-eqLogic_id=#id#] .gaz-consumption-instant').empty().append(_options.display_value +' '+_options.unit)
+    document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .gaz-consumption-instant').innerHTML =_options.display_value +' '+_options.unit
 }
 
 jeedom.cmd.update['#water-consumption-id#'] = function(_options) {
-    $('.eqLogic[data-eqLogic_id=#id#] .water-consumption').empty().append(_options.display_value +' '+_options.unit)
+    document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .water-consumption').innerHTML =_options.display_value +' '+_options.unit
 }
 
 jeedom.cmd.update['#water-consumption-instant-id#'] = function(_options) {
-    $('.eqLogic[data-eqLogic_id=#id#] .water-consumption-instant').empty().append(_options.display_value +' '+_options.unit)
+    document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .water-consumption-instant').innerHTML =_options.display_value +' '+_options.unit
 }
 
 jeedom.cmd.update['#elec-autoconsumption-id#'] = function(_options) {
-    $('.eqLogic[data-eqLogic_id=#id#] .elec-autoconsumption .state').empty().append(_options.display_value)
-    $('.eqLogic[data-eqLogic_id=#id#] .elec-autoconsumption .unit').empty().append(_options.unit)
+    document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-autoconsumption .state').innerHTML =_options.display_value
+    document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-autoconsumption .unit').innerHTML =_options.unit
 }
 
 jeedom.cmd.update['#elec-selfsufficiency-id#'] = function(_options) {
-    $('.eqLogic[data-eqLogic_id=#id#] .elec-selfsufficiency .state').empty().append(_options.display_value)
-    $('.eqLogic[data-eqLogic_id=#id#] .elec-selfsufficiency .unit').empty().append(_options.unit)
+    document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-selfsufficiency .state').innerHTML =_options.display_value
+    document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-selfsufficiency .unit').innerHTML =_options.unit
 }
 
 jeedom.cmd.update['#elec-import-instant-id#']({display_value: '#elec-import-instant-state#', valueDate: '#elec-import-instant-valueDate#', collectDate: '#elec-import-instant-collectDate#',unit:'#elec-import-instant-unite#'})
@@ -262,14 +262,14 @@ jeedom.cmd.update['#elec-selfsufficiency-id#']({display_value: '#elec-selfsuffic
 
     
 if ('#panelLink#' == '') {
-	$('.eqLogic[data-eqLogic_uid=#uid#] .panelLink').remove()
+	document.querySelector('.eqLogic[data-eqLogic_uid=#uid#] .panelLink').remove()
 }    
 if ('#refresh_id#' != '') {
-    $('.eqLogic[data-eqLogic_uid=#uid#] .refresh').on('click', function () {
+    document.querySelector('.eqLogic[data-eqLogic_uid=#uid#] .refresh').addEventListener('click', function () {
         jeedom.cmd.execute({id: '#refresh_id#'})
     })
 } else {
-    $('.eqLogic[data-eqLogic_uid=#uid#] .refresh').remove()
+    document.querySelector('.eqLogic[data-eqLogic_uid=#uid#] .refresh').remove()
 }
   </script>
 </div>

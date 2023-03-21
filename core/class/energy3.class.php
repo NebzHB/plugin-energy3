@@ -90,14 +90,32 @@ class energy3 extends eqLogic {
     $eqLogic->calculPerformance();
   }
 
-  public function cronHourly() {
+  public static function cronHourly() {
     foreach (eqLogic::byType('energy3', true) as $eqLogic) {
       $eqLogic->calculSolarPrevision();
     }
   }
 
+  public static function cron5() {
+    foreach (eqLogic::byType('energy3', true) as $eqLogic) {
+      $eqLogic->updateCmdConsummer();
+    }
+  }
 
   /*     * *********************Méthodes d'instance************************* */
+  public function updateCmdConsummer() {
+    $i = 0;
+    foreach ($this->getConfiguration('elecConsumers') as $elecConsumer) {
+      $cmd = $this->getCmd('info', 'elec-consummer-' . $i);
+      if (!is_object($cmd)) {
+        continue;
+      }
+      $this->checkAndUpdateCmd($cmd, $this->getConsummerDayConsumption($elecConsumer, date('Y-m-d H:i:s', strtotime('midnight')), date('Y-m-d H:i:s', strtotime('tomorrow midnight -1 second'))));
+      $i++;
+    }
+  }
+
+
   public function calculSolarPrevision() {
     if ($this->getConfiguration('solar::forecast::lat') == '') {
       return;
@@ -289,12 +307,29 @@ class energy3 extends eqLogic {
     $this->calculPerformance();
     $this->calculSolarPrevision();
 
+    $i = 0;
     foreach ($this->getConfiguration('elecConsumers') as $elecConsumer) {
       $consumer = cmd::byId(str_replace('#', '', $elecConsumer['cmd']));
       if (is_object($consumer)) {
         $consumer->setIsHistorized(1);
         $consumer->save();
       }
+      $cmd = $this->getCmd('info', 'elec-consummer-' . $i);
+      $name = (!isset($elecConsumer['name']) || $elecConsumer['name'] == '') ? $consumer->getEqLogic()->getName() : $elecConsumer['name'];
+      if (!is_object($cmd)) {
+        $cmd = new energy3Cmd();
+        $cmd->setIsVisible(0);
+        $cmd->setUnite('kWh');
+        $cmd->setIsHistorized(1);
+        $cmd->setConfiguration('historizeRound', 1);
+      }
+      $cmd->setName('Consommation ' . $name);
+      $cmd->setLogicalId('elec-consummer-' . $i);
+      $cmd->setEqLogic_id($this->getId());
+      $cmd->setType('info');
+      $cmd->setSubType('numeric');
+      $cmd->save();
+      $i++;
     }
   }
 
@@ -452,55 +487,28 @@ class energy3 extends eqLogic {
     $array_elec_consumers = array();
     foreach ($this->getConfiguration('elecConsumers') as $elecConsumer) {
       $consumer = cmd::byId(str_replace('#', '', $elecConsumer['cmd']));
-      if (is_object($consumer)) {
-        if ($consumer->getUnite() == 'W' || $consumer->getUnite() == 'kW') {
-          if (strtotime($endtime) > strtotime('now')) {
-            $duration  = (strtotime('now') - strtotime($starttime)) / (60 * 60);
-          } else {
-            $duration  = (strtotime($endtime) - strtotime($starttime)) / (60 * 60);
-          }
-          $consumption = ($consumer->getTemporalAvg($starttime, $endtime)) * $duration;
-          if ($consumer->getUnite() == 'W') {
-            $consumption = $consumption / 1000;
-          }
-        } else {
-          if ($elecConsumer['consumptionByDay'] == 0) {
-            $stats = $consumer->getStatistique($starttime, $endtime);
-            $consumption = $stats['max'] - $stats['min'];
-          } else {
-            $begin = strtotime($starttime);
-            $end  = strtotime($endtime);
-            $consumption = 0;
-            while ($begin < $end) {
-              $stats = $consumer->getStatistique(date('Y-m-d H:i:s', $begin), date('Y-m-d H:i:s', $begin + ((24 * 60 * 60) - 1)));
-              $consumption += $stats['max'];
-              $begin += (24 * 60 * 60);
-            }
-            if ($consumer->getUnite() == 'Wh') {
-              $consumption = $consumption / 1000;
-            }
-          }
-        }
-        $consumption = round($consumption, 2);
-        $info = array(
-          'id' => $consumer->getId(),
-          'value' => $consumption,
-          'unit' => 'kWh'
-        );
-        $info['name'] = (!isset($elecConsumer['name']) || $elecConsumer['name'] == '') ? $consumer->getEqLogic()->getName() : $elecConsumer['name'];
-        if ($consumption == 0) {
-          $info['pourcent'] = 0;
-        } else {
-          $info['pourcent'] = round(($consumption / $elec_consumption) * 100);
-          if ($info['pourcent'] > 100) {
-            $info['pourcent'] = 100;
-          }
-          if ($info['pourcent'] < 0) {
-            $info['pourcent'] = 0;
-          }
-        }
-        $array_elec_consumers[] = $info;
+      if (!is_object($consumer)) {
+        continue;
       }
+      $consumption = $this->getConsummerDayConsumption($elecConsumer, $starttime, $endtime);
+      $info = array(
+        'id' => $consumer->getId(),
+        'value' => $consumption,
+        'unit' => 'kWh'
+      );
+      $info['name'] = (!isset($elecConsumer['name']) || $elecConsumer['name'] == '') ? $consumer->getEqLogic()->getName() : $elecConsumer['name'];
+      if ($consumption == 0) {
+        $info['pourcent'] = 0;
+      } else {
+        $info['pourcent'] = round(($consumption / $elec_consumption) * 100);
+        if ($info['pourcent'] > 100) {
+          $info['pourcent'] = 100;
+        }
+        if ($info['pourcent'] < 0) {
+          $info['pourcent'] = 0;
+        }
+      }
+      $array_elec_consumers[] = $info;
     }
     usort($array_elec_consumers, create_function('$a, $b', '
         if ($a["value"] == $b["value"]){
@@ -511,6 +519,42 @@ class energy3 extends eqLogic {
 
     $return['data']['cmd']['consumer::elec'] = $array_elec_consumers;
     return $return;
+  }
+
+  public function getConsummerDayConsumption($_elecConsumer, $_starttime, $_endtime) {
+    $consumer = cmd::byId(str_replace('#', '', $_elecConsumer['cmd']));
+    if (!is_object($consumer)) {
+      return 0;
+    }
+    if ($consumer->getUnite() == 'W' || $consumer->getUnite() == 'kW') {
+      if (strtotime($_endtime) > strtotime('now')) {
+        $duration  = (strtotime('now') - strtotime($_starttime)) / (60 * 60);
+      } else {
+        $duration  = (strtotime($_endtime) - strtotime($_starttime)) / (60 * 60);
+      }
+      $consumption = ($consumer->getTemporalAvg($_starttime, $_endtime)) * $duration;
+      if ($consumer->getUnite() == 'W') {
+        $consumption = $consumption / 1000;
+      }
+    } else {
+      if ($_elecConsumer['consumptionByDay'] == 0) {
+        $stats = $consumer->getStatistique($_starttime, $_endtime);
+        $consumption = $stats['max'] - $stats['min'];
+      } else {
+        $begin = strtotime($_starttime);
+        $end  = strtotime($_endtime);
+        $consumption = 0;
+        while ($begin < $end) {
+          $stats = $consumer->getStatistique(date('Y-m-d H:i:s', $begin), date('Y-m-d H:i:s', $begin + ((24 * 60 * 60) - 1)));
+          $consumption += $stats['max'];
+          $begin += (24 * 60 * 60);
+        }
+        if ($consumer->getUnite() == 'Wh') {
+          $consumption = $consumption / 1000;
+        }
+      }
+    }
+    return round($consumption, 2);
   }
 
   public function getValueForPeriod($_cmd_id, $_type, $_startTime, $_endTime) {

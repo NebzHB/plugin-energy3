@@ -187,13 +187,13 @@
      });
      
      
-jeedom.cmd.update['#elec-import-id#'] = function(_options) {
+     jeedom.cmd.addUpdateFunction('#elec-import-id#',function(_options) {
     if(document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-import')){
         document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-import').innerHTML = _options.display_value +' '+_options.unit
     }
-}
+})
 
-jeedom.cmd.update['#elec-export-id#'] = function(_options) {
+jeedom.cmd.addUpdateFunction('#elec-export-id#',function(_options) {
     if(_options.display_value === ''){
         document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-export').parentNode.remove();
         document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-selfsufficiency').remove();
@@ -203,89 +203,91 @@ jeedom.cmd.update['#elec-export-id#'] = function(_options) {
     if(document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-export')){
         document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-export').innerHTML =_options.display_value +' '+_options.unit
     }
-}
+})
 
-jeedom.cmd.update['#elec-export-instant-id#'] = function(_options) {
+jeedom.cmd.addUpdateFunction('#elec-export-instant-id#',function(_options) {
     if(document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-export-instant')){
         document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-export-instant').innerHTML =_options.display_value +' '+_options.unit
     }
-}
+})
 
-jeedom.cmd.update['#elec-production-id#'] = function(_options) {
+jeedom.cmd.addUpdateFunction('#elec-production-id#',function(_options) {
     if(document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-production')){
         document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-production').innerHTML =_options.display_value +' '+_options.unit
     }
-}
+})
 
-jeedom.cmd.update['#elec-production-consumption-instant-id#'] = function(_options) {
+jeedom.cmd.addUpdateFunction('#elec-production-consumption-instant-id#',function(_options) {
     if(document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-production-consumption-instant')){
         document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-production-consumption-instant').innerHTML =_options.display_value +' '+_options.unit
     }
-}
+})
 
-jeedom.cmd.update['#elec-consumption-id#'] = function(_options) {
+jeedom.cmd.addUpdateFunction('#elec-consumption-id#',function(_options) {
     if(document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-consumption')){
         document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-consumption').innerHTML =_options.display_value +' '+_options.unit
     }
-}
+})
 
-jeedom.cmd.update['#elec-import-instant-id#'] = function(_options) {
+jeedom.cmd.addUpdateFunction('#elec-import-instant-id#',function(_options) {
     if(document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-import-instant')){
         document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-import-instant').innerHTML = _options.display_value +' '+_options.unit
     }
-}
+})
 
-jeedom.cmd.update['#gaz-consumption-id#'] = function(_options) {
+jeedom.cmd.addUpdateFunction('#gaz-consumption-id#',function(_options) {
     if(document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .gaz-consumption')){
         document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .gaz-consumption').innerHTML =_options.display_value +' '+_options.unit
     }
-}
+})
 
-jeedom.cmd.update['#gaz-consumption-instant-id#'] = function(_options) {
+jeedom.cmd.addUpdateFunction('#gaz-consumption-instant-id#',function(_options) {
     if(document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .gaz-consumption-instant')){
         document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .gaz-consumption-instant').innerHTML =_options.display_value +' '+_options.unit
     }
-}
+})
 
-jeedom.cmd.update['#water-consumption-id#'] = function(_options) {
+jeedom.cmd.addUpdateFunction('#water-consumption-id#',function(_options) {
     if(document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .water-consumption')){
         document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .water-consumption').innerHTML =_options.display_value +' '+_options.unit
     }
-}
+})
 
-jeedom.cmd.update['#water-consumption-instant-id#'] = function(_options) {
+jeedom.cmd.addUpdateFunction('#water-consumption-instant-id#',function(_options) {
     if(document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .water-consumption-instant')){
         document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .water-consumption-instant').innerHTML =_options.display_value +' '+_options.unit
     }
-}
+})
 
-jeedom.cmd.update['#elec-autoconsumption-id#'] = function(_options) {
+jeedom.cmd.addUpdateFunction('#elec-autoconsumption-id#',function(_options) {
     if(document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-autoconsumption')){
         document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-autoconsumption .state').innerHTML =_options.display_value
         document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-autoconsumption .unit').innerHTML =_options.unit
     }
-}
+})
 
-jeedom.cmd.update['#elec-selfsufficiency-id#'] = function(_options) {
+jeedom.cmd.addUpdateFunction('#elec-selfsufficiency-id#',function(_options) {
     if(document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-selfsufficiency')){
         document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-selfsufficiency .state').innerHTML =_options.display_value
         document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-selfsufficiency .unit').innerHTML =_options.unit
     }
-}
-     
-jeedom.cmd.update['#elec-import-instant-id#']({display_value: '#elec-import-instant-state#', valueDate: '#elec-import-instant-valueDate#', collectDate: '#elec-import-instant-collectDate#',unit:'#elec-import-instant-unite#'})
-jeedom.cmd.update['#elec-export-instant-id#']({display_value: '#elec-export-instant-state#', valueDate: '#elec-export-instant-valueDate#', collectDate: '#elec-export-instant-collectDate#',unit:'#elec-export-instant-unite#'})
-jeedom.cmd.update['#elec-import-id#']({display_value: '#elec-import-state#', valueDate: '#elec-import-valueDate#', collectDate: '#elec-import-collectDate#',unit:'#elec-import-unite#'})    
-jeedom.cmd.update['#elec-export-id#']({display_value: '#elec-export-state#', valueDate: '#elec-export-valueDate#', collectDate: '#elec-export-collectDate#',unit:'#elec-export-unite#'})
-jeedom.cmd.update['#elec-production-id#']({display_value: '#elec-production-state#', valueDate: '#elec-production-valueDate#', collectDate: '#elec-production-collectDate#',unit:'#elec-production-unite#'})
-jeedom.cmd.update['#elec-production-consumption-instant-id#']({display_value: '#elec-production-consumption-instant-state#', valueDate: '#elec-production-consumption-instant-valueDate#', collectDate: '#elec-production-consumption-instant-collectDate#',unit:'#elec-production-consumption-instant-unite#'})
-jeedom.cmd.update['#elec-consumption-id#']({display_value: '#elec-consumption-state#', valueDate: '#elec-consumption-valueDate#', collectDate: '#elec-consumption-collectDate#',unit:'#elec-consumption-unite#'})
-jeedom.cmd.update['#gaz-consumption-id#']({display_value: '#gaz-consumption-state#', valueDate: '#gaz-consumption-valueDate#', collectDate: '#gaz-consumption-collectDate#',unit:'#gaz-consumption-unite#'})
-jeedom.cmd.update['#gaz-consumption-instant-id#']({display_value: '#gaz-consumption-instant-state#', valueDate: '#gaz-consumption-instant-valueDate#', collectDate: '#gaz-consumption-instant-collectDate#',unit:'#gaz-consumption-instant-unite#'})
-jeedom.cmd.update['#water-consumption-id#']({display_value: '#water-consumption-state#', valueDate: '#water-consumption-valueDate#', collectDate: '#water-consumption-collectDate#',unit:'#water-consumption-unite#'})
-jeedom.cmd.update['#water-consumption-instant-id#']({display_value: '#water-consumption-instant-state#', valueDate: '#water-consumption-instant-valueDate#', collectDate: '#water-consumption-instant-collectDate#',unit:'#water-consumption-instant-unite#'})
-jeedom.cmd.update['#elec-autoconsumption-id#']({display_value: '#elec-autoconsumption-state#', valueDate: '#elec-autoconsumption-valueDate#', collectDate: '#elec-autoconsumption-collectDate#',unit:'#elec-autoconsumption-unite#'})
-jeedom.cmd.update['#elec-selfsufficiency-id#']({display_value: '#elec-selfsufficiency-state#', valueDate: '#elec-selfsufficiency-valueDate#', collectDate: '#elec-selfsufficiency-collectDate#',unit:'#elec-selfsufficiency-unite#'})
+})
+
+jeedom.cmd.refreshValue([
+    {cmd_id: '#elec-import-instant-id#', display_value: '#elec-import-instant-state#', valueDate: '#elec-import-instant-valueDate#', collectDate: '#elec-import-instant-collectDate#',unit:'#elec-import-instant-unite#'},
+    {cmd_id: '#elec-export-instant-id#', display_value: '#elec-export-instant-state#', valueDate: '#elec-export-instant-valueDate#', collectDate: '#elec-export-instant-collectDate#',unit:'#elec-export-instant-unite#'},
+    {cmd_id: '#elec-import-id#', display_value: '#elec-import-state#', valueDate: '#elec-import-valueDate#', collectDate: '#elec-import-collectDate#',unit:'#elec-import-unite#'},   
+    {cmd_id: '#elec-export-id#', display_value: '#elec-export-state#', valueDate: '#elec-export-valueDate#', collectDate: '#elec-export-collectDate#',unit:'#elec-export-unite#'},
+    {cmd_id: '#elec-production-id#', display_value: '#elec-production-state#', valueDate: '#elec-production-valueDate#', collectDate: '#elec-production-collectDate#',unit:'#elec-production-unite#'},
+    {cmd_id: '#elec-production-consumption-instant-id#', display_value: '#elec-production-consumption-instant-state#', valueDate: '#elec-production-consumption-instant-valueDate#', collectDate: '#elec-production-consumption-instant-collectDate#',unit:'#elec-production-consumption-instant-unite#'},
+    {cmd_id: '#elec-consumption-id#', display_value: '#elec-consumption-state#', valueDate: '#elec-consumption-valueDate#', collectDate: '#elec-consumption-collectDate#',unit:'#elec-consumption-unite#'},
+    {cmd_id: '#gaz-consumption-id#', display_value: '#gaz-consumption-state#', valueDate: '#gaz-consumption-valueDate#', collectDate: '#gaz-consumption-collectDate#',unit:'#gaz-consumption-unite#'},
+    {cmd_id: '#gaz-consumption-instant-id#', display_value: '#gaz-consumption-instant-state#', valueDate: '#gaz-consumption-instant-valueDate#', collectDate: '#gaz-consumption-instant-collectDate#',unit:'#gaz-consumption-instant-unite#'},
+    {cmd_id: '#water-consumption-id#', display_value: '#water-consumption-state#', valueDate: '#water-consumption-valueDate#', collectDate: '#water-consumption-collectDate#',unit:'#water-consumption-unite#'},
+    {cmd_id: '#water-consumption-instant-id#', display_value: '#water-consumption-instant-state#', valueDate: '#water-consumption-instant-valueDate#', collectDate: '#water-consumption-instant-collectDate#',unit:'#water-consumption-instant-unite#'},
+    {cmd_id: '#elec-autoconsumption-id#', display_value: '#elec-autoconsumption-state#', valueDate: '#elec-autoconsumption-valueDate#', collectDate: '#elec-autoconsumption-collectDate#',unit:'#elec-autoconsumption-unite#'},
+    {cmd_id: '#elec-selfsufficiency-id#', display_value: '#elec-selfsufficiency-state#', valueDate: '#elec-selfsufficiency-valueDate#', collectDate: '#elec-selfsufficiency-collectDate#',unit:'#elec-selfsufficiency-unite#'}
+])
 
 if ('#panelLink#' == '') {
 	document.querySelector('.eqLogic[data-eqLogic_uid=#uid#] .panelLink').remove()

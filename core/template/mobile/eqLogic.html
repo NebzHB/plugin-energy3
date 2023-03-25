@@ -123,7 +123,7 @@
                              color: 'var(--txt-color)'
                          })
                          .add();
-                     if('#gaz-consumption-state#' !== ''){
+                     if('#gaz-consumption-id#' !== ''){
                          ren.label('<span style="color:white !important"><i class="fas fa-burn"></i> <span class="gaz-consumption cmd history cursor" style="color:white !important" data-type="info" data-cmd_id="#gaz-consumption-id#">XXXXXXXXXXXX</span></span>', 0, 88,'rect',null,null,true)
                              .attr({
                                  fill: '#910000',
@@ -187,8 +187,10 @@
      });
      
      
-     jeedom.cmd.update['#elec-import-id#'] = function(_options) {
-    document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-import')?.innerHTML = _options.display_value +' '+_options.unit
+jeedom.cmd.update['#elec-import-id#'] = function(_options) {
+    if(document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-import')){
+        document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-import').innerHTML = _options.display_value +' '+_options.unit
+    }
 }
 
 jeedom.cmd.update['#elec-export-id#'] = function(_options) {
@@ -198,53 +200,77 @@ jeedom.cmd.update['#elec-export-id#'] = function(_options) {
         document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-autoconsumption').remove();
         document.querySelector('.eqLogic[data-eqLogic_id="#id#"]').height('250px');
     }
-    document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-export')?.innerHTML =_options.display_value +' '+_options.unit
+    if(document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-export')){
+        document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-export').innerHTML =_options.display_value +' '+_options.unit
+    }
 }
 
 jeedom.cmd.update['#elec-export-instant-id#'] = function(_options) {
-    document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-export-instant')?.innerHTML =_options.display_value +' '+_options.unit
+    if(document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-export-instant')){
+        document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-export-instant').innerHTML =_options.display_value +' '+_options.unit
+    }
 }
 
 jeedom.cmd.update['#elec-production-id#'] = function(_options) {
-    document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-production')?.innerHTML =_options.display_value +' '+_options.unit
+    if(document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-production')){
+        document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-production').innerHTML =_options.display_value +' '+_options.unit
+    }
 }
 
 jeedom.cmd.update['#elec-production-consumption-instant-id#'] = function(_options) {
-    document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-production-consumption-instant')?.innerHTML =_options.display_value +' '+_options.unit
+    if(document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-production-consumption-instant')){
+        document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-production-consumption-instant').innerHTML =_options.display_value +' '+_options.unit
+    }
 }
 
 jeedom.cmd.update['#elec-consumption-id#'] = function(_options) {
-    document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-consumption')?.innerHTML =_options.display_value +' '+_options.unit
+    if(document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-consumption')){
+        document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-consumption').innerHTML =_options.display_value +' '+_options.unit
+    }
 }
 
 jeedom.cmd.update['#elec-import-instant-id#'] = function(_options) {
-    document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-import-instant')?.innerHTML = _options.display_value +' '+_options.unit
+    if(document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .gaz-consumption')){
+        document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-import-instant').innerHTML = _options.display_value +' '+_options.unit
+    }
 }
 
 jeedom.cmd.update['#gaz-consumption-id#'] = function(_options) {
-    document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .gaz-consumption')?.innerHTML =_options.display_value +' '+_options.unit
+    if(document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .gaz-consumption')){
+        document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .gaz-consumption').innerHTML =_options.display_value +' '+_options.unit
+    }
 }
 
 jeedom.cmd.update['#gaz-consumption-instant-id#'] = function(_options) {
-    document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .gaz-consumption-instant')?.innerHTML =_options.display_value +' '+_options.unit
+    if(document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .gaz-consumption-instant')){
+        document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .gaz-consumption-instant').innerHTML =_options.display_value +' '+_options.unit
+    }
 }
 
 jeedom.cmd.update['#water-consumption-id#'] = function(_options) {
-    document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .water-consumption')?.innerHTML =_options.display_value +' '+_options.unit
+    if(document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .water-consumption')){
+        document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .water-consumption').innerHTML =_options.display_value +' '+_options.unit
+    }
 }
 
 jeedom.cmd.update['#water-consumption-instant-id#'] = function(_options) {
-    document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .water-consumption-instant')?.innerHTML =_options.display_value +' '+_options.unit
+    if(document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .water-consumption-instant')){
+        document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .water-consumption-instant').innerHTML =_options.display_value +' '+_options.unit
+    }
 }
 
 jeedom.cmd.update['#elec-autoconsumption-id#'] = function(_options) {
-    document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-autoconsumption .state')?.innerHTML =_options.display_value
-    document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-autoconsumption .unit')?.innerHTML =_options.unit
+    if(document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-autoconsumption')){
+        document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-autoconsumption .state').innerHTML =_options.display_value
+        document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-autoconsumption .unit').innerHTML =_options.unit
+    }
 }
 
 jeedom.cmd.update['#elec-selfsufficiency-id#'] = function(_options) {
-    document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-selfsufficiency .state')?.innerHTML =_options.display_value
-    document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-selfsufficiency .unit')?.innerHTML =_options.unit
+    if(document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-selfsufficiency')){
+        document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-selfsufficiency .state').innerHTML =_options.display_value
+        document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-selfsufficiency .unit').innerHTML =_options.unit
+    }
 }
      
 jeedom.cmd.update['#elec-import-instant-id#']({display_value: '#elec-import-instant-state#', valueDate: '#elec-import-instant-valueDate#', collectDate: '#elec-import-instant-collectDate#',unit:'#elec-import-instant-unite#'})

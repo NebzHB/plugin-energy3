@@ -230,7 +230,7 @@ jeedom.cmd.update['#elec-consumption-id#'] = function(_options) {
 }
 
 jeedom.cmd.update['#elec-import-instant-id#'] = function(_options) {
-    if(document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .gaz-consumption')){
+    if(document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-import-instant')){
         document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-import-instant').innerHTML = _options.display_value +' '+_options.unit
     }
 }

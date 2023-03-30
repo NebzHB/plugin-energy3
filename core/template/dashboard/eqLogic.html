@@ -197,7 +197,7 @@ jeedom.cmd.addUpdateFunction('#elec-export-id#',function(_options) {
         document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-export').parentNode.remove();
         document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-selfsufficiency').remove();
         document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-autoconsumption').remove();
-        document.querySelector('.eqLogic[data-eqLogic_id="#id#"]').height('250px');
+        document.querySelector('.eqLogic[data-eqLogic_id="#id#"]').style.height = '250px';
     }
     if(document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-export')){
         document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-export').innerHTML =_options.display_value +' '+_options.unit

@@ -387,7 +387,7 @@ class energy3 extends eqLogic {
     }
     if ($_period == 'D') {
       $return['html'] .= $this->toHtml($_version);
-      $elec_consumption = $this->getCmd('info', 'elec::consumption')->execCmd() / 1000;
+      $elec_consumption = $this->getCmd('info', 'elec::consumption')->execCmd();
     } else {
       $replace = $this->preToHtml($_version);
       $version = jeedom::versionAlias($_version);
@@ -483,7 +483,9 @@ class energy3 extends eqLogic {
       $return['html'] .= '<legend style="' . $display_elec_details . '">Détails Electricité</legend>';
       $return['html'] .= '<div id="div_energy3ElecConsumers" style="background-color: rgba(var(--eq-bg-color), var(--opacity)) !important;' . $display_elec_details . '"></div>';
     }
-
+    if ($this->getCmd('info', 'elec::consumption')->getUnite() == 'Wh') {
+      $elec_consumption = $elec_consumption / 1000;
+    }
     $array_elec_consumers = array();
     foreach ($this->getConfiguration('elecConsumers') as $elecConsumer) {
       $consumer = cmd::byId(str_replace('#', '', $elecConsumer['cmd']));

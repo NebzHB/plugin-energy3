@@ -483,7 +483,7 @@ class energy3 extends eqLogic {
       $return['html'] .= '<legend style="' . $display_elec_details . '">Détails Electricité</legend>';
       $return['html'] .= '<div id="div_energy3ElecConsumers" style="background-color: rgba(var(--eq-bg-color), var(--opacity)) !important;' . $display_elec_details . '"></div>';
     }
-    if ($this->getCmd('info', 'elec::consumption')->getUnite() == 'Wh') {
+    if (strtolower($this->getCmd('info', 'elec::consumption')->getUnite()) == 'wh') {
       $elec_consumption = $elec_consumption / 1000;
     }
     $array_elec_consumers = array();
@@ -528,14 +528,14 @@ class energy3 extends eqLogic {
     if (!is_object($consumer)) {
       return 0;
     }
-    if ($consumer->getUnite() == 'W' || $consumer->getUnite() == 'kW') {
+    if (strtolower($consumer->getUnite()) == 'w' || strtolower($consumer->getUnite()) == 'kw') {
       if (strtotime($_endtime) > strtotime('now')) {
         $duration  = (strtotime('now') - strtotime($_starttime)) / (60 * 60);
       } else {
         $duration  = (strtotime($_endtime) - strtotime($_starttime)) / (60 * 60);
       }
       $consumption = ($consumer->getTemporalAvg($_starttime, $_endtime)) * $duration;
-      if ($consumer->getUnite() == 'W') {
+      if (strtolower($consumer->getUnite()) == 'w') {
         $consumption = $consumption / 1000;
       }
     } else {
@@ -551,7 +551,7 @@ class energy3 extends eqLogic {
           $consumption += $stats['max'];
           $begin += (24 * 60 * 60);
         }
-        if ($consumer->getUnite() == 'Wh') {
+        if (strtolower($consumer->getUnite()) == 'wh') {
           $consumption = $consumption / 1000;
         }
       }

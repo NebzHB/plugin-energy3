@@ -128,7 +128,7 @@ $eqLogics = eqLogic::byType($plugin->getId());
 							</div>
 							<legend>{{Electricité}}</legend>
 							<div class="form-group">
-								<label class="col-sm-4 control-label">{{Importé du réseaux par jour}}</label>
+								<label class="col-sm-4 control-label">{{Importé du réseau par jour}}</label>
 								<div class="col-sm-6">
 									<div class="input-group">
 										<input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="elec::import">

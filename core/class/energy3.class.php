@@ -474,14 +474,22 @@ class energy3 extends eqLogic {
         $return['html'] .= '<legend style="' . $display_elec_production . '">Performance production électrique</legend>';
         $return['html'] .= '<div style="' . $display_elec_production . '" class="chartContainer" id="div_energy3GraphElecAuto"></div>';
       }
+      $return['html'] .= '<div>';
       $return['html'] .= '<legend>Consommation/Production</legend>';
       $return['html'] .= '<div class="chartContainer" id="div_energy3GraphConsumptionProduction"></div>';
+      $return['html'] .= '</div>';
+      $return['html'] .= '<div>';
       $return['html'] .= '<legend style="' . $display_gas_production . '">Gaz</legend>';
       $return['html'] .= '<div class="chartContainer" id="div_energy3GraphGas" style="' . $display_gas_production . '"></div>';
+      $return['html'] .= '</div>';
+      $return['html'] .= '<div>';
       $return['html'] .= '<legend style="' . $display_water_production . '">Eau</legend>';
       $return['html'] .= '<div class="chartContainer" id="div_energy3GraphWater" style="' . $display_water_production . '"></div>';
+      $return['html'] .= '</div>';
+      $return['html'] .= '<div>';
       $return['html'] .= '<legend style="' . $display_elec_details . '">Détails Electricité</legend>';
       $return['html'] .= '<div id="div_energy3ElecConsumers" style="background-color: rgba(var(--eq-bg-color), var(--opacity)) !important;' . $display_elec_details . '"></div>';
+      $return['html'] .= '</div>';
     }
     if (strtolower($this->getCmd('info', 'elec::consumption')->getUnite()) == 'wh') {
       $elec_consumption = $elec_consumption / 1000;

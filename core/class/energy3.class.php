@@ -418,6 +418,9 @@ class energy3 extends eqLogic {
         } else {
           $replace['#' . str_replace('::', '-', $cmd->getLogicalId()) . '-state#'] = $this->getValueForPeriod($cmd->getId(), 'SUM', $starttime, $endtime);
         }
+        if ($cmd->getLogicalId() == 'elec::consumption') {
+          $elec_consumption = $replace['#elec-consumption-state#'];
+        }
         if ($replace['#' . str_replace('::', '-', $cmd->getLogicalId()) . '-state#'] == '') {
           $replace['#' . str_replace('::', '-', $cmd->getLogicalId()) . '-state#'] = 0;
         }
@@ -427,7 +430,6 @@ class energy3 extends eqLogic {
       }
       $replace['#refresh_id#'] = '';
       $return['html'] .= $this->postToHtml($_version, template_replace($replace, getTemplate('core', $version, 'eqLogic', __CLASS__)));
-      $elec_consumption = $replace['#elec-consumption-state#'];
     }
     $display_elec_production = ($this->getConfiguration('elec::production') == '') ? 'display:none;' : '';
     $display_water_production = ($this->getConfiguration('water::consumption') == '') ? 'display:none;' : '';
@@ -491,7 +493,7 @@ class energy3 extends eqLogic {
       $return['html'] .= '<div id="div_energy3ElecConsumers" style="background-color: rgba(var(--eq-bg-color), var(--opacity)) !important;' . $display_elec_details . '"></div>';
       $return['html'] .= '</div>';
     }
-    if (strtolower($this->getCmd('info', 'elec::consumption')->getUnite()) == 'wh') {
+    if (in_array(strtolower($this->getCmd('info', 'elec::consumption')->getUnite()), array('wh', 'w'))) {
       $elec_consumption = $elec_consumption / 1000;
     }
     $array_elec_consumers = array();
@@ -506,6 +508,7 @@ class energy3 extends eqLogic {
         'value' => $consumption,
         'unit' => 'kWh'
       );
+
       $info['name'] = (!isset($elecConsumer['name']) || $elecConsumer['name'] == '') ? $consumer->getEqLogic()->getName() : $elecConsumer['name'];
       if ($consumption == 0) {
         $info['pourcent'] = 0;

@@ -248,6 +248,39 @@ class energy3 extends eqLogic {
     if ($this->getConfiguration('solar::forecast::lon') == '') {
       $this->setConfiguration('solar::forecast::lon', config::byKey('info::longitude'));
     }
+    if ($this->getConfiguration('consumption::instant') != '') {
+      $this->setConfiguration('consumption::instant', null);
+    }
+    if ($this->getConfiguration('consumption::byday') != '') {
+      $this->setConfiguration('consumption::byday', null);
+    }
+    if ($this->getConfiguration('consumption::cost') != '') {
+      $this->setConfiguration('consumption::cost', null);
+    }
+    if ($this->getConfiguration('gaz::instant') != '') {
+      $this->setConfiguration('gaz::instant', null);
+    }
+    if ($this->getConfiguration('gaz::cost') != '') {
+      $this->setConfiguration('gaz::cost', null);
+    }
+    if ($this->getConfiguration('gaz::byday') != '') {
+      $this->setConfiguration('gaz::byday', null);
+    }
+    if ($this->getConfiguration('water::instant') != '') {
+      $this->setConfiguration('water::instant', null);
+    }
+    if ($this->getConfiguration('water::cost') != '') {
+      $this->setConfiguration('water::cost', null);
+    }
+    if ($this->getConfiguration('water::byday') != '') {
+      $this->setConfiguration('water::byday', null);
+    }
+    if ($this->getConfiguration('refreshr') != '') {
+      $this->setConfiguration('refreshr', null);
+    }
+    if ($this->getConfiguration('tempeture::ext') != '') {
+      $this->setConfiguration('tempeture::ext', null);
+    }
     $this->setConfiguration('panelLink', 'panel');
   }
 

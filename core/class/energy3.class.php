@@ -96,25 +96,9 @@ class energy3 extends eqLogic {
     }
   }
 
-  public static function cron5() {
-    foreach (eqLogic::byType('energy3', true) as $eqLogic) {
-      $eqLogic->updateCmdConsummer();
-    }
-  }
+
 
   /*     * *********************Méthodes d'instance************************* */
-  public function updateCmdConsummer() {
-    $i = 0;
-    foreach ($this->getConfiguration('elecConsumers') as $elecConsumer) {
-      $cmd = $this->getCmd('info', 'elec-consummer-' . $i);
-      if (!is_object($cmd)) {
-        continue;
-      }
-      $this->checkAndUpdateCmd($cmd, $this->getConsummerDayConsumption($elecConsumer, date('Y-m-d H:i:s', strtotime('midnight')), date('Y-m-d H:i:s', strtotime('tomorrow midnight -1 second'))));
-      $i++;
-    }
-  }
-
 
   public function calculSolarPrevision() {
     if ($this->getConfiguration('solar::forecast::lat') == '') {
@@ -338,31 +322,25 @@ class energy3 extends eqLogic {
 
     $this->calculImportExport();
     $this->calculPerformance();
-    $this->calculSolarPrevision();
+    try {
+      $this->calculSolarPrevision();
+    } catch (\Throwable $th) {
+    }
 
-    $i = 0;
+    $nbConsummer = count($this->getConfiguration('elecConsumers'));
+    foreach ($this->getCmd('info') as $cmd) {
+      if (strpos($cmd->getLogicalId(), 'elec-consummer-') !== 0) {
+        continue;
+      }
+      $cmd->remove();
+    }
+
     foreach ($this->getConfiguration('elecConsumers') as $elecConsumer) {
       $consumer = cmd::byId(str_replace('#', '', $elecConsumer['cmd']));
-      if (is_object($consumer)) {
+      if (is_object($consumer) && $consumer->getIsHistorized() != 1) {
         $consumer->setIsHistorized(1);
         $consumer->save();
       }
-      $cmd = $this->getCmd('info', 'elec-consummer-' . $i);
-      $name = (!isset($elecConsumer['name']) || $elecConsumer['name'] == '') ? $consumer->getEqLogic()->getName() : $elecConsumer['name'];
-      if (!is_object($cmd)) {
-        $cmd = new energy3Cmd();
-        $cmd->setIsVisible(0);
-        $cmd->setUnite('kWh');
-        $cmd->setIsHistorized(1);
-        $cmd->setConfiguration('historizeRound', 1);
-      }
-      $cmd->setName('Consommation ' . $name);
-      $cmd->setLogicalId('elec-consummer-' . $i);
-      $cmd->setEqLogic_id($this->getId());
-      $cmd->setType('info');
-      $cmd->setSubType('numeric');
-      $cmd->save();
-      $i++;
     }
   }
 

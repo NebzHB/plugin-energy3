@@ -1,4 +1,9 @@
 <div class="eqLogic eqLogic-widget allowResize allowReorderCmd #custom_layout# #eqLogic_class# #class#" data-eqType="#eqType#" data-eqLogic_id="#id#" data-eqLogic_uid="#uid#" data-version="#version#" data-translate-category="#translate_category#" data-category="#category#" data-tags="#tags#" style="width: 370px;height: 300px;#style#">
+    <style>
+        .energy3White{
+            color:white ! important;
+        }
+    </style>
     <center class="widget-name">
         <span class="warning" title="#alert_name#">
           <i class='#alert_icon#'></i>
@@ -43,65 +48,45 @@
                 var ren = this.renderer
                 var rightArrow = ['M', 0, 0, 'L', 100, 0, 'L', 95, 5, 'M', 100, 0, 'L', 95, -5]
                 var leftArrow = ['M', 100, 0, 'L', 0, 0, 'L', 5, 5, 'M', 0, 0, 'L', 5, -5]
-                ren.label('<span style="color:white !important"><span><i class="fas fa-bolt"></i> <i class="fas fa-arrow-left"></i> <span class="elec-export cmd history cursor" style="color:white !important" data-type=info data-cmd_id="#elec-export-id#">XXXXXXXXXX</span></span><br/><i class="fas fa-bolt"></i> <i class="fas fa-arrow-right"></i> <span class="elec-import cmd history cursor" style="color:white !important" data-type="info" data-cmd_id="#elec-import-id#">XXXXXXXXXX</span></span>', 0, 0,'rect',null,null,true)
+                ren.label('<span><span><i class="fas fa-bolt energy3White"></i> <i class="fas fa-arrow-left energy3White"></i> <span class="elec-export cmd history cursor energy3White" data-type=info data-cmd_id="#elec-export-id#">XXXXXXXXXX</span></span><br/><i class="fas fa-bolt energy3White"></i> <i class="fas fa-arrow-right energy3White"></i> <span class="elec-import cmd history cursor energy3White" data-type="info" data-cmd_id="#elec-import-id#">XXXXXXXXXX</span></span>', 0, 0,'rect',null,null,true)
                     .attr({
                         fill: '#b56926',
                         padding: 5,
                         r: 5
-                    })
-                    .css({
-                        color: 'white !important'
-                    })
-                    .add()
-                    .shadow(true);
+                    }).add().shadow(true);
                 if('#elec-production-state#' !== ''){
                     ren.path(leftArrow)
                         .attr({
                             'stroke-width': 2,
                             stroke: '#7ea823'
-                        })
-                        .translate(112, 13)
-                        .add();
-                
+                        }).translate(112, 13).add();
                     ren.label('<span class="elec-export-instant cmd history cursor" data-type="info" data-cmd_id="#elec-export-instant-id#">XXXXXXXXXXXX</span>', 130, 12)
-                        .css({
+                       .css({
                             color: 'var(--txt-color)'
-                        })
-                        .add();
-                    ren.label('<span style="color:white !important"><i class="fas fa-sun"></i> <span class="elec-production cmd history cursor" style="color:white !important" data-type="info" data-cmd_id="#elec-production-id#">XXXXXXXXXXXX</span></span>', 196, 0,'rect',null,null,true)
+                       }).add();
+                    
+                    ren.label('<span><i class="fas fa-sun energy3White"></i> <span class="elec-production cmd history cursor energy3White" data-type="info" data-cmd_id="#elec-production-id#">XXXXXXXXXXXX</span></span>', 196, 0,'rect',null,null,true)
                         .attr({
                             r: 5,
                             width: 100,
                             fill: '#7ea823'
-                        })
-                        .css({
-                            color: 'white !important',
-                            fontWeight: 'bold'
-                        })
-                        .add();
+                        }).add();
                     ren.path(['M', 250, 18, 'L', 250, 88, 'L', 245, 83, 'M', 250, 88, 'L', 255, 83])
                         .attr({
                             'stroke-width': 2,
                             stroke: '#7ea823'
-                        })
-                        .add();
+                        }).add();
                     ren.label('<span class="elec-production-consumption-instant cmd history cursor" data-type="info" data-cmd_id="#elec-production-consumption-instant-id#">XXXXXXXXXXXX</span>', 255, 43)
-                        .css({
+                       .css({
                             color: 'var(--txt-color)'
-                        })
-                        .add();
+                       }).add();
                 }
-                ren.label('<span style="color:white !important"><i class="fas fa-home"></i> <span class="elec-consumption cmd history cursor" style="color:white !important" data-type="info" data-cmd_id="#elec-consumption-id#">XXXXXXXXXXXX</span></span>', 196, 88,'rect',null,null,true)
+                ren.label('<span><i class="fas fa-home energy3White"></i> <span class="elec-consumption cmd history cursor energy3White" data-type="info" data-cmd_id="#elec-consumption-id#">XXXXXXXXXXXX</span></span>', 196, 88,'rect',null,null,true)
                     .attr({
                         r: 5,
                         width: 100,
                         fill: '#492970'
-                    })
-                    .css({
-                        color: 'white !important',
-                        fontWeight: 'bold'
-                    })
-                    .add();
+                    }).add();
                 ren.path([
                         'M', 235, 88,
                         'L', 235, 58,
@@ -115,65 +100,50 @@
                     .attr({
                         'stroke-width': 2,
                         stroke: '#b56926',
-                    })
-                    .add();
-                ren.label('<span class="elec-import-instant cmd history cursor" data-type="info" data-cmd_id="#elec-import-instant-id#">XXXXXXXXXXXX</span>', 140, 41)
-                    .css({
-                        color: 'var(--txt-color)'
-                    })
-                    .add();
+                    }).add();
+                    ren.label('<span class="elec-import-instant cmd history cursor" data-type="info" data-cmd_id="#elec-import-instant-id#">XXXXXXXXXXXX</span>', 140, 41)
+                       .css({
+                            color: 'var(--txt-color)'
+                       }).add();
                 if('#gaz-consumption-id#' !== ''){
-                    ren.label('<span style="color:white !important"><i class="fas fa-burn"></i> <span class="gaz-consumption cmd history cursor" style="color:white !important" data-type="info" data-cmd_id="#gaz-consumption-id#">XXXXXXXXXXXX</span></span>', 0, 88,'rect',null,null,true)
+                    ren.label('<span><i class="fas fa-burn energy3White"></i> <span class="gaz-consumption cmd history cursor energy3White" data-type="info" data-cmd_id="#gaz-consumption-id#">XXXXXXXXXXXX</span></span>', 0, 88,'rect',null,null,true)
                         .attr({
                             fill: '#910000',
                             padding: 5,
                             r: 5
-                        })
-                        .css({
-                            color: 'white !important',
-                        })
-                        .add()
-                        .shadow(true);
+                        }).add().shadow(true);
                     ren.path(rightArrow)
                         .attr({
                             'stroke-width': 2,
                             stroke: '#910000',
-                        })
-                        .translate(95, 99)
-                        .add();
+                        }).translate(95, 99).add();
                     if('#gaz-consumption-instant-id#' !== ''){
                         ren.label('<span class="gaz-consumption-instant cmd history cursor" data-type="info" data-cmd_id="#gaz-consumption-instant-id#">XXXXXXXXXXXX</span>', 140, 75)
-                            .css({
+                           .css({
                                 color: 'var(--txt-color)'
-                            })
-                            .add();
+                           }).add();
                     }
                 }
                 if('#water-consumption-id#' !== ''){
-                    ren.label('<span style="color:white !important"><i class="fas fa-tint"></i> <span class="water-consumption cmd history cursor" style="color:white !important" data-type="info" data-cmd_id="#water-consumption-id#">XXXXXXXXXXX</span></span>', 190, 168,'rect',null,null,true)
+                    ren.label('<span><i class="fas fa-tint energy3White"></i> <span class="water-consumption cmd history cursor energy3White" data-type="info" data-cmd_id="#water-consumption-id#">XXXXXXXXXXX</span></span>', 190, 168,'rect',null,null,true)
                         .attr({
                             fill: '#2f7ed8',
                             padding: 5,
                             r: 5
                         })
                         .css({
-                            color: 'white !important',
                             width: '100px'
-                        })
-                        .add()
-                        .shadow(true);
+                        }).add().shadow(true);
                     ren.path(['M', 250, 113,'L', 245, 118, 'M', 250, 113, 'L', 255, 118,'M', 250, 113, 'L', 250, 168])
                         .attr({
                             'stroke-width': 2,
                             stroke: '#2f7ed8'
-                        })
-                        .add();
+                        }).add();
                     if('#water-consumption-instant-id#' !== ''){
                         ren.label('<span class="water-consumption-instant cmd history cursor" data-type="info" data-cmd_id="#water-consumption-instant-id#">XXXXXXXXXXXX</span>', 255, 130)
-                            .css({
-                                color: 'var(--txt-color)'
-                            })
-                            .add();
+                        .css({
+                            color: 'var(--txt-color)'
+                        }).add();
                     }
                 }
             }
@@ -184,7 +154,6 @@
     exporting: { enabled: false },
     credits: { enabled: false }
 });
-
 
 jeedom.cmd.addUpdateFunction('#elec-import-id#',function(_options) {
     if(document.querySelector('.eqLogic[data-eqLogic_id="#id#"] .elec-import')){
@@ -289,14 +258,14 @@ jeedom.cmd.refreshValue([
 ])
     
 if ('#panelLink#' == '') {
-	document.querySelector('.eqLogic[data-eqLogic_uid=#uid#] .panelLink').remove()
+	document.querySelector('.eqLogic[data-eqLogic_uid="#uid#"] .panelLink').remove()
 }    
 if ('#refresh_id#' != '') {
-    document.querySelector('.eqLogic[data-eqLogic_uid=#uid#] .refresh').addEventListener('click', function () {
+    document.querySelector('.eqLogic[data-eqLogic_uid="#uid#"] .refresh').addEventListener('click', function () {
         jeedom.cmd.execute({id: '#refresh_id#'})
     })
 } else {
-    document.querySelector('.eqLogic[data-eqLogic_uid=#uid#] .refresh').remove()
+    document.querySelector('.eqLogic[data-eqLogic_uid="#uid#"] .refresh').remove()
 }
   </script>
 </div>

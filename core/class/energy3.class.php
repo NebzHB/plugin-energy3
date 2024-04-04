@@ -534,12 +534,12 @@ class energy3 extends eqLogic {
       }
       $array_elec_consumers[] = $info;
     }
-    usort($array_elec_consumers, create_function('$a, $b', '
+    usort($array_elec_consumers, function ($a, $b){
         if ($a["value"] == $b["value"]){
             return 0;
         }
         return ($a["value"] >  $b["value"]) ? -1 : 1;
-    '));
+    });
 
     $return['data']['cmd']['consumer::elec'] = $array_elec_consumers;
     return $return;
